@@ -69,6 +69,29 @@
       color: #fff;
     }
 
+    button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+      box-shadow: none;
+    }
+
+    .collect-button.is-loading .collect-icon {
+      animation: spin 0.8s linear infinite;
+    }
+
+    .collect-icon {
+      display: inline-block;
+      margin-right: 7px;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     .visually-hidden {
       position: absolute;
       width: 1px;
@@ -711,9 +734,10 @@
       <div class="actions">
         <label class="file-button primary" for="fileInput" title="导入脚本生成的 CSV 或 JSON">↥ 导入</label>
         <input class="visually-hidden" id="fileInput" type="file" accept=".csv,.json,application/json,text/csv">
-        <button id="exportBtn" type="button" title="导出当前列表">↧ 导出</button>
-        <button id="sampleBtn" type="button" title="恢复示例数据">↺ 示例</button>
-        <button id="clearBtn" type="button" title="清空本地数据">× 清空</button>
+        <button class="collect-button" id="collectBtn" type="button" title="重新获取已发布的最新热点数据">
+          <span class="collect-icon" aria-hidden="true">↻</span>
+          <span class="collect-label">手动抓取热点</span>
+        </button>
       </div>
     </header>
 
@@ -833,9 +857,7 @@
 
     const els = {
       fileInput: document.getElementById("fileInput"),
-      exportBtn: document.getElementById("exportBtn"),
-      sampleBtn: document.getElementById("sampleBtn"),
-      clearBtn: document.getElementById("clearBtn"),
+      collectBtn: document.getElementById("collectBtn"),
       categoryList: document.getElementById("categoryList"),
       rawList: document.getElementById("rawList"),
       summaryTotal: document.getElementById("summaryTotal"),
@@ -1323,6 +1345,47 @@
       showToast.timer = window.setTimeout(() => els.toast.classList.remove("show"), 1800);
     }
 
+    function setCollecting(active) {
+      els.collectBtn.disabled = active;
+      els.collectBtn.classList.toggle("is-loading", active);
+      els.collectBtn.querySelector(".collect-label").textContent = active ? "正在抓取..." : "手动抓取热点";
+    }
+
+    function collectPublishedHotspots() {
+      const previousGeneratedAt = report?.generated_at || "";
+      setCollecting(true);
+
+      const script = document.createElement("script");
+      script.src = `hotspots-data.js?refresh=${Date.now()}`;
+      script.onload = () => {
+        script.remove();
+        const generated = window.XIAOHU_HOTSPOTS_DATA;
+        if (!generated || !Array.isArray(generated.hotspots)) {
+          setCollecting(false);
+          showToast("抓取失败：未读取到热点数据");
+          return;
+        }
+
+        hotspots = generated.hotspots.map(normalizeHotspot);
+        rawItems = Array.isArray(generated.rawItems) ? generated.rawItems : [];
+        report = generated.report || null;
+        render();
+        setCollecting(false);
+
+        const generatedAt = report?.generated_at || "";
+        const message = generatedAt && generatedAt !== previousGeneratedAt
+          ? `已抓取 ${hotspots.length} 条最新热点`
+          : `已同步当前最新数据，共 ${hotspots.length} 条`;
+        showToast(message);
+      };
+      script.onerror = () => {
+        script.remove();
+        setCollecting(false);
+        showToast("抓取失败，请稍后重试");
+      };
+      document.head.appendChild(script);
+    }
+
     els.fileInput.addEventListener("change", async (event) => {
       const file = event.target.files[0];
       if (!file) return;
@@ -1337,40 +1400,7 @@
       }
     });
 
-    els.exportBtn.addEventListener("click", () => {
-      const blob = new Blob([JSON.stringify(hotspots, null, 2)], { type: "application/json;charset=utf-8" });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `xiaohu-hotspot-radar-${today()}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
-      showToast("已导出 JSON");
-    });
-
-    els.sampleBtn.addEventListener("click", () => {
-      hotspots = sampleHotspots.map(normalizeHotspot);
-      rawItems = [];
-      report = null;
-      render();
-      showToast("已恢复示例数据");
-    });
-
-    els.clearBtn.addEventListener("click", () => {
-      localStorage.removeItem(STORAGE_KEY);
-      const generated = window.XIAOHU_HOTSPOTS_DATA;
-      if (generated && Array.isArray(generated.hotspots)) {
-        hotspots = generated.hotspots.map(normalizeHotspot);
-        rawItems = Array.isArray(generated.rawItems) ? generated.rawItems : [];
-        report = generated.report || null;
-      } else {
-        hotspots = sampleHotspots.map(normalizeHotspot);
-        rawItems = [];
-        report = null;
-      }
-      render();
-      showToast("本地数据已清空");
-    });
+    els.collectBtn.addEventListener("click", collectPublishedHotspots);
 
     loadState();
     render();
