@@ -1,0 +1,1379 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>小胡聊商业｜每周商业热点雷达</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f7f4;
+      --panel: #ffffff;
+      --ink: #18201c;
+      --muted: #667069;
+      --line: #d9dfd9;
+      --green: #227a54;
+      --green-soft: #e0f2e8;
+      --blue: #246a8f;
+      --blue-soft: #e1eef5;
+      --amber: #a46b12;
+      --amber-soft: #f5ead5;
+      --red: #a93d35;
+      --red-soft: #f7e1df;
+      --shadow: 0 12px 30px rgba(22, 30, 25, 0.08);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(180deg, rgba(34, 122, 84, 0.09), rgba(36, 106, 143, 0.04) 260px, transparent 560px),
+        var(--bg);
+      color: var(--ink);
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button,
+    .file-button {
+      min-height: 36px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--ink);
+      border-radius: 8px;
+      padding: 0 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    button:hover,
+    .file-button:hover {
+      border-color: #abb8ae;
+      box-shadow: 0 4px 14px rgba(22, 30, 25, 0.08);
+    }
+
+    .primary {
+      border-color: var(--green);
+      background: var(--green);
+      color: #fff;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+      opacity: 0;
+    }
+
+    .app {
+      width: min(1280px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 44px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      background: linear-gradient(135deg, #227a54, #246a8f);
+      font-weight: 800;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(20px, 2.4vw, 30px);
+      letter-spacing: 0;
+      line-height: 1.15;
+    }
+
+    .subline {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .metric,
+    .panel,
+    .category {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric {
+      padding: 14px;
+      min-height: 94px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      line-height: 1;
+    }
+
+    .metric small {
+      display: block;
+      margin-top: 9px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .summary-panel {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 16px;
+      margin-bottom: 14px;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-stats {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .summary-stat {
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      background: #fbfcfa;
+      padding: 12px;
+      min-height: 88px;
+    }
+
+    .summary-stat span,
+    .recommendation-meta {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .recommendation-badges {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: 6px 0 0;
+    }
+
+    .summary-stat strong {
+      display: block;
+      margin-top: 8px;
+      font-size: 30px;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    .recommendations h2 {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .recommendation-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .recommendation {
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr);
+      gap: 10px;
+      padding: 12px;
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      background: #fbfcfa;
+    }
+
+    .recommendation-rank {
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .recommendation h3 {
+      margin: 0 0 6px;
+      font-size: 16px;
+      line-height: 1.35;
+    }
+
+    .recommendation p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 13px;
+    }
+
+    .panel {
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .panel h2,
+    .category h2 {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    .note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 13px;
+    }
+
+    .category-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .report-item {
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      background: #fbfcfa;
+      padding: 10px;
+      min-height: 66px;
+    }
+
+    .report-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .report-item strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 18px;
+      word-break: break-word;
+    }
+
+    .category {
+      overflow: hidden;
+    }
+
+    .category-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hotspot-list {
+      display: grid;
+      gap: 0;
+    }
+
+    .hotspot {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) 132px;
+      gap: 14px;
+      padding: 14px;
+      border-bottom: 1px solid #e7ebe6;
+      align-items: start;
+    }
+
+    .hotspot:last-child {
+      border-bottom: 0;
+    }
+
+    .rank {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: var(--green-soft);
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .hotspot h3 {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .summary {
+      margin: 8px 0 0;
+      color: #354039;
+      line-height: 1.55;
+      word-break: break-word;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .tag.green {
+      color: var(--green);
+      border-color: #b7d7c5;
+      background: var(--green-soft);
+    }
+
+    .tag.blue {
+      color: var(--blue);
+      border-color: #bad4e2;
+      background: var(--blue-soft);
+    }
+
+    .tag.amber {
+      color: var(--amber);
+      border-color: #dfc89f;
+      background: var(--amber-soft);
+    }
+
+    .confidence {
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      background: #fbfcfa;
+      padding: 10px;
+    }
+
+    .confidence strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .bar {
+      height: 8px;
+      border-radius: 999px;
+      background: #e5eae4;
+      overflow: hidden;
+      margin-bottom: 9px;
+    }
+
+    .bar i {
+      display: block;
+      height: 100%;
+      width: var(--value);
+      background: linear-gradient(90deg, var(--green), var(--blue));
+    }
+
+    .confidence dl {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 5px 8px;
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .confidence dt {
+      color: var(--muted);
+    }
+
+    .confidence dd {
+      margin: 0;
+      min-width: 0;
+      word-break: break-word;
+    }
+
+    details {
+      margin-top: 10px;
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      padding: 10px;
+      background: #fbfcfa;
+    }
+
+    summary {
+      cursor: pointer;
+      color: var(--blue);
+      font-size: 13px;
+    }
+
+    .detail-text {
+      margin: 8px 0 0;
+      line-height: 1.55;
+      color: #354039;
+      font-size: 13px;
+      word-break: break-word;
+    }
+
+    .kol-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .kol-item,
+    .media-link-item {
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      padding: 9px;
+      background: #fff;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .kol-item a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .kol-item a:hover,
+    .media-link-item a:hover {
+      text-decoration: underline;
+    }
+
+    .kol-item span,
+    .media-link-item span {
+      display: block;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .media-link-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .media-link-item a {
+      color: var(--blue);
+      text-decoration: none;
+      word-break: break-word;
+    }
+
+    .standard-block {
+      margin-top: 12px;
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      background: #fbfcfa;
+      padding: 12px;
+    }
+
+    .standard-block h4 {
+      margin: 0 0 8px;
+      font-size: 14px;
+      color: var(--ink);
+    }
+
+    .standard-block p {
+      margin: 0;
+      line-height: 1.6;
+      color: #354039;
+      word-break: break-word;
+    }
+
+    .standard-block ol,
+    .standard-block ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.6;
+      color: #354039;
+    }
+
+    .opinion-item {
+      margin-bottom: 8px;
+    }
+
+    .warning {
+      color: var(--red);
+      border-color: #e2b9b5;
+      background: var(--red-soft);
+    }
+
+    .raw-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+      max-height: 460px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .raw-item {
+      border: 1px solid #e1e6df;
+      border-radius: 8px;
+      background: #fbfcfa;
+      padding: 10px;
+    }
+
+    .raw-item h3 {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .raw-item p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .empty {
+      min-height: 220px;
+      border: 1px dashed #c6cec7;
+      border-radius: 8px;
+      background: #fbfcfa;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: var(--muted);
+      padding: 24px;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 20px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      background: #18201c;
+      color: #fff;
+      border-radius: 8px;
+      padding: 10px 14px;
+      box-shadow: var(--shadow);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 20;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    @media (max-width: 860px) {
+      .app {
+        width: min(100% - 20px, 760px);
+        padding-top: 14px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .summary-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .report-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hotspot {
+        grid-template-columns: 40px minmax(0, 1fr);
+      }
+
+      .confidence {
+        grid-column: 2;
+      }
+
+    }
+
+    @media (max-width: 520px) {
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .recommendation {
+        grid-template-columns: 1fr;
+      }
+
+      .report-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .category-head {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hotspot {
+        grid-template-columns: 1fr;
+      }
+
+      .confidence {
+        grid-column: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">胡</div>
+        <div>
+          <h1>每周商业热点雷达</h1>
+          <div class="subline">按热点分类展示 Top 5，并给出置信度依据</div>
+        </div>
+      </div>
+      <div class="actions">
+        <label class="file-button primary" for="fileInput" title="导入脚本生成的 CSV 或 JSON">↥ 导入</label>
+        <input class="visually-hidden" id="fileInput" type="file" accept=".csv,.json,application/json,text/csv">
+        <button id="exportBtn" type="button" title="导出当前列表">↧ 导出</button>
+        <button id="sampleBtn" type="button" title="恢复示例数据">↺ 示例</button>
+        <button id="clearBtn" type="button" title="清空本地数据">× 清空</button>
+      </div>
+    </header>
+
+    <section class="summary-panel" aria-label="概览">
+      <div class="summary-stats">
+        <div class="summary-stat">
+          <span>热点总数</span>
+          <strong id="summaryTotal">0</strong>
+        </div>
+        <div class="summary-stat">
+          <span>采集时间</span>
+          <strong id="summaryTime">未记录</strong>
+        </div>
+      </div>
+      <div class="recommendations">
+        <h2>最推荐给小胡的 Top 3</h2>
+        <div class="recommendation-list" id="recommendationList"></div>
+      </div>
+    </section>
+
+    <section class="category-list" id="categoryList"></section>
+
+    <section class="panel">
+      <h2>原始媒体条目</h2>
+      <p class="note">这里展示本次脚本从公开媒体入口采集到的原始内容，方便你追溯热点来源。</p>
+      <div class="raw-list" id="rawList"></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="hotspots-data.js"></script>
+  <script>
+    const STORAGE_KEY = "xiaohu-hotspot-radar-v3";
+
+    const sampleHotspots = [
+      {
+        title: "外卖补贴战继续升级，本地生活平台争夺即时零售入口",
+        date: "2026-05-17",
+        industry: "本地生活",
+        type: "行业竞争",
+        summary: "平台围绕补贴、配送和商家供给继续竞争，用户增长与履约成本之间的矛盾再次放大。",
+        source: "36氪快讯；虎嗅；界面新闻",
+        media_channel_count: 3,
+        media_channels: "36氪快讯、虎嗅、界面新闻",
+        big_v_count: 2,
+        big_v_highlights: "微博 · 互联网怪盗团（180万）: 外卖大战打到最后谁会买单；微信公众号 · 商业人物（320万）: 即时零售入口战升级",
+        wechat_index: "外卖=960万(上升)；即时零售=420万(上升)",
+        confidence: 88,
+        confidence_reason: "3 个媒体渠道，2 条大 V 内容，2 个百万粉以上账号，微信指数有命中。"
+      },
+      {
+        title: "阿里加码 AI 电商工具，商家经营进入自动化竞争",
+        date: "2026-05-17",
+        industry: "平台经济",
+        type: "公司战略",
+        summary: "阿里继续把 AI 能力压进搜索、推荐和商家工具，电商竞争从流量采买转向经营效率。",
+        source: "36氪综合资讯；财新网",
+        media_channel_count: 2,
+        media_channels: "36氪综合资讯、财新网",
+        big_v_count: 1,
+        big_v_highlights: "微信公众号 · 商业人物（320万）: 阿里为什么重新押注 AI 电商",
+        wechat_index: "阿里=1880万(上升)",
+        confidence: 76,
+        confidence_reason: "2 个媒体渠道，1 条大 V 内容，1 个百万粉以上账号，微信指数有命中。"
+      },
+      {
+        title: "新能源车企财报分化，价格战进入现金流淘汰赛",
+        date: "2026-05-16",
+        industry: "新能源",
+        type: "财报",
+        summary: "头部车企用规模和供应链继续压价，中腰部品牌在销量、毛利和融资能力上承压。",
+        source: "晚点 LatePost；界面新闻；财新网",
+        media_channel_count: 3,
+        media_channels: "晚点 LatePost、界面新闻、财新网",
+        big_v_count: 1,
+        big_v_highlights: "微信公众号 · 晚点 Auto（210万）: 新能源价格战进入现金流淘汰赛",
+        wechat_index: "新能源车=1250万(上升)",
+        confidence: 83,
+        confidence_reason: "3 个媒体渠道，1 条大 V 内容，1 个百万粉以上账号，微信指数有命中。"
+      },
+      {
+        title: "白酒渠道价格倒挂，经销商库存压力仍在释放",
+        date: "2026-05-15",
+        industry: "消费品牌",
+        type: "行业周期",
+        summary: "消费场景变化、库存压力和价格体系松动，让白酒行业进入新的渠道再平衡阶段。",
+        source: "界面新闻；财新网",
+        media_channel_count: 2,
+        media_channels: "界面新闻、财新网",
+        big_v_count: 1,
+        big_v_highlights: "雪球 · 远川消费评论（150万）: 白酒渠道倒挂背后的库存问题",
+        wechat_index: "白酒=430万(下降)",
+        confidence: 69,
+        confidence_reason: "2 个媒体渠道，1 条大 V 内容，1 个百万粉以上账号，微信指数有命中但趋势下降。"
+      },
+      {
+        title: "泡泡玛特海外热度继续发酵，潮玩公司被重新估值",
+        date: "2026-05-16",
+        industry: "消费品牌",
+        type: "公司增长",
+        summary: "潮玩 IP 在海外社媒继续出圈，市场重新讨论泡泡玛特的品牌天花板。",
+        source: "虎嗅；36氪综合资讯",
+        media_channel_count: 2,
+        media_channels: "虎嗅、36氪综合资讯",
+        big_v_count: 1,
+        big_v_highlights: "小红书 · 消费新观察（85万）: 泡泡玛特海外热度还能持续多久",
+        wechat_index: "泡泡玛特=720万(平稳)",
+        confidence: 63,
+        confidence_reason: "2 个媒体渠道，1 条大 V 内容，微信指数有命中。"
+      }
+    ];
+
+    let hotspots = [];
+    let rawItems = [];
+    let report = null;
+
+    const els = {
+      fileInput: document.getElementById("fileInput"),
+      exportBtn: document.getElementById("exportBtn"),
+      sampleBtn: document.getElementById("sampleBtn"),
+      clearBtn: document.getElementById("clearBtn"),
+      categoryList: document.getElementById("categoryList"),
+      rawList: document.getElementById("rawList"),
+      summaryTotal: document.getElementById("summaryTotal"),
+      summaryTime: document.getElementById("summaryTime"),
+      recommendationList: document.getElementById("recommendationList"),
+      toast: document.getElementById("toast")
+    };
+
+    function normalizeHotspot(raw, index = 0) {
+      return {
+        id: raw.id || makeId(raw.title || `hotspot-${index}`, index),
+        title: clean(raw.title) || "未命名热点",
+        date: clean(raw.date) || today(),
+        industry: clean(raw.industry) || clean(raw.category) || "商业综合",
+        type: clean(raw.type) || "公司/行业动态",
+        summary: clean(raw.summary) || clean(raw.business_angle) || "待补充摘要。",
+        source: clean(raw.source) || clean(raw.media_channels) || "未填写",
+        media_channel_count: toNumber(raw.media_channel_count || raw.mediaChannelCount, inferMediaCount(raw)),
+        media_channels: clean(raw.media_channels) || clean(raw.mediaChannels) || clean(raw.source),
+        media_items: normalizeListField(raw.media_items || raw.mediaItems),
+        big_v_count: toNumber(raw.big_v_count || raw.bigVCount || raw.kol_count, 0),
+        big_v_highlights: clean(raw.big_v_highlights) || clean(raw.bigVHighlights) || clean(raw.kol_highlights),
+        big_v_items: normalizeListField(raw.big_v_items || raw.bigVItems || raw.kol_items),
+        wechat_index: clean(raw.wechat_index) || clean(raw.wechatIndex),
+        core_summary: clean(raw.core_summary) || clean(raw.coreSummary) || clean(raw.summary),
+        key_nodes: normalizeListField(raw.key_nodes || raw.keyNodes),
+        social_opinions: normalizeListField(raw.social_opinions || raw.socialOpinions),
+        public_consensus: normalizeListField(raw.public_consensus || raw.publicConsensus),
+        public_controversies: normalizeListField(raw.public_controversies || raw.publicControversies),
+        social_data_complete: parseBoolean(raw.social_data_complete ?? raw.socialDataComplete),
+        topic_value: clean(raw.topic_value) || clean(raw.topicValue) || clean(raw.business_angle),
+        confidence: clamp(toNumber(raw.confidence, inferConfidence(raw))),
+        confidence_reason: clean(raw.confidence_reason) || clean(raw.confidenceReason)
+      };
+    }
+
+    function render() {
+      hotspots = hotspots.map(normalizeHotspot).sort((a, b) => b.confidence - a.confidence);
+      const groups = groupByCategory(hotspots);
+      renderSummary();
+      renderCategories(groups);
+      renderRawItems();
+      persist();
+    }
+
+    function renderSummary() {
+      els.summaryTotal.textContent = String(hotspots.length);
+      els.summaryTime.textContent = report?.generated_at ? formatTime(report.generated_at) : "未记录";
+      const recommendations = pickRecommendations(hotspots);
+      if (!recommendations.length) {
+        els.recommendationList.innerHTML = `<div class="empty">暂无推荐选题。</div>`;
+        return;
+      }
+      els.recommendationList.innerHTML = recommendations.map((item, index) => `
+        <article class="recommendation">
+          <div class="recommendation-rank">${index + 1}</div>
+          <div>
+            <h3>${escapeHtml(item.title)}</h3>
+            <span class="recommendation-meta">${escapeHtml(item.industry)} · 置信度 ${item.confidence} · 媒体 ${item.media_channel_count}</span>
+            <div class="recommendation-badges">
+              ${topicBadges(item).map(badge => `<span class="tag amber">${escapeHtml(badge)}</span>`).join("")}
+            </div>
+            <p>${escapeHtml(recommendationReason(item))}</p>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function pickRecommendations(items) {
+      const ranked = [...items]
+        .map(item => ({ item, score: xiaohuTopicScore(item) }))
+        .sort((a, b) => b.score - a.score)
+        .map(entry => entry.item);
+      const selected = ranked.slice(0, 3);
+      const consumer = ranked.find(item => item.industry === "消费与新零售行业");
+      if (consumer && !selected.includes(consumer)) {
+        selected[selected.length - 1] = consumer;
+      }
+      const nonInternet = ranked.find(item => item.industry !== "互联网行业");
+      if (nonInternet && !selected.some(item => item.industry !== "互联网行业")) {
+        selected[selected.length - 1] = nonInternet;
+      }
+      return selected;
+    }
+
+    function xiaohuTopicScore(item) {
+      const text = `${item.title} ${item.summary} ${item.core_summary} ${item.business_angle || ""}`;
+      const badges = topicBadges(item);
+      let score = badges.length * 45 + item.confidence * 0.18 + item.media_channel_count * 5 + item.big_v_count * 5;
+      if (badges.includes("明显争议")) score += 28;
+      if (badges.includes("巨大反差")) score += 22;
+      if (badges.includes("跨圈层讨论")) score += 16;
+      if (text.includes("外卖") && text.includes("美团")) score += 42;
+      if (text.includes("AI") && text.includes("电商")) score += 14;
+      if (text.includes("泡泡玛特") || text.includes("LABUBU")) score += 38;
+      if (text.includes("涨价") && text.includes("新能源")) score += 30;
+      if (text.includes("大厂") || text.includes("阿里") || text.includes("京东") || text.includes("腾讯")) score += 10;
+      if (text.includes("长鑫科技") || text.includes("机器人")) score += 8;
+      return score;
+    }
+
+    function topicBadges(item) {
+      const text = `${item.title} ${item.summary} ${item.core_summary} ${item.topic_value || ""}`;
+      const badges = [];
+      if (/(外卖|即时零售|价格战|补贴|减亏|烧钱|低价|争夺|大战|压力|涨价|炒作|黄牛|毛利率|成本|承压)/.test(text)) badges.push("明显争议");
+      if (/(泡泡玛特|LABUBU|小家电|长鑫科技|暴涨|IPO|冲刺|六小龙|小米|比亚迪|欧洲工厂|守得住|利润压力|减亏|更难赚钱|购物入口|AI购物|问助手|增长引擎|利润黑洞|烧钱|AI电商|千问|豆包|大厂共同面对AI投入压力)/.test(text)) badges.push("巨大反差");
+      if (/(泡泡玛特|LABUBU|外卖|AI电商|AI购物|618|机器人|小米|比亚迪|阿里|京东|美团|抖音|腾讯|新能源车)/.test(text)) badges.push("跨圈层讨论");
+      return [...new Set(badges)].slice(0, 3);
+    }
+
+    function recommendationReason(item) {
+      const text = `${item.title} ${item.summary} ${item.core_summary}`;
+      if (text.includes("AI电商") || text.includes("千问") || text.includes("豆包") || text.includes("AI购物")) {
+        return "争议在于 AI 会不会改变电商入口，反差在于购物从“搜商品”变成“问助手”，阿里、抖音、京东都卷进来，普通用户也容易感知。";
+      }
+      if (text.includes("财报") && (text.includes("阿里") || text.includes("京东") || text.includes("腾讯"))) {
+        return "争议在于 AI 和外卖投入到底是增长引擎还是利润黑洞，反差在于大厂收入还在涨但赚钱更难，适合讲“大厂为什么都开始重投入”。";
+      }
+      if (text.includes("外卖") || text.includes("即时零售")) {
+        return "争议最强：用户拿补贴、商家承压、平台烧钱，且美团、京东、阿里都在抢入口，能自然引发“最后谁买单”的大众讨论。";
+      }
+      if (text.includes("泡泡玛特") || text.includes("LABUBU")) {
+        return "反差和争议都强：一个潮玩IP把小家电炒出高溢价，但成本、毛利率和黄牛炒作也在考验品牌长期价值。";
+      }
+      if (text.includes("涨价") && text.includes("新能源")) {
+        return "争议在于消费者刚习惯价格战，车企却转向涨价和权益回收；适合讲“车企要利润，用户等降价”的矛盾。";
+      }
+      if (text.includes("长鑫科技") || text.includes("DRAM") || text.includes("芯片")) {
+        return "反差感强：国产存储公司营收暴涨并冲刺 IPO，背后连着 AI 算力、国产替代和资本市场，适合讲“谁在吃到 AI 红利”。";
+      }
+      if (text.includes("机器人") || text.includes("宇树")) {
+        return "反差和跨圈层都强：机器人从展会热闹走向融资、上市和交付，适合讲“人形机器人是真产业还是新一轮资本故事”。";
+      }
+      return "这个选题具备大公司、行业变化和普通用户可理解的讨论入口，适合做成商业趋势判断。";
+    }
+
+    function renderCategories(groups) {
+      const entries = Object.entries(groups)
+        .map(([category, items]) => [category, items.sort((a, b) => b.confidence - a.confidence).slice(0, 5)])
+        .sort((a, b) => averageConfidence(b[1]) - averageConfidence(a[1]));
+
+      if (!entries.length) {
+        els.categoryList.innerHTML = `<div class="empty">暂无热点数据。请导入脚本生成的 CSV / JSON。</div>`;
+        return;
+      }
+
+      els.categoryList.innerHTML = entries.map(([category, items]) => `
+        <article class="category">
+          <div class="category-head">
+            <h2>${escapeHtml(category)}</h2>
+            <span class="tag green">Top ${items.length}</span>
+          </div>
+          <div class="hotspot-list">
+            ${items.map((item, index) => renderHotspot(item, index)).join("")}
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderRawItems() {
+      if (!rawItems.length) {
+        els.rawList.innerHTML = `<div class="empty">暂无原始采集条目。</div>`;
+        return;
+      }
+      els.rawList.innerHTML = rawItems.slice(0, 80).map(item => `
+        <article class="raw-item">
+          <h3>${escapeHtml(item.title || "未命名")}</h3>
+          <p>${escapeHtml(item.source_name || item.source || "未知来源")} · ${escapeHtml(item.published || "日期未记录")}</p>
+          ${item.summary ? `<p>${escapeHtml(item.summary)}</p>` : ""}
+          ${item.url ? `<p>${escapeHtml(item.url)}</p>` : ""}
+        </article>
+      `).join("");
+    }
+
+    function renderHotspot(item, index) {
+      return `
+        <section class="hotspot">
+          <div class="rank">${index + 1}</div>
+          <div>
+            <h3>${escapeHtml(item.title)}</h3>
+            <p class="summary">${escapeHtml(item.core_summary || item.summary)}</p>
+            <div class="meta">
+              <span class="tag">${escapeHtml(item.date)}</span>
+              <span class="tag blue">${escapeHtml(item.type)}</span>
+              <span class="tag">媒体 ${item.media_channel_count}</span>
+              <span class="tag">大 V ${item.big_v_count}</span>
+              ${item.social_data_complete ? `<span class="tag green">高赞舆论达标</span>` : `<span class="tag warning">缺高赞舆论</span>`}
+              ${item.wechat_index ? `<span class="tag amber">微信指数已录入</span>` : `<span class="tag">微信指数未录入</span>`}
+            </div>
+            <div class="standard-block">
+              <h4>1. 新闻核心摘要</h4>
+              <p>${escapeHtml(item.core_summary || item.summary)}</p>
+            </div>
+            <div class="standard-block">
+              <h4>2. 事件关键节点</h4>
+              ${renderSimpleList(item.key_nodes)}
+            </div>
+            <div class="standard-block">
+              <h4>3. 高赞舆论观点</h4>
+              ${renderSocialOpinions(item)}
+            </div>
+            <div class="standard-block">
+              <h4>4. 选题价值分析</h4>
+              <p>${escapeHtml(item.topic_value || item.business_angle || "待补充。")}</p>
+            </div>
+            <details>
+              <summary>查看置信度依据</summary>
+              <p class="detail-text"><strong>媒体渠道：</strong>${escapeHtml(item.media_channels || item.source || "未填写")}</p>
+              <div class="detail-text"><strong>媒体原文：</strong>${renderMediaItems(item)}</div>
+              <div class="detail-text"><strong>大 V 内容：</strong>${renderKolItems(item)}</div>
+              <p class="detail-text"><strong>微信指数：</strong>${escapeHtml(item.wechat_index || "未录入")}</p>
+              <p class="detail-text"><strong>综合说明：</strong>${escapeHtml(item.confidence_reason || buildConfidenceReason(item))}</p>
+            </details>
+          </div>
+          <aside class="confidence" aria-label="置信度">
+            <strong>${item.confidence}</strong>
+            <div class="bar" style="--value:${item.confidence}%"><i></i></div>
+            <dl>
+              <dt>媒体</dt><dd>${item.media_channel_count} 个</dd>
+              <dt>大 V</dt><dd>${item.big_v_count} 条</dd>
+              <dt>微信</dt><dd>${item.wechat_index ? "已命中" : "未录入"}</dd>
+            </dl>
+          </aside>
+        </section>
+      `;
+    }
+
+    function groupByCategory(items) {
+      return items.reduce((groups, item) => {
+        const key = item.industry || "商业综合";
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(item);
+        return groups;
+      }, {});
+    }
+
+    function averageConfidence(items) {
+      if (!items.length) return 0;
+      return items.reduce((sum, item) => sum + item.confidence, 0) / items.length;
+    }
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
+      const input = text.replace(/^\uFEFF/, "");
+      for (let i = 0; i < input.length; i += 1) {
+        const char = input[i];
+        const next = input[i + 1];
+        if (char === '"' && quoted && next === '"') {
+          cell += '"';
+          i += 1;
+        } else if (char === '"') {
+          quoted = !quoted;
+        } else if (char === "," && !quoted) {
+          row.push(cell);
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !quoted) {
+          if (char === "\r" && next === "\n") i += 1;
+          row.push(cell);
+          if (row.some(value => value.trim())) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+      row.push(cell);
+      if (row.some(value => value.trim())) rows.push(row);
+      if (rows.length < 2) return [];
+      const headers = rows[0].map(header => header.trim());
+      return rows.slice(1).map(values => {
+        const item = {};
+        headers.forEach((header, index) => {
+          item[header] = (values[index] || "").trim();
+        });
+        return item;
+      });
+    }
+
+    function importRows(rows) {
+      const normalized = rows.map(normalizeHotspot);
+      if (!normalized.length) {
+        showToast("没有读取到有效数据");
+        return;
+      }
+      hotspots = normalized;
+      rawItems = [];
+      report = {
+        generated_at: new Date().toISOString().slice(0, 19),
+        source_count: "-",
+        raw_item_count: normalized.length,
+        errors: []
+      };
+      render();
+      showToast(`已导入 ${normalized.length} 条热点`);
+    }
+
+    function persist() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ hotspots, rawItems, report }));
+    }
+
+    function loadState() {
+      const generated = window.XIAOHU_HOTSPOTS_DATA;
+      if (generated && Array.isArray(generated.hotspots)) {
+        hotspots = generated.hotspots.map(normalizeHotspot);
+        rawItems = Array.isArray(generated.rawItems) ? generated.rawItems : [];
+        report = generated.report || null;
+        return;
+      }
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) {
+        hotspots = sampleHotspots.map(normalizeHotspot);
+        rawItems = [];
+        report = null;
+        return;
+      }
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          hotspots = parsed.map(normalizeHotspot);
+          rawItems = [];
+          report = null;
+        } else {
+          hotspots = (parsed.hotspots || sampleHotspots).map(normalizeHotspot);
+          rawItems = Array.isArray(parsed.rawItems) ? parsed.rawItems : [];
+          report = parsed.report || null;
+        }
+      } catch (error) {
+        hotspots = sampleHotspots.map(normalizeHotspot);
+        rawItems = [];
+        report = null;
+      }
+    }
+
+    function inferMediaCount(raw) {
+      const text = clean(raw.media_channels) || clean(raw.source);
+      if (!text) return 0;
+      return text.split(/[、；;,|]/).map(item => item.trim()).filter(Boolean).length;
+    }
+
+    function normalizeListField(value) {
+      if (!value) return [];
+      if (Array.isArray(value)) return value;
+      if (typeof value === "string") {
+        try {
+          const parsed = JSON.parse(value);
+          return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+          return [];
+        }
+      }
+      return [];
+    }
+
+    function renderMediaItems(item) {
+      if (item.media_items && item.media_items.length) {
+        return `
+          <div class="media-link-list">
+            ${item.media_items.map(media => {
+              const meta = [media.source, media.date].filter(Boolean).join(" · ");
+              const title = escapeHtml(media.title || item.title || "媒体原文");
+              const url = safeUrl(media.url);
+              return `
+                <div class="media-link-item">
+                  <span>${escapeHtml(meta || "媒体")}</span>
+                  ${url ? `<a href="${escapeHtml(url)}">${title}</a>` : `${title}<span>未填链接</span>`}
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }
+      return "未录入";
+    }
+
+    function renderSimpleList(items) {
+      const list = Array.isArray(items) ? items.filter(Boolean) : [];
+      if (!list.length) return `<p>暂无关键节点。</p>`;
+      return `<ol>${list.slice(0, 5).map(value => `<li>${escapeHtml(value)}</li>`).join("")}</ol>`;
+    }
+
+    function renderSocialOpinions(item) {
+      if (!item.social_data_complete || !item.social_opinions.length) {
+        return `<p class="warning tag">未录入至少 5 条真实高赞热评；为避免编造舆论，暂不生成共识和争议结论。</p>`;
+      }
+      return `
+        <ol>
+          ${item.social_opinions.slice(0, 5).map(opinion => {
+            const meta = [opinion.platform, opinion.likes ? `赞 ${opinion.likes}` : "", opinion.stance].filter(Boolean).join(" · ");
+            const url = safeUrl(opinion.url);
+            const text = escapeHtml(opinion.opinion || "");
+            return `<li class="opinion-item"><strong>${escapeHtml(meta)}</strong>：${url ? `<a href="${escapeHtml(url)}">${text}</a>` : text}</li>`;
+          }).join("")}
+        </ol>
+        <p><strong>公众主要共识：</strong>${escapeHtml((item.public_consensus || []).slice(0, 3).join("；"))}</p>
+        <p><strong>主要争议点：</strong>${escapeHtml((item.public_controversies || []).slice(0, 2).join("；"))}</p>
+      `;
+    }
+
+    function renderKolItems(item) {
+      if (item.big_v_items && item.big_v_items.length) {
+        return `
+          <div class="kol-list">
+            ${item.big_v_items.map(kol => {
+              const meta = [kol.platform, kol.author, kol.followers ? `粉丝 ${kol.followers}` : ""].filter(Boolean).join(" · ");
+              const title = escapeHtml(kol.title || "未命名内容");
+              const url = safeUrl(kol.url);
+              return `
+                <div class="kol-item">
+                  <span>${escapeHtml(meta || "大 V")}</span>
+                  ${url ? `<a href="${escapeHtml(url)}">${title}</a>` : `${title}<span>未填链接</span>`}
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }
+      return escapeHtml(item.big_v_highlights || "未录入");
+    }
+
+    function inferConfidence(raw) {
+      const media = inferMediaCount(raw);
+      const bigV = toNumber(raw.big_v_count || raw.bigVCount || raw.kol_count, 0);
+      const hasWechat = clean(raw.wechat_index || raw.wechatIndex) ? 1 : 0;
+      return Math.min(100, media * 12 + bigV * 8 + hasWechat * 18 + 20);
+    }
+
+    function buildConfidenceReason(item) {
+      return `${item.media_channel_count} 个媒体渠道，${item.big_v_count} 条大 V 内容，${item.wechat_index ? "微信指数有命中" : "微信指数未录入"}。`;
+    }
+
+    function parseBoolean(value) {
+      if (value === true || value === "true" || value === "是" || value === "1") return true;
+      return false;
+    }
+
+    function makeId(title, index) {
+      return `${String(title).slice(0, 32)}-${index}`.replace(/\s+/g, "-");
+    }
+
+    function clean(value) {
+      return String(value || "").trim();
+    }
+
+    function safeUrl(value) {
+      const url = clean(value);
+      if (!url) return "";
+      return /^https?:\/\//i.test(url) ? url : "";
+    }
+
+    function today() {
+      return new Date().toISOString().slice(0, 10);
+    }
+
+    function formatTime(value) {
+      const text = clean(value);
+      if (!text) return "未记录";
+      return text.replace("T", " ").slice(0, 16);
+    }
+
+    function toNumber(value, fallback) {
+      const number = Number(value);
+      return Number.isFinite(number) ? number : fallback;
+    }
+
+    function clamp(value) {
+      return Math.max(0, Math.min(100, Math.round(value)));
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function showToast(message) {
+      els.toast.textContent = message;
+      els.toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => els.toast.classList.remove("show"), 1800);
+    }
+
+    els.fileInput.addEventListener("change", async (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+      const text = await file.text();
+      try {
+        const rows = file.name.toLowerCase().endsWith(".json") ? JSON.parse(text) : parseCsv(text);
+        importRows(Array.isArray(rows) ? rows : []);
+      } catch (error) {
+        showToast("导入失败：文件格式不正确");
+      } finally {
+        event.target.value = "";
+      }
+    });
+
+    els.exportBtn.addEventListener("click", () => {
+      const blob = new Blob([JSON.stringify(hotspots, null, 2)], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `xiaohu-hotspot-radar-${today()}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      showToast("已导出 JSON");
+    });
+
+    els.sampleBtn.addEventListener("click", () => {
+      hotspots = sampleHotspots.map(normalizeHotspot);
+      rawItems = [];
+      report = null;
+      render();
+      showToast("已恢复示例数据");
+    });
+
+    els.clearBtn.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);
+      const generated = window.XIAOHU_HOTSPOTS_DATA;
+      if (generated && Array.isArray(generated.hotspots)) {
+        hotspots = generated.hotspots.map(normalizeHotspot);
+        rawItems = Array.isArray(generated.rawItems) ? generated.rawItems : [];
+        report = generated.report || null;
+      } else {
+        hotspots = sampleHotspots.map(normalizeHotspot);
+        rawItems = [];
+        report = null;
+      }
+      render();
+      showToast("本地数据已清空");
+    });
+
+    loadState();
+    render();
+  </script>
+</body>
+</html>
