@@ -8,3 +8,9 @@
 - `insights/weekly-hotspots.html`
 
 更新数据时，重新生成 `insights/hotspots-data.js` 后再发布。
+
+云端采集：
+
+- GitHub Actions：`Collect business hotspots`
+- 手动运行或每周一自动运行
+- 配置仓库 Secret `TAVILY_API_KEY` 后，优先使用 Tavily 聚合商业媒体
