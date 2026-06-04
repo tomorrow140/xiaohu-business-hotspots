@@ -888,6 +888,7 @@
         public_controversies: normalizeListField(raw.public_controversies || raw.publicControversies),
         social_data_complete: parseBoolean(raw.social_data_complete ?? raw.socialDataComplete),
         topic_value: clean(raw.topic_value) || clean(raw.topicValue) || clean(raw.business_angle),
+        topic_value_source: clean(raw.topic_value_source) || clean(raw.topicValueSource),
         confidence: clamp(toNumber(raw.confidence, inferConfidence(raw))),
         confidence_reason: clean(raw.confidence_reason) || clean(raw.confidenceReason)
       };
@@ -1059,7 +1060,7 @@
               ${renderSocialOpinions(item)}
             </div>
             <div class="standard-block">
-              <h4>4. 选题价值分析</h4>
+              <h4>4. ${item.topic_value_source === "github-models" ? "AI 选题价值分析" : "选题价值分析"}</h4>
               <p>${escapeHtml(item.topic_value || item.business_angle || "待补充。")}</p>
             </div>
             <details>
