@@ -734,9 +734,9 @@
       <div class="actions">
         <label class="file-button primary" for="fileInput" title="导入脚本生成的 CSV 或 JSON">↥ 导入</label>
         <input class="visually-hidden" id="fileInput" type="file" accept=".csv,.json,application/json,text/csv">
-        <button class="collect-button" id="collectBtn" type="button" title="重新获取已发布的最新热点数据">
+        <button class="collect-button" id="collectBtn" type="button" title="检查后台自动采集后发布的最新热点数据">
           <span class="collect-icon" aria-hidden="true">↻</span>
-          <span class="collect-label">手动抓取热点</span>
+          <span class="collect-label">刷新最新数据</span>
         </button>
       </div>
     </header>
@@ -772,10 +772,6 @@
   <script src="hotspots-data.js"></script>
   <script>
     const STORAGE_KEY = "xiaohu-hotspot-radar-v3";
-    const COLLECTION_WORKFLOW_URL = "https://github.com/tomorrow140/xiaohu-business-hotspots/actions/workflows/collect-hotspots.yml";
-    const COLLECTION_POLL_INTERVAL = 15000;
-    const COLLECTION_MAX_POLLS = 40;
-
     const sampleHotspots = [
       {
         title: "外卖补贴战继续升级，本地生活平台争夺即时零售入口",
@@ -1351,7 +1347,7 @@
     function setCollecting(active) {
       els.collectBtn.disabled = active;
       els.collectBtn.classList.toggle("is-loading", active);
-      els.collectBtn.querySelector(".collect-label").textContent = active ? "正在抓取..." : "手动抓取热点";
+      els.collectBtn.querySelector(".collect-label").textContent = active ? "正在刷新..." : "刷新最新数据";
     }
 
     function loadPublishedHotspots(previousGeneratedAt = "") {
@@ -1383,32 +1379,15 @@
 
     async function collectPublishedHotspots() {
       const previousGeneratedAt = report?.generated_at || "";
-      const workflowWindow = window.open(COLLECTION_WORKFLOW_URL, "_blank");
-      if (!workflowWindow) {
-        showToast("请允许打开 GitHub 工作流页面");
-        return;
-      }
-      workflowWindow.opener = null;
-
       setCollecting(true);
-      showToast("请在 GitHub 页面点击 Run workflow");
-
-      for (let poll = 0; poll < COLLECTION_MAX_POLLS; poll += 1) {
-        await new Promise(resolve => window.setTimeout(resolve, COLLECTION_POLL_INTERVAL));
-        try {
-          const updated = await loadPublishedHotspots(previousGeneratedAt);
-          if (updated) {
-            setCollecting(false);
-            showToast(`云端采集完成，已更新 ${hotspots.length} 条热点`);
-            return;
-          }
-        } catch (error) {
-          // GitHub Pages 构建期间可能短暂读取失败，继续轮询。
-        }
+      try {
+        const updated = await loadPublishedHotspots(previousGeneratedAt);
+        showToast(updated ? `已更新 ${hotspots.length} 条热点` : "当前已是后台发布的最新数据");
+      } catch (error) {
+        showToast("刷新失败，请稍后再试");
+      } finally {
+        setCollecting(false);
       }
-
-      setCollecting(false);
-      showToast("采集仍在运行，请稍后再次点击同步");
     }
 
     els.fileInput.addEventListener("change", async (event) => {
