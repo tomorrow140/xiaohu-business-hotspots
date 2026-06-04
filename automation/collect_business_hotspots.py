@@ -206,6 +206,17 @@ HOUSEHOLD_ENTITIES = [
     "苹果",
     "英伟达",
     "OpenAI",
+    "谷歌",
+    "SpaceX",
+    "马斯克",
+    "台积电",
+    "博通",
+    "火山引擎",
+    "大疆",
+    "影石",
+    "李宁",
+    "安踏",
+    "特步",
     "宇树",
     "优必选",
 ]
@@ -289,6 +300,58 @@ HARD_EXCLUDE_TERMS = [
     "债务逾期",
     "海上安保",
     "阿曼湾",
+    "硬氪首发",
+    "融资首发",
+    "氪星晚报",
+    "出海日报",
+    "特别呈现",
+    "成立新汽车销售公司",
+    "成立新公司",
+    "行业认证",
+    "样品订单",
+    "拟发行",
+    "控制权变更",
+    "股票复牌",
+    "股票停牌",
+    "中文在线",
+]
+
+MAJOR_EVENT_TERMS = [
+    "争议",
+    "大战",
+    "内卷",
+    "涨价",
+    "降价",
+    "补贴",
+    "裁员",
+    "财报",
+    "营收",
+    "利润",
+    "亏损",
+    "市值",
+    "估值",
+    "收购",
+    "并购",
+    "IPO",
+    "上市",
+    "监管",
+    "新规",
+    "回应",
+    "产品发布",
+    "发布新品",
+    "战略",
+    "合作",
+    "出海",
+    "价格",
+    "增长",
+    "份额",
+    "关税",
+    "开放",
+    "接入",
+    "反垄断",
+    "风波",
+    "跑路",
+    "安全",
 ]
 
 
@@ -632,9 +695,10 @@ def is_public_hotspot(cluster: Cluster) -> bool:
         return False
     entity_hits = keyword_hits(text, HOUSEHOLD_ENTITIES)
     core_hits = keyword_hits(text, CORE_PUBLIC_TOPICS)
+    event_hits = keyword_hits(text, MAJOR_EVENT_TERMS)
     if keyword_hits(text, NICHE_TERMS) >= 1 and entity_hits == 0:
         return False
-    return entity_hits >= 1 or core_hits >= 1
+    return event_hits >= 1 and (entity_hits >= 1 or core_hits >= 1)
 
 
 def public_topic_score(text: str) -> float:
