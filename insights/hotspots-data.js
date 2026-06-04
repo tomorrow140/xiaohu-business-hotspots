@@ -20,7 +20,14 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "report": "20260604-090748-collection-report.json",
       "frontend_data": "hotspots-data.js"
     },
-    "visible_raw_item_count": 47
+    "visible_raw_item_count": 47,
+    "ai_topic_value": {
+      "status": "completed",
+      "model": "openai/gpt-4.1-mini",
+      "selected_count": 21,
+      "enriched_count": 21,
+      "generated_at": "2026-06-04T17:53:51+08:00"
+    }
   },
   "hotspots": [
     {
@@ -47,7 +54,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 5 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
-      "topic_value": "标题方向：外卖大战不是补贴战，是美团入口保卫战。核心冲突：用户想要便宜、商家担心被平台抽走利润，平台则用补贴换日活和即时零售入口。小胡讲法：用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。避坑：不要简单站队美团或京东，也不要把短期补贴直接等同于长期胜负。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：美团CEO承认补贴推动增长不可持续，外卖大战背后实为即时零售的争夺，体现了平台在不同业务间的利益取舍。标题方向：美团外卖大战转向即时零售争夺，补贴策略难持续。核心冲突：平台在外卖补贴与即时零售扩张之间的利益冲突。小胡讲法：从普通消费者角度看，补贴减少可能意味着外卖价格和优惠减少，反映了平台为控制成本调整策略的商业机制。避坑：避免将外卖大战简单理解为价格竞争，需注意即时零售的崛起是更深层次的市场争夺。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "低",
       "media_channel_count": 5,
@@ -96,7 +103,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 9.3,
       "volume": "短",
-      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/13115328.html | 澎湃新闻: https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TOFljNTloQTJYX3NDTGtmWnY5M2oxYjUyekdLMWxuWnROOVN5RkZmTW5BcVhmVkg1WmFYbENVQXYyODdmdXppcVBvODUxYzctOWJBUkhCeUV6eDlLWVo3Sg?oc=5 | 澎湃新闻: https://news.google.com/rss/articles/CBMiYEFVX3lxTE5KM1k1LWRGUkxuNE1wVUM5Z1dIY1lEREFLQW8zWnE0d3hIVVV1aUU0bEllbUxoSldqMjNCMU9GWmNUa0hTSFlrbWRfNmFmUHd2bUtwZmtiLUdjc29VZ1E3aw?oc=5"
+      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/13115328.html | 澎湃新闻: https://news.google.com/rss/articles/CBMiYEFVX3lxTE5TOFljNTloQTJYX3NDTGtmWnY5M2oxYjUyekdLMWxuWnROOVN5RkZmTW5BcVhmVkg1WmFYbENVQXYyODdmdXppcVBvODUxYzctOWJBUkhCeUV6eDlLWVo3Sg?oc=5 | 澎湃新闻: https://news.google.com/rss/articles/CBMiYEFVX3lxTE5KM1k1LWRGUkxuNE1wVUM5Z1dIY1lEREFLQW8zWnE0d3hIVVV1aUU0bEllbUxoSldqMjNCMU9GWmNUa0hTSFlrbWRfNmFmUHd2bUtwZmtiLUdjc29VZ1E3aw?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "微信AI智能体拉高市场预期 腾讯市值飙升至4万亿港元",
@@ -121,7 +131,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“微信AI智能体拉高市场预期 腾讯市值飙升至4万亿港元”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及AI与芯片行业的公司/行业动态，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：微信AI智能体推动腾讯市值飙升，体现AI技术对互联网巨头市场预期的直接影响，反映技术创新与资本市场预期的互动。标题方向：微信AI智能体助推腾讯市值突破4万亿港元。核心冲突：技术创新带动市场预期与实际业务表现之间的张力。小胡讲法：普通用户关注AI功能带来的使用体验提升，背后是企业如何通过技术创新影响投资者信心的商业机制。避坑：避免将市值上涨简单归因于技术，需关注实际产品和服务的持续表现。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "低",
       "media_channel_count": 1,
@@ -152,7 +162,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "短",
-      "note": "待核查来源：财新网: https://www.caixin.com/2026-06-03/102450622.html | 财新网: https://news.google.com/rss/articles/CBMiZEFVX3lxTE1LOG5FLVlFemRiUnlmMWltamNXdmJUUVBPRnlTWkVzcDJrSUpQaWdQS1JjQmdPUENNT0hJVlRhNFdnSVJuX3YyTFI2SWZPN3NyckdUMEdDVks4Y3lmR1hMenB3Vjc?oc=5"
+      "note": "待核查来源：财新网: https://www.caixin.com/2026-06-03/102450622.html | 财新网: https://news.google.com/rss/articles/CBMiZEFVX3lxTE1LOG5FLVlFemRiUnlmMWltamNXdmJUUVBPRnlTWkVzcDJrSUpQaWdQS1JjQmdPUENNT0hJVlRhNFdnSVJuX3YyTFI2SWZPN3NyckdUMEdDVks4Y3lmR1hMenB3Vjc?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "比亚迪加入自研算力芯片队列 新能源车企扎堆布局为哪般？",
@@ -177,7 +190,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 2 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用普通消费者的买车心理切入，解释车企从抢销量转向保利润，以及价格战结束到底对谁有利。",
-      "topic_value": "标题方向：新能源车不打价格战了，为什么突然集体涨价。核心冲突：消费者习惯等降价，车企却需要修复利润，涨价潮让“买早亏、买晚贵”的情绪重新发酵。小胡讲法：用普通消费者的买车心理切入，解释车企从抢销量转向保利润，以及价格战结束到底对谁有利。避坑：不要只罗列涨价品牌，要区分真涨价、权益回收和配置变化，避免把短期营销动作讲成行业拐点。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：比亚迪等新能源车企自研算力芯片，显示产业链上游控制权成为新焦点，反映车企从单纯制造向技术自主转型的利益冲突。标题方向：新能源车企自研芯片潮：制造商变身技术玩家。核心冲突：车企在芯片自研与依赖外部供应之间的战略抉择。小胡讲法：普通消费者关心的是自研芯片能否提升车辆性能和智能化体验，这背后是车企争夺核心技术自主权的商业逻辑。避坑：不要简单认为自研芯片即能解决所有技术难题，实际效果和市场接受度仍需观察。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "低",
       "media_channel_count": 2,
@@ -208,7 +221,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "短",
-      "note": "待核查来源：虎嗅: https://www.huxiu.com/article/4863590.html?type=text | 财新网: https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9tUGJoLWdpTFpTc1dKVzIyRVZCczUzMTlfVWpPb1Vlelh6U3ZxTWxTSjhzbzNIbjVSeTJCVGpnNUpRNEhTbFl4d0JZeC1KaEpDd1dQT3BaSjljTHM4WnZONGFzSERxTHc?oc=5"
+      "note": "待核查来源：虎嗅: https://www.huxiu.com/article/4863590.html?type=text | 财新网: https://news.google.com/rss/articles/CBMiZ0FVX3lxTE9tUGJoLWdpTFpTc1dKVzIyRVZCczUzMTlfVWpPb1Vlelh6U3ZxTWxTSjhzbzNIbjVSeTJCVGpnNUpRNEhTbFl4d0JZeC1KaEpDd1dQT3BaSjljTHM4WnZONGFzSERxTHc?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "监管加码补贴收紧，外卖大战落幕，但消费入口争夺战才刚刚开始",
@@ -232,7 +248,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
-      "topic_value": "标题方向：外卖大战不是补贴战，是美团入口保卫战。核心冲突：用户想要便宜、商家担心被平台抽走利润，平台则用补贴换日活和即时零售入口。小胡讲法：用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。避坑：不要简单站队美团或京东，也不要把短期补贴直接等同于长期胜负。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：监管收紧补贴导致外卖大战落幕，但各平台转向争夺更广泛的消费入口，体现市场竞争的利益转移。标题方向：外卖补贴收紧，消费入口争夺战开启新阶段。核心冲突：平台在补贴驱动增长与监管限制下的战略调整冲突。小胡讲法：普通消费者可能感受到补贴减少，平台则通过多元化入口争夺用户注意力，反映商业竞争的转型机制。避坑：不要误以为外卖大战结束即竞争减弱，实际竞争形态已发生变化。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -257,7 +273,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.9,
       "volume": "中",
-      "note": "待核查来源：新浪财经: https://news.google.com/rss/articles/CBMiiwFBVV95cUxOUU5rRzZ2UTFyMHBFS2poMjJrV2FlUVVLM2dlN19saldvVXdGS2ptVDVrTUxDZGpBYkFQNnlWTWhMckFrNjZCYy1tVld1UmF6ZFoyUjBibEkyUkxHbmZFOExualBKZlFuRnZiTVU2bVZJd3B6QnFqbWRic09SZFNJdDgtRlJzOElodTJz?oc=5"
+      "note": "待核查来源：新浪财经: https://news.google.com/rss/articles/CBMiiwFBVV95cUxOUU5rRzZ2UTFyMHBFS2poMjJrV2FlUVVLM2dlN19saldvVXdGS2ptVDVrTUxDZGpBYkFQNnlWTWhMckFrNjZCYy1tVld1UmF6ZFoyUjBibEkyUkxHbmZFOExualBKZlFuRnZiTVU2bVZJd3B6QnFqbWRic09SZFNJdDgtRlJzOElodTJz?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "工业富联市值达1.61万亿元，超越贵州茅台位居A股第八位",
@@ -282,7 +301,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 2 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“工业富联市值达1.61万亿元，超越贵州茅台位居A股第八位”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及AI与芯片行业的公司/行业动态，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：工业富联市值超越贵州茅台，反映资本市场对制造业与科技结合的重新评估，体现传统消费与新兴产业的价值对比。标题方向：工业富联市值超茅台，制造业科技化获资本青睐。核心冲突：资本市场在传统消费品牌与科技制造企业间的价值权衡。小胡讲法：普通投资者和消费者能从中理解到，科技制造企业的成长可能改变长期以来的行业价值认知。避坑：避免将市值排名简单等同企业实际经营状况，市值波动受多种因素影响。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "低",
       "media_channel_count": 2,
@@ -313,7 +332,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "短",
-      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/14527913.html | 新浪财经: https://news.google.com/rss/articles/CBMieEFVX3lxTE9lWEgyS3JGS0hCQU1SUXZqTk1FSGZ3aWdnaXBHLTVlOTBFYjhMU0hWWmZta0xuR2dZdmpqaWFHX3pPanpBclppbWlfRGl2MHFocGh6SHN5QWpoQzh4TkZaMEpQNW5sbmJnU2FEbWVZamtUdlQ5VTlWYw?oc=5"
+      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/14527913.html | 新浪财经: https://news.google.com/rss/articles/CBMieEFVX3lxTE9lWEgyS3JGS0hCQU1SUXZqTk1FSGZ3aWdnaXBHLTVlOTBFYjhMU0hWWmZta0xuR2dZdmpqaWFHX3pPanpBclppbWlfRGl2MHFocGh6SHN5QWpoQzh4TkZaMEpQNW5sbmJnU2FEbWVZamtUdlQ5VTlWYw?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "财报公告 | 当百度AI收入跨越过半门槛：DAA驱动下的估值奇点与价值重构",
@@ -337,7 +359,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及AI与芯片行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：百度AI收入突破半数，显示AI业务成为核心驱动力，反映公司估值与业务结构重构的利益调整。标题方向：百度AI业务占比过半，估值结构迎来新变化。核心冲突：传统业务与AI新业务之间的资源与估值分配冲突。小胡讲法：普通消费者可能感知不到业务结构变化，但这影响百度未来产品创新和市场定位的商业策略。避坑：不要将收入结构变化简单理解为公司整体盈利能力提升，需结合具体财报细节分析。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -362,7 +384,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.6,
       "volume": "中",
-      "note": "待核查来源：财新网: https://promote.caixin.com/2026-05-19/102445511.html"
+      "note": "待核查来源：财新网: https://promote.caixin.com/2026-05-19/102445511.html",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "英伟达炸裂财报引爆AI乐观情绪 软银市值两天大增逾4000亿",
@@ -484,7 +509,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“一个小玩偶为什么能带火小家电”切入，拆IP溢价、跨界联名、二手炒作和海外增长四条线。",
-      "topic_value": "标题方向：LABUBU越火，泡泡玛特越像一家奢侈品公司吗。核心冲突：消费者把潮玩当社交货币和投资品，品牌享受高溢价，但黄牛炒作、成本上行和毛利率压力会反过来考验泡泡玛特。小胡讲法：用“一个小玩偶为什么能带火小家电”切入，拆IP溢价、跨界联名、二手炒作和海外增长四条线。避坑：不要把二级市场炒价等同于公司真实收入，也不要只讲猎奇价格，要落到IP商业化和品牌可持续。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：段永平在短时间内连续增持泡泡玛特，显示其对该消费品公司的信心与资本布局的积极性。普通消费者可以通过这一动作理解资本市场如何通过大额持股影响公司未来发展。标题方向：段永平连续举牌泡泡玛特，资本大佬如何布局消费新零售。核心冲突：个人资本大手笔增持与市场对泡泡玛特未来表现的期待之间的张力。小胡讲法：从段永平的投资动作切入，解释大投资者如何通过增持影响公司估值及市场信心，普通消费者则能看到资本市场对热门消费品牌的关注度。避坑：本事件仅反映持股变动，未涉及公司经营具体变化，投资者不应仅凭持股数据判断公司业绩。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -509,7 +534,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 7.1,
       "volume": "中",
-      "note": "待核查来源：财联社: https://news.google.com/rss/articles/CBMiSEFVX3lxTFBPdjN1bzZqRzdCMFpibklCcTRidXh4Y3Y2SDhLS0FvYjZaOVJ5Z0RvY1hHT0lvblN6YXdkdmdzcGJheVFkdlZFQg?oc=5"
+      "note": "待核查来源：财联社: https://news.google.com/rss/articles/CBMiSEFVX3lxTFBPdjN1bzZqRzdCMFpibklCcTRidXh4Y3Y2SDhLS0FvYjZaOVJ5Z0RvY1hHT0lvblN6YXdkdmdzcGJheVFkdlZFQg?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "京沪两市市场监管局联合指导三大外卖平台落实网络餐饮新规",
@@ -533,7 +561,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
-      "topic_value": "标题方向：外卖大战不是补贴战，是美团入口保卫战。核心冲突：用户想要便宜、商家担心被平台抽走利润，平台则用补贴换日活和即时零售入口。小胡讲法：用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。避坑：不要简单站队美团或京东，也不要把短期补贴直接等同于长期胜负。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：京沪两地市场监管局联合指导外卖平台落实新规，体现监管层对互联网餐饮服务的严格管理。消费者可从中了解政策如何直接影响外卖平台的运营规则和服务体验。标题方向：京沪监管联合发力，外卖平台如何应对新规。核心冲突：监管机构推动政策执行与外卖平台调整运营策略之间的博弈。小胡讲法：从监管部门和外卖平台的互动角度，说明政策如何通过指导影响平台服务标准，普通用户则感受到外卖服务的规范化。避坑：报道聚焦政策指导，具体执行细节和效果尚需后续观察，不宜过早断定政策成效。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "中",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -558,7 +586,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 6.2,
       "fit": 6.9,
       "volume": "中",
-      "note": "待核查来源：证券时报: https://news.google.com/rss/articles/CBMiXEFVX3lxTFBzQTRvQXBoaWtFNkJlM2d6UEhodWI2Mk1fMS1NeDBPV3Racl9qYW1jMldfRHZKUEFteW5BTW9mMjduQjBQTG5wV1NVVVdubC1sclhJNFlobmdtcDQy?oc=5"
+      "note": "待核查来源：证券时报: https://news.google.com/rss/articles/CBMiXEFVX3lxTFBzQTRvQXBoaWtFNkJlM2d6UEhodWI2Mk1fMS1NeDBPV3Racl9qYW1jMldfRHZKUEFteW5BTW9mMjduQjBQTG5wV1NVVVdubC1sclhJNFlobmdtcDQy?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "长鑫科技的爆发式增长：周期利润与技术追赶的艰难取舍",
@@ -582,7 +613,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及AI与芯片行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：长鑫科技面临周期性利润与技术追赶的矛盾，揭示芯片企业在短期盈利与长期研发投入间的艰难平衡。标题方向：长鑫科技利润与技术追赶的双重挑战。核心冲突：企业在追求短期利润和持续技术升级间的利益冲突。小胡讲法：普通消费者虽不直接感受，但芯片技术进步决定了电子产品性能，反映企业如何在商业压力下做出选择。避坑：不要忽视周期性利润波动可能掩盖企业长期技术实力的真实情况。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -607,7 +638,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 6.2,
       "fit": 6.5,
       "volume": "中",
-      "note": "待核查来源：晚点 LatePost: https://www.latepost.com/news/dj_detail?id=3559"
+      "note": "待核查来源：晚点 LatePost: https://www.latepost.com/news/dj_detail?id=3559",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "36氪独家 | 火山引擎提升MaaS营收目标至全年150亿元，Seedance 2.0单月营收已超10亿元",
@@ -631,7 +665,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及互联网行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：火山引擎大幅提升MaaS营收目标，显示其业务快速扩张的野心。普通消费者通过这一数据能理解互联网平台如何设定高增长目标并推动新业务发展。标题方向：火山引擎MaaS营收目标激增，互联网新业务如何快速扩张。核心冲突：火山引擎设定的高营收目标与实际业务增长速度之间的压力。小胡讲法：从火山引擎调整营收目标的背后，解释互联网企业如何通过目标管理驱动业务扩张，普通人则能感知新兴技术服务的市场潜力。避坑：营收目标频繁上调属于企业内部规划，实际完成情况需结合后续财报数据判断。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -656,7 +690,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "中",
-      "note": "待核查来源：36氪综合资讯: https://36kr.com/p/3836973710423429?f=rss"
+      "note": "待核查来源：36氪综合资讯: https://36kr.com/p/3836973710423429?f=rss",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "工业富联，市值超越茅台 | 盘中速报",
@@ -729,7 +766,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
-      "topic_value": "标题方向：外卖大战不是补贴战，是美团入口保卫战。核心冲突：用户想要便宜、商家担心被平台抽走利润，平台则用补贴换日活和即时零售入口。小胡讲法：用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。避坑：不要简单站队美团或京东，也不要把短期补贴直接等同于长期胜负。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：外卖平台上线“无堂食”标识，体现新规对外卖服务透明度的提升。消费者能直接感受到政策对外卖点餐体验的具体影响。标题方向：外卖平台新增“无堂食”标识，点餐体验迎来新变化。核心冲突：政策要求信息透明与平台快速调整用户界面之间的协调。小胡讲法：从消费者视角讲解新标识如何帮助用户明确餐饮服务类型，体现政策如何通过技术手段改善用户体验。避坑：标识上线是政策响应的一部分，具体对服务质量和用户满意度的影响仍需观察。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "中",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -754,7 +791,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 6.2,
       "fit": 6.9,
       "volume": "中",
-      "note": "待核查来源：新浪财经: https://news.google.com/rss/articles/CBMieEFVX3lxTE1BVWluNFRKb1FlWDNUMXFVWmU4OVYzYXZaUlVFT3BieXFRZWpBazFsSEJyNjEyNllwYktvdWFEQU5Pb2RKYlM1dXl3UHJKNE44QzE5czFubS1VVzcwUDEyaTBnbXpUNVpyTmxVVS1QcWtBcFUxZnlObw?oc=5"
+      "note": "待核查来源：新浪财经: https://news.google.com/rss/articles/CBMieEFVX3lxTE1BVWluNFRKb1FlWDNUMXFVWmU4OVYzYXZaUlVFT3BieXFRZWpBazFsSEJyNjEyNllwYktvdWFEQU5Pb2RKYlM1dXl3UHJKNE44QzE5czFubS1VVzcwUDEyaTBnbXpUNVpyTmxVVS1QcWtBcFUxZnlObw?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "外卖新规落地，各平台标注进度不一，有无堂食能否一目了然？",
@@ -827,7 +867,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及新能源汽车行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：蔚来连续两个季度盈利且毛利率创新高，反映其“大车战略”在新能源汽车市场的成效。消费者可借此理解企业战略如何影响产品价格和市场竞争力。标题方向：蔚来“大车战略”助推盈利与毛利率双升，新能源汽车市场新动态。核心冲突：企业战略调整与市场盈利能力提升之间的关系。小胡讲法：从蔚来战略调整切入，解释如何通过产品结构优化提升盈利，普通消费者则能理解这对车辆价格和品质的潜在影响。避坑：盈利数据反映阶段性表现，未来需关注战略持续性和市场变化。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -852,7 +892,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 6.2,
       "fit": 6.1,
       "volume": "中",
-      "note": "待核查来源：财联社: https://news.google.com/rss/articles/CBMiSEFVX3lxTE9BdlRkd2VhMEVQSkJyU2t1V0gwZW9ZRDJ6VzhFQlZfSV9OUUNucEdIV29vYkswcDh3Z1ZteXMyMnl5QUp4eE9nRg?oc=5"
+      "note": "待核查来源：财联社: https://news.google.com/rss/articles/CBMiSEFVX3lxTE9BdlRkd2VhMEVQSkJyU2t1V0gwZW9ZRDJ6VzhFQlZfSV9OUUNucEdIV29vYkswcDh3Z1ZteXMyMnl5QUp4eE9nRg?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "理想汽车一季度亏损23亿元 毛利率跌至上市以来最低水平",
@@ -876,7 +919,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及新能源汽车行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：理想汽车一季度亏损加剧且毛利率创新低，反映新能源汽车企业在扩张与盈利压力之间的矛盾。标题方向：理想汽车亏损扩大，毛利率创上市新低揭示盈利压力。核心冲突：企业扩张投入与盈利能力下降的利益冲突。小胡讲法：消费者可能关注价格和产品质量变化，背后是企业如何平衡市场份额和利润的商业挑战。避坑：避免将单季度亏损视为长期趋势，需结合行业周期和公司战略判断。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -901,7 +944,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 5.6,
       "volume": "中",
-      "note": "待核查来源：财新网: https://news.google.com/rss/articles/CBMiZEFVX3lxTFBodDIzZ1ZBNzlUV1ZjNU4zVkVLdWw1SmlNSHoxWkQ0eWFRUF9BY2ctZUI2RlFrc09KcTloU2xibEJjYzk1ejRUaHZrMG5ja2I4bDVOX3ZhQ01CTWRqM25WaUNRS1U?oc=5"
+      "note": "待核查来源：财新网: https://news.google.com/rss/articles/CBMiZEFVX3lxTFBodDIzZ1ZBNzlUV1ZjNU4zVkVLdWw1SmlNSHoxWkQ0eWFRUF9BY2ctZUI2RlFrc09KcTloU2xibEJjYzk1ejRUaHZrMG5ja2I4bDVOX3ZhQ01CTWRqM25WaUNRS1U?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "90天亏损近300亿，外卖大战熄火",
@@ -1023,7 +1069,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及新能源汽车行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：理想汽车一季度营收下降且由盈转亏，揭示其面临的市场压力。普通消费者可借此了解新能源汽车企业经营波动对产品供应和服务的潜在影响。标题方向：理想汽车一季度营收下滑转亏，新能源汽车行业挑战显现。核心冲突：企业营收下滑与市场竞争压力加剧的矛盾。小胡讲法：从理想汽车财报变化出发，说明市场环境如何影响企业经营状况，消费者则可能感受到产品更新和服务调整的连锁反应。避坑：单季度财报波动不代表长期趋势，需结合后续财务数据综合判断。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1048,7 +1094,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 5.6,
       "volume": "中",
-      "note": "待核查来源：澎湃新闻: https://news.google.com/rss/articles/CBMiXkFVX3lxTFBCRFJoeDVhNUdjd1NGVHh4VktyTkVUdzZCeHBnaVZFNXllVWx1SjBpZ3plNFp0LWV2dU53R0hRMDJQY2l3Qk5FNklDeFNSdjFrT19aM2tLeV9xbGZmWVE?oc=5"
+      "note": "待核查来源：澎湃新闻: https://news.google.com/rss/articles/CBMiXkFVX3lxTFBCRFJoeDVhNUdjd1NGVHh4VktyTkVUdzZCeHBnaVZFNXllVWx1SjBpZ3plNFp0LWV2dU53R0hRMDJQY2l3Qk5FNklDeFNSdjFrT19aM2tLeV9xbGZmWVE?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "小鹏集团一季报：销量之外，估值逻辑已在转变",
@@ -1072,7 +1121,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“小鹏集团一季报：销量之外，估值逻辑已在转变”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及新能源汽车行业的公司/行业动态，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：小鹏集团一季报显示估值逻辑转变，反映投资者关注点从销量向其他指标转移。普通消费者能借此理解资本市场对新能源汽车企业价值评估的多维度考量。标题方向：小鹏集团估值逻辑转变，销量之外的竞争新焦点。核心冲突：传统销量指标与新兴估值标准之间的调整。小胡讲法：从小鹏集团估值变化切入，解释资本市场如何调整对新能源汽车企业的评价标准，普通消费者则能理解市场对企业未来潜力的不同看法。避坑：估值逻辑变化属于市场行为，具体影响需结合企业后续表现分析。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1097,7 +1146,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "中",
-      "note": "待核查来源：经济观察报: https://news.google.com/rss/articles/CBMiVEFVX3lxTFBwSF9QZVMtNEhTdFZGeVdfY0oyM3lXWW5URW42UjRMM0hNb2RNaHRhZHo1V2VwMmJPRHQ3S2UtbXlTVVM1eENvUHhNSzJpQ0pYMEc3bQ?oc=5"
+      "note": "待核查来源：经济观察报: https://news.google.com/rss/articles/CBMiVEFVX3lxTFBwSF9QZVMtNEhTdFZGeVdfY0oyM3lXWW5URW42UjRMM0hNb2RNaHRhZHo1V2VwMmJPRHQ3S2UtbXlTVVM1eENvUHhNSzJpQ0pYMEc3bQ?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "蔚来一季度经营利润6680万元，已连续两个季度盈利",
@@ -1121,7 +1173,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及新能源汽车行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：蔚来连续两个季度实现经营利润，显示其经营效率提升。消费者可以通过这一点理解企业盈利能力增强对产品和服务稳定性的积极作用。标题方向：蔚来连续盈利，经营效率提升背后的新能源汽车竞争力。核心冲突：提升经营利润与维持市场竞争力之间的平衡。小胡讲法：从蔚来财报盈利数据出发，说明企业如何通过成本控制和战略调整实现盈利，普通消费者则能感受到产品和服务的持续改进。避坑：短期盈利不代表长期稳定，需关注后续财务和市场表现。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1146,7 +1198,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "中",
-      "note": "待核查来源：新京报: https://news.google.com/rss/articles/CBMiYkFVX3lxTE5Pa1B0bEFnOFYwMmF0OTB6eVkzbHpRNlBXNC0yeWF0MUkyZk94TDJmSUE0WXJMV0ZLY210dk9PblAwRUUtNVRyMXloc2g3cDlvUzRSd21Cbl84Q0F5SHliTk9R?oc=5"
+      "note": "待核查来源：新京报: https://news.google.com/rss/articles/CBMiYkFVX3lxTE5Pa1B0bEFnOFYwMmF0OTB6eVkzbHpRNlBXNC0yeWF0MUkyZk94TDJmSUE0WXJMV0ZLY210dk9PblAwRUUtNVRyMXloc2g3cDlvUzRSd21Cbl84Q0F5SHliTk9R?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "外卖大战一年账单：烧掉1500亿，改变了什么？",
@@ -1268,7 +1323,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“瑞幸咖啡去冰后勉强过半杯？公司客服回应”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及消费与新零售行业的舆论，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：消费者发现瑞幸咖啡去冰后容量明显减少，反映出产品实际体验与消费者预期的矛盾。标题方向：瑞幸去冰后杯量缩水，消费者体验与产品承诺的落差。核心冲突：消费者期待的饮品容量与实际去冰后容量减少之间的矛盾。小胡讲法：从普通消费者点单去冰的期待切入，解释饮品容量如何受制于冰块减少导致实际饮品量下降，普通人关心的是花同样的钱是否买到相同价值的产品。避坑：新闻仅反映客服回应，未提供具体容量数据，避免以偏概全或过度推断产品质量问题。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "中",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1293,7 +1348,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "中",
-      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/14534174.html"
+      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/14534174.html",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "CPU，或成英伟达下一增长引擎",
@@ -1415,7 +1473,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“茅台保健酒业发声：暂停与黔茅策划公司一切合作及经销授权”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及消费与新零售行业的公司/行业动态，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：茅台保健酒业暂停与黔茅策划公司的合作，揭示品牌授权与渠道管理中的利益冲突。标题方向：茅台保健酒业叫停黔茅策划合作，品牌授权背后的利益博弈。核心冲突：品牌方与合作策划公司在合作授权上的矛盾与利益冲突。小胡讲法：从消费者和经销商角度讲解品牌授权如何影响产品供应和市场渠道，普通人关心的是市场上产品供应是否稳定及价格波动。避坑：事件信息有限，未披露具体合作争议内容，避免揣测双方纠纷细节。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1440,7 +1498,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 6.1,
       "volume": "中",
-      "note": "待核查来源：新浪财经: https://news.google.com/rss/articles/CBMihAFBVV95cUxNNVdhbmtiekwwTnB1VGkxOENiQXFUQjRkNDN1aGpvcDdNSnBianNkNm9GMVYzTzZGTmZBS3dGSXVZeUZ5UnhVcnphTHlpZmVkNkpWWUNYdm1UXzcwb296cU5LTnNwQmJ5cVFTRzJaUVU0ZktabUZJQlNSSy1wZ2p3NEozYVo?oc=5"
+      "note": "待核查来源：新浪财经: https://news.google.com/rss/articles/CBMihAFBVV95cUxNNVdhbmtiekwwTnB1VGkxOENiQXFUQjRkNDN1aGpvcDdNSnBianNkNm9GMVYzTzZGTmZBS3dGSXVZeUZ5UnhVcnphTHlpZmVkNkpWWUNYdm1UXzcwb296cU5LTnNwQmJ5cVFTRzJaUVU0ZktabUZJQlNSSy1wZ2p3NEozYVo?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "亚马逊宣布对外开放旗下物流，美版京东物流要来了？",
@@ -1513,7 +1574,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "从收入质量、利润弹性和现金流拆解，判断这家公司是真增长还是周期性修复。",
-      "topic_value": "该热点涉及消费与新零售行业的财报，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：非标茅台涨价预示贵州茅台业绩改善，体现价格调整对财务表现的直接影响。标题方向：非标茅台涨价背后，业绩逐季改善的价格杠杆效应。核心冲突：产品价格调整与企业业绩表现之间的利益关系。小胡讲法：从投资者和消费者角度解释价格上涨如何直接推动企业收入增长，普通人关心价格变动背后对市场供应和消费成本的影响。避坑：报道为财务预期分析，避免将预测视为确定结果。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1538,7 +1599,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 5.6,
       "volume": "中",
-      "note": "待核查来源：第一财经: https://news.google.com/rss/articles/CBMiU0FVX3lxTE5tXzI5SmZpR05pc0xLY0JfeHpzaktyZ2hlTE5nNkF2Tkd6b3lPODg5d1pRMHcwNzhWSktQdDJaMkhLcVMzVExWY2VCTkJ4dW1xTTZ3?oc=5"
+      "note": "待核查来源：第一财经: https://news.google.com/rss/articles/CBMiU0FVX3lxTE5tXzI5SmZpR05pc0xLY0JfeHpzaktyZ2hlTE5nNkF2Tkd6b3lPODg5d1pRMHcwNzhWSktQdDJaMkhLcVMzVExWY2VCTkJ4dW1xTTZ3?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "芯片自研+安全兜底，比亚迪为普及智驾拼了",
@@ -1660,7 +1724,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“第酒局丨从大幅降价到逆势提价，茅台“高频调价“会否成常态？”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及消费与新零售行业的公司/行业动态，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：茅台频繁调整价格暴露其市场策略的灵活性与不确定性，消费者面临价格波动风险。标题方向：茅台高频调价，消费者如何应对价格“过山车”。核心冲突：企业价格策略频繁变动与消费者预算稳定性之间的矛盾。小胡讲法：从普通消费者的购买体验切入，解释高频价格调整背后的市场供需和品牌策略，普通人关心买酒成本和购买时机。避坑：新闻未说明调价具体原因和幅度，避免过度解读价格调整背后的动机。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -1685,7 +1749,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 5.6,
       "volume": "中",
-      "note": "待核查来源：新京报: https://news.google.com/rss/articles/CBMiZEFVX3lxTE1xY0YtWVY1YUtGa0JSRXlTbThrSUgxZTBxNzM4SC1JY2tfYkk3cW44YXlyaHZvQjIzX19ScGJoVFBoUG9pUnhpbDZTSHp0YXNiaHNZdDZyNE9WUDVBWkFuQkhyc24?oc=5"
+      "note": "待核查来源：新京报: https://news.google.com/rss/articles/CBMiZEFVX3lxTE1xY0YtWVY1YUtGa0JSRXlTbThrSUgxZTBxNzM4SC1JY2tfYkk3cW44YXlyaHZvQjIzX19ScGJoVFBoUG9pUnhpbDZTSHp0YXNiaHNZdDZyNE9WUDVBWkFuQkhyc24?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     },
     {
       "title": "100ml茅台礼盒上涨20元，第三轮涨价开启？",
@@ -2003,7 +2070,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "围绕“宇树上市，市场机制为具身智能续航”背后的利益分配和行业排位变化，提炼一个适合长视频的商业判断。",
-      "topic_value": "该热点涉及机器人行业的公司/行业动态，建议先找到一个具体商业冲突，再判断是否具备争议、反差和跨圈层讨论。高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。",
+      "topic_value": "AI选题判断：宇树机器人上市体现市场机制对新兴智能技术企业发展的支持与挑战。标题方向：宇树机器人上市，市场机制如何助力智能机器人持续发展。核心冲突：新兴机器人企业融资上市与市场竞争压力之间的矛盾。小胡讲法：从投资者和技术用户角度讲解上市如何为机器人企业带来资金和市场认可，普通人关心智能机器人技术普及及其商业前景。避坑：报道未详细披露上市后具体发展计划，避免对公司未来业绩做出确定性判断。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
       "risk": "低",
       "difficulty": "中",
       "media_channel_count": 1,
@@ -2028,7 +2095,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "longevity": 5.7,
       "fit": 5.6,
       "volume": "中",
-      "note": "待核查来源：证券时报: https://news.google.com/rss/articles/CBMiXEFVX3lxTE9mbG80aUUwZ0x0c3pzRzJTYThHS044V3h6Qm16RmZHX1I2VVV5YTJOQzlHbzVmdmR5QVhGWjBxbW9kcEppN0xQQnVMMjVkMVFBMjl2V0ZYXzg3MDRN?oc=5"
+      "note": "待核查来源：证券时报: https://news.google.com/rss/articles/CBMiXEFVX3lxTE9mbG80aUUwZ0x0c3pzRzJTYThHS044V3h6Qm16RmZHX1I2VVV5YTJOQzlHbzVmdmR5QVhGWjBxbW9kcEppN0xQQnVMMjVkMVFBMjl2V0ZYXzg3MDRN?oc=5",
+      "topic_value_source": "github-models",
+      "topic_value_model": "openai/gpt-4.1-mini",
+      "topic_value_generated_at": "2026-06-04T17:53:51+08:00"
     }
   ],
   "rawItems": [
