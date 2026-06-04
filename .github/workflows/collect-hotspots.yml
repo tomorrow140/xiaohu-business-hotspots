@@ -14,6 +14,7 @@ on:
 
 permissions:
   contents: write
+  models: read
 
 concurrency:
   group: collect-business-hotspots
@@ -48,6 +49,14 @@ jobs:
             --raw-items data/hotspots/cloud-raw-items.json \
             --days 15 \
             --limit 40
+
+      - name: Add AI topic-value analysis
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python automation/enrich_topic_values.py \
+            --input insights/hotspots-data.js \
+            --limit-per-industry 5
 
       - name: Publish refreshed hotspot data
         if: github.event_name == 'schedule' || inputs.publish
