@@ -772,6 +772,9 @@
   <script src="hotspots-data.js"></script>
   <script>
     const STORAGE_KEY = "xiaohu-hotspot-radar-v3";
+    const COLLECTION_WORKFLOW_URL = "https://github.com/tomorrow140/xiaohu-business-hotspots/actions/workflows/collect-hotspots.yml";
+    const COLLECTION_POLL_INTERVAL = 15000;
+    const COLLECTION_MAX_POLLS = 40;
 
     const sampleHotspots = [
       {
@@ -1351,18 +1354,15 @@
       els.collectBtn.querySelector(".collect-label").textContent = active ? "正在抓取..." : "手动抓取热点";
     }
 
-    function collectPublishedHotspots() {
-      const previousGeneratedAt = report?.generated_at || "";
-      setCollecting(true);
-
+    function loadPublishedHotspots(previousGeneratedAt = "") {
+      return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src = `hotspots-data.js?refresh=${Date.now()}`;
       script.onload = () => {
         script.remove();
         const generated = window.XIAOHU_HOTSPOTS_DATA;
         if (!generated || !Array.isArray(generated.hotspots)) {
-          setCollecting(false);
-          showToast("抓取失败：未读取到热点数据");
+          reject(new Error("未读取到热点数据"));
           return;
         }
 
@@ -1370,20 +1370,45 @@
         rawItems = Array.isArray(generated.rawItems) ? generated.rawItems : [];
         report = generated.report || null;
         render();
-        setCollecting(false);
-
         const generatedAt = report?.generated_at || "";
-        const message = generatedAt && generatedAt !== previousGeneratedAt
-          ? `已抓取 ${hotspots.length} 条最新热点`
-          : `已同步当前最新数据，共 ${hotspots.length} 条`;
-        showToast(message);
+        resolve(Boolean(generatedAt && generatedAt !== previousGeneratedAt));
       };
       script.onerror = () => {
         script.remove();
-        setCollecting(false);
-        showToast("抓取失败，请稍后重试");
+        reject(new Error("热点数据加载失败"));
       };
       document.head.appendChild(script);
+      });
+    }
+
+    async function collectPublishedHotspots() {
+      const previousGeneratedAt = report?.generated_at || "";
+      const workflowWindow = window.open(COLLECTION_WORKFLOW_URL, "_blank");
+      if (!workflowWindow) {
+        showToast("请允许打开 GitHub 工作流页面");
+        return;
+      }
+      workflowWindow.opener = null;
+
+      setCollecting(true);
+      showToast("请在 GitHub 页面点击 Run workflow");
+
+      for (let poll = 0; poll < COLLECTION_MAX_POLLS; poll += 1) {
+        await new Promise(resolve => window.setTimeout(resolve, COLLECTION_POLL_INTERVAL));
+        try {
+          const updated = await loadPublishedHotspots(previousGeneratedAt);
+          if (updated) {
+            setCollecting(false);
+            showToast(`云端采集完成，已更新 ${hotspots.length} 条热点`);
+            return;
+          }
+        } catch (error) {
+          // GitHub Pages 构建期间可能短暂读取失败，继续轮询。
+        }
+      }
+
+      setCollecting(false);
+      showToast("采集仍在运行，请稍后再次点击同步");
     }
 
     els.fileInput.addEventListener("change", async (event) => {
