@@ -13,4 +13,5 @@
 
 - GitHub Actions：`Collect business hotspots`
 - 手动运行或每周一自动运行
-- 配置仓库 Secret `TAVILY_API_KEY` 后，优先使用 Tavily 聚合商业媒体
+- 默认使用商业媒体直连采集和免费新闻 RSS 聚合，无需 API 密钥
+- `TAVILY_API_KEY` 仅作为后续可选增强，不是运行必需项
