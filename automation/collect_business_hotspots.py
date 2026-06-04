@@ -316,6 +316,7 @@ HARD_EXCLUDE_TERMS = [
     "股票复牌",
     "股票停牌",
     "中文在线",
+    "SpaceX",
 ]
 
 MAJOR_EVENT_TERMS = [
@@ -711,8 +712,10 @@ def public_topic_score(text: str) -> float:
 
 
 def infer_industry(text: str) -> str:
-    if keyword_hits(text, ["工业富联", "英伟达", "台积电", "博通", "长鑫科技", "芯片", "半导体", "AI智能体", "大模型"]):
+    if keyword_hits(text, ["工业富联", "英伟达", "台积电", "博通", "长鑫科技", "芯片", "半导体", "AI智能体", "大模型", "DeepSeek"]):
         return "AI与芯片行业"
+    if keyword_hits(text, ["外卖", "即时零售", "淘宝闪购"]):
+        return "互联网行业"
     if keyword_hits(text, ["泡泡玛特", "LABUBU", "小熊电器", "叮咚买菜", "潮玩", "小家电"]):
         return "消费与新零售行业"
     if keyword_hits(text, ["新能源", "车企", "电动车", "汽车", "新车", "SUV", "MPV", "智驾", "比亚迪", "小米汽车", "特斯拉", "理想", "蔚来", "小鹏"]):
