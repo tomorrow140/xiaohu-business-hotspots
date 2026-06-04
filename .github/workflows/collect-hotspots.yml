@@ -33,24 +33,20 @@ jobs:
           python-version: "3.12"
 
       - name: Collect recent media news
-        env:
-          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
         run: |
           mkdir -p data/hotspots
-          if [ -n "$TAVILY_API_KEY" ]; then
-            python automation/collect_tavily_news.py \
-              --days 15 \
-              --output data/hotspots/cloud-raw-items.json
-            python automation/collect_business_hotspots.py \
-              --raw-items data/hotspots/cloud-raw-items.json \
-              --days 15 \
-              --limit 40
-          else
-            echo "TAVILY_API_KEY is not configured; falling back to direct media collection."
-            python automation/collect_business_hotspots.py \
-              --days 15 \
-              --limit 40
-          fi
+          python automation/collect_business_hotspots.py \
+            --days 15 \
+            --limit 40
+          DIRECT_RAW=$(ls -t data/hotspots/*-raw-items.json | head -1)
+          python automation/collect_free_news.py \
+            --base "$DIRECT_RAW" \
+            --days 15 \
+            --output data/hotspots/cloud-raw-items.json
+          python automation/collect_business_hotspots.py \
+            --raw-items data/hotspots/cloud-raw-items.json \
+            --days 15 \
+            --limit 40
 
       - name: Publish refreshed hotspot data
         if: github.event_name == 'schedule' || inputs.publish
