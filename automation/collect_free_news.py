@@ -4,6 +4,7 @@ import argparse
 import html
 import json
 import re
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timedelta
@@ -126,8 +127,7 @@ def search_bing_news(query: str, days: int) -> list[dict[str, object]]:
         f"{BING_NEWS_URL}?{params}",
         headers={"User-Agent": USER_AGENT, "Accept-Language": "zh-CN,zh;q=0.9"},
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        root = ElementTree.fromstring(response.read())
+    root = fetch_xml(request)
 
     cutoff = datetime.now().astimezone() - timedelta(days=max(1, days))
     output = []
@@ -170,8 +170,7 @@ def search_google_news(query: str, days: int) -> list[dict[str, object]]:
         f"{GOOGLE_NEWS_URL}?{params}",
         headers={"User-Agent": USER_AGENT, "Accept-Language": "zh-CN,zh;q=0.9"},
     )
-    with urllib.request.urlopen(request, timeout=30) as response:
-        root = ElementTree.fromstring(response.read())
+    root = fetch_xml(request)
 
     cutoff = datetime.now().astimezone() - timedelta(days=max(1, days))
     output = []
@@ -209,6 +208,27 @@ def search_google_news(query: str, days: int) -> list[dict[str, object]]:
 def load_items(path: Path) -> list[dict[str, object]]:
     data = json.loads(path.read_text(encoding="utf-8"))
     return [item for item in data if isinstance(item, dict)]
+
+
+def fetch_xml(request: urllib.request.Request, retries: int = 2) -> ElementTree.Element:
+    last_error: Exception | None = None
+    for attempt in range(retries + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=30) as response:
+                body = response.read()
+            return ElementTree.fromstring(sanitize_rss_xml(body))
+        except Exception as exc:  # noqa: BLE001
+            last_error = exc
+            if attempt >= retries:
+                break
+            time.sleep(1.5 * (attempt + 1))
+    raise last_error or RuntimeError("RSS XML fetch failed")
+
+
+def sanitize_rss_xml(body: bytes) -> bytes:
+    # Bing occasionally returns an invalid xmlns:News URL containing raw "&".
+    body = re.sub(rb'\s+xmlns:News="[^"]*"', b"", body, count=1)
+    return body.replace(b"&nbsp;", b" ")
 
 
 def clean_bing_url(url: str) -> str:
