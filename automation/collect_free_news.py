@@ -95,7 +95,7 @@ def main() -> int:
         try:
             items.extend(search_bing_news(query, args.days))
         except Exception as exc:  # noqa: BLE001
-            errors.append(f"Bing {query}: {type(exc).__name__}: {exc}")
+            errors.append(f"Bing backup skipped for {query}: {type(exc).__name__}: {exc}")
         try:
             items.extend(search_google_news(query, args.days))
         except Exception as exc:  # noqa: BLE001
@@ -108,7 +108,7 @@ def main() -> int:
     print(f"FREE_NEWS_RAW_ITEMS: {args.output}")
     print(f"FREE_NEWS_ITEM_COUNT: {len(output)}")
     for error in errors:
-        print(f"WARNING: {error}")
+        print(f"INFO: {error}")
     if not output:
         raise SystemExit("免费新闻聚合未返回可用条目。")
     return 0
@@ -226,9 +226,31 @@ def fetch_xml(request: urllib.request.Request, retries: int = 2) -> ElementTree.
 
 
 def sanitize_rss_xml(body: bytes) -> bytes:
-    # Bing occasionally returns an invalid xmlns:News URL containing raw "&".
-    body = re.sub(rb'\s+xmlns:News="[^"]*"', b"", body, count=1)
-    return body.replace(b"&nbsp;", b" ")
+    # Bing occasionally returns a very long xmlns:News URL; remove it before
+    # handing the feed to Python's strict XML parser.
+    return remove_xmlns_news(body).replace(b"&nbsp;", b" ")
+
+
+def remove_xmlns_news(body: bytes) -> bytes:
+    marker = b"xmlns:News="
+    start = body.find(marker)
+    if start < 0:
+        return body
+    attr_start = start
+    while attr_start > 0 and body[attr_start - 1] in b" \t\r\n":
+        attr_start -= 1
+    value_start = start + len(marker)
+    if value_start >= len(body):
+        return body[:attr_start]
+    quote = body[value_start : value_start + 1]
+    if quote in {b'"', b"'"}:
+        value_end = body.find(quote, value_start + 1)
+        if value_end >= 0:
+            return body[:attr_start] + body[value_end + 1 :]
+    tag_end = body.find(b">", value_start)
+    if tag_end >= 0:
+        return body[:attr_start] + body[tag_end:]
+    return body[:attr_start]
 
 
 def clean_bing_url(url: str) -> str:
