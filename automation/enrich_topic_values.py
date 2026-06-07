@@ -136,6 +136,24 @@ def call_model(token: str, model: str, items: list[dict[str, Any]]) -> list[dict
     return parsed.get("items", [])
 
 
+def call_model_with_retries(token: str, model: str, items: list[dict[str, Any]], attempts: int = 3) -> list[dict[str, Any]]:
+    last_error: Exception | None = None
+    for attempt in range(attempts):
+        try:
+            return call_model(token, model, items)
+        except urllib.error.HTTPError as error:
+            last_error = error
+            if error.code != 429 or attempt >= attempts - 1:
+                break
+            time.sleep(30 * (attempt + 1))
+        except urllib.error.URLError as error:
+            last_error = error
+            if attempt >= attempts - 1:
+                break
+            time.sleep(10 * (attempt + 1))
+    raise last_error or RuntimeError("AI model call failed")
+
+
 def clean(value: Any) -> str:
     return re.sub(r"\s+", " ", str(value or "")).strip().rstrip("。.!！?？；;，,、 ")
 
@@ -167,7 +185,7 @@ def enrich(payload: dict[str, Any], token: str, model: str, limit: int, batch_si
 
     for start in range(0, len(selected), batch_size):
         batch = [compact_hotspot(item) for item in selected[start : start + batch_size]]
-        for result in call_model(token, model, batch):
+        for result in call_model_with_retries(token, model, batch):
             if valid_result(result):
                 results[str(result["id"])] = result
         if start + batch_size < len(selected):
@@ -220,6 +238,14 @@ def main() -> int:
 
     if enriched:
         write_payload(path, payload)
+    selected_count = payload.get("report", {}).get("ai_topic_value", {}).get("selected_count", 0)
+    minimum = max(1, min(10, int(selected_count or 0)))
+    if args.strict and enriched < minimum:
+        print(
+            f"AI enrichment failed quality gate: enriched {enriched}, minimum {minimum}.",
+            file=sys.stderr,
+        )
+        return 1
     print(f"AI topic-value enrichment completed: {enriched} hotspots.")
     return 0
 
