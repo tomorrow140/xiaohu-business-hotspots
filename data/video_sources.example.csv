@@ -1,0 +1,4 @@
+keyword,platform,author,title,url,date,views,likes,comments,note
+外卖大战,B站,账号名,视频标题,https://www.bilibili.com/video/xxxx,2026-06-01,12万,5000,800,复制为 data/video_sources.csv 后填入真实视频源
+泡泡玛特,B站,账号名,视频标题,https://www.bilibili.com/video/xxxx,2026-06-01,8万,3000,500,视频源只作为原始信息/传播源，不等同高赞评论
+比亚迪,抖音,账号名,视频标题,https://www.douyin.com/video/xxxx,2026-06-01,20万,9000,1200,抖音链接建议用浏览器分享出的公开链接
