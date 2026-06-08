@@ -11,7 +11,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
     "hotspot_count": 40,
     "wechat_index_file": null,
     "kol_mentions_file": null,
-    "video_sources_file": "data/video_sources.csv",
+    "video_sources_file": null,
     "social_opinions_file": null,
     "errors": [],
     "outputs": {
@@ -95,31 +95,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 2,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "金角财经",
-          "title": "揭底外卖大战：美团京东谁在裸泳？",
-          "url": "https://www.bilibili.com/video/BV1qzj3z5EjA/",
-          "date": "2025-04-25",
-          "views": "4.3万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖即时零售主题的视频化商业解读"
-        },
-        {
-          "platform": "B站",
-          "author": "商业通鉴",
-          "title": "京东美团双输？外卖大战大反转！阿里才是最大赢家？",
-          "url": "https://www.bilibili.com/video/BV1g8KqzwECT/",
-          "date": "2025-04-26",
-          "views": "2.6万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖大战多平台竞争视角"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 52,
       "confidence_reason": "置信度 52/100，依据：5 个媒体渠道，暂无大 V 提及录入，2 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -198,42 +175,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 3,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "导演特训班",
-          "title": "全网最细！35款人形机器人走秀 速看2025世界机器人大会",
-          "url": "https://www.bilibili.com/video/BV1wHYezJExH/",
-          "date": "2025-08-10",
-          "views": "32.6万",
-          "likes": "",
-          "comments": "",
-          "note": "人形机器人跨圈层视频素材"
-        },
-        {
-          "platform": "B站",
-          "author": "在下淘子",
-          "title": "王兴兴对谈何小鹏，揭秘宇树科技低价秘诀",
-          "url": "https://www.bilibili.com/video/BV1Yjz7YhETR/",
-          "date": "2025-06-01",
-          "views": "29.1万",
-          "likes": "",
-          "comments": "",
-          "note": "宇树机器人与创始人公开访谈相关"
-        },
-        {
-          "platform": "B站",
-          "author": "小迪快报",
-          "title": "发智驾芯片、为城市领航安全兜底，比亚迪科技公司属性藏不住了",
-          "url": "https://www.bilibili.com/video/BV1EUjazsE9b/",
-          "date": "2025-06-07",
-          "views": "2.3万",
-          "likes": "",
-          "comments": "",
-          "note": "比亚迪智驾芯片与安全兜底主题"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 56,
       "confidence_reason": "置信度 56/100，依据：9 个媒体渠道，暂无大 V 提及录入，3 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -293,31 +236,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 2,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "金角财经",
-          "title": "揭底外卖大战：美团京东谁在裸泳？",
-          "url": "https://www.bilibili.com/video/BV1qzj3z5EjA/",
-          "date": "2025-04-25",
-          "views": "4.3万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖即时零售主题的视频化商业解读"
-        },
-        {
-          "platform": "B站",
-          "author": "商业通鉴",
-          "title": "京东美团双输？外卖大战大反转！阿里才是最大赢家？",
-          "url": "https://www.bilibili.com/video/BV1g8KqzwECT/",
-          "date": "2025-04-26",
-          "views": "2.6万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖大战多平台竞争视角"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 40,
       "confidence_reason": "置信度 40/100，依据：2 个媒体渠道，暂无大 V 提及录入，2 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -685,31 +605,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 2,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "金角财经",
-          "title": "揭底外卖大战：美团京东谁在裸泳？",
-          "url": "https://www.bilibili.com/video/BV1qzj3z5EjA/",
-          "date": "2025-04-25",
-          "views": "4.3万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖即时零售主题的视频化商业解读"
-        },
-        {
-          "platform": "B站",
-          "author": "商业通鉴",
-          "title": "京东美团双输？外卖大战大反转！阿里才是最大赢家？",
-          "url": "https://www.bilibili.com/video/BV1g8KqzwECT/",
-          "date": "2025-04-26",
-          "views": "2.6万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖大战多平台竞争视角"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 28,
       "confidence_reason": "置信度 28/100，依据：1 个媒体渠道，暂无大 V 提及录入，2 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -762,31 +659,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 2,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "金角财经",
-          "title": "揭底外卖大战：美团京东谁在裸泳？",
-          "url": "https://www.bilibili.com/video/BV1qzj3z5EjA/",
-          "date": "2025-04-25",
-          "views": "4.3万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖即时零售主题的视频化商业解读"
-        },
-        {
-          "platform": "B站",
-          "author": "商业通鉴",
-          "title": "京东美团双输？外卖大战大反转！阿里才是最大赢家？",
-          "url": "https://www.bilibili.com/video/BV1g8KqzwECT/",
-          "date": "2025-04-26",
-          "views": "2.6万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖大战多平台竞争视角"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 28,
       "confidence_reason": "置信度 28/100，依据：1 个媒体渠道，暂无大 V 提及录入，2 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -1170,20 +1044,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "导演特训班",
-          "title": "全网最细！35款人形机器人走秀 速看2025世界机器人大会",
-          "url": "https://www.bilibili.com/video/BV1wHYezJExH/",
-          "date": "2025-08-10",
-          "views": "32.6万",
-          "likes": "",
-          "comments": "",
-          "note": "人形机器人跨圈层视频素材"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 24,
       "confidence_reason": "置信度 24/100，依据：1 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -1290,31 +1152,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 2,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "金角财经",
-          "title": "揭底外卖大战：美团京东谁在裸泳？",
-          "url": "https://www.bilibili.com/video/BV1qzj3z5EjA/",
-          "date": "2025-04-25",
-          "views": "4.3万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖即时零售主题的视频化商业解读"
-        },
-        {
-          "platform": "B站",
-          "author": "商业通鉴",
-          "title": "京东美团双输？外卖大战大反转！阿里才是最大赢家？",
-          "url": "https://www.bilibili.com/video/BV1g8KqzwECT/",
-          "date": "2025-04-26",
-          "views": "2.6万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖大战多平台竞争视角"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 28,
       "confidence_reason": "置信度 28/100，依据：1 个媒体渠道，暂无大 V 提及录入，2 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -1571,20 +1410,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "在下淘子",
-          "title": "王兴兴对谈何小鹏，揭秘宇树科技低价秘诀",
-          "url": "https://www.bilibili.com/video/BV1Yjz7YhETR/",
-          "date": "2025-06-01",
-          "views": "29.1万",
-          "likes": "",
-          "comments": "",
-          "note": "宇树机器人与创始人公开访谈相关"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 24,
       "confidence_reason": "置信度 24/100，依据：1 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -1644,20 +1471,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "量子位",
-          "title": "姚顺雨回应“腾讯AI慢了”：AI赛跑是场马拉松，世界不能只有ChatGPT",
-          "url": "https://www.bilibili.com/video/BV1E1jmzdEfg/",
-          "date": "2025-05-23",
-          "views": "8000",
-          "likes": "",
-          "comments": "",
-          "note": "腾讯AI争议回应"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 36,
       "confidence_reason": "置信度 36/100，依据：2 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -1815,31 +1630,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 2,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "金角财经",
-          "title": "揭底外卖大战：美团京东谁在裸泳？",
-          "url": "https://www.bilibili.com/video/BV1qzj3z5EjA/",
-          "date": "2025-04-25",
-          "views": "4.3万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖即时零售主题的视频化商业解读"
-        },
-        {
-          "platform": "B站",
-          "author": "商业通鉴",
-          "title": "京东美团双输？外卖大战大反转！阿里才是最大赢家？",
-          "url": "https://www.bilibili.com/video/BV1g8KqzwECT/",
-          "date": "2025-04-26",
-          "views": "2.6万",
-          "likes": "",
-          "comments": "",
-          "note": "外卖大战多平台竞争视角"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 28,
       "confidence_reason": "置信度 28/100，依据：1 个媒体渠道，暂无大 V 提及录入，2 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -2249,20 +2041,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "量子位",
-          "title": "姚顺雨回应“腾讯AI慢了”：AI赛跑是场马拉松，世界不能只有ChatGPT",
-          "url": "https://www.bilibili.com/video/BV1E1jmzdEfg/",
-          "date": "2025-05-23",
-          "views": "8000",
-          "likes": "",
-          "comments": "",
-          "note": "腾讯AI争议回应"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 24,
       "confidence_reason": "置信度 24/100，依据：1 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -2312,20 +2092,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "量子位",
-          "title": "姚顺雨回应“腾讯AI慢了”：AI赛跑是场马拉松，世界不能只有ChatGPT",
-          "url": "https://www.bilibili.com/video/BV1E1jmzdEfg/",
-          "date": "2025-05-23",
-          "views": "8000",
-          "likes": "",
-          "comments": "",
-          "note": "腾讯AI争议回应"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 24,
       "confidence_reason": "置信度 24/100，依据：1 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -2375,20 +2143,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "小迪快报",
-          "title": "发智驾芯片、为城市领航安全兜底，比亚迪科技公司属性藏不住了",
-          "url": "https://www.bilibili.com/video/BV1EUjazsE9b/",
-          "date": "2025-06-07",
-          "views": "2.3万",
-          "likes": "",
-          "comments": "",
-          "note": "比亚迪智驾芯片与安全兜底主题"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 24,
       "confidence_reason": "置信度 24/100，依据：1 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",
@@ -2441,20 +2197,8 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "big_v_count": 0,
       "big_v_highlights": "",
       "big_v_items": [],
-      "video_source_count": 1,
-      "video_items": [
-        {
-          "platform": "B站",
-          "author": "小迪快报",
-          "title": "发智驾芯片、为城市领航安全兜底，比亚迪科技公司属性藏不住了",
-          "url": "https://www.bilibili.com/video/BV1EUjazsE9b/",
-          "date": "2025-06-07",
-          "views": "2.3万",
-          "likes": "",
-          "comments": "",
-          "note": "比亚迪智驾芯片与安全兜底主题"
-        }
-      ],
+      "video_source_count": 0,
+      "video_items": [],
       "wechat_index": "",
       "confidence": 23,
       "confidence_reason": "置信度 23/100，依据：1 个媒体渠道，暂无大 V 提及录入，1 条抖音/B站视频源，微信指数未录入或未命中。",

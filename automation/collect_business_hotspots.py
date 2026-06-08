@@ -429,7 +429,7 @@ def main() -> int:
     sources = load_sources(args.sources)
     wechat_index = load_wechat_index(args.wechat_index) if args.wechat_index else {}
     kol_mentions = load_kol_mentions(args.kol_mentions) if args.kol_mentions else []
-    video_sources = load_video_sources(args.video_sources) if args.video_sources else []
+    video_sources = load_video_sources(args.video_sources, args.days) if args.video_sources else []
     social_opinions = load_social_opinions(args.social_opinions) if args.social_opinions else []
 
     if args.raw_items:
@@ -651,7 +651,7 @@ def parse_date(value: str) -> datetime | None:
         pass
     for fmt in ("%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%Y/%m/%d %H:%M:%S", "%Y/%m/%d"):
         try:
-            return datetime.strptime(value[: len(fmt)], fmt).astimezone()
+            return datetime.strptime(value, fmt).astimezone()
         except ValueError:
             continue
     return None
@@ -1426,18 +1426,29 @@ def match_kol_mentions(text: str, mentions: list[dict[str, Any]]) -> list[dict[s
     return matched
 
 
-def load_video_sources(path: Path) -> list[dict[str, Any]]:
+def is_truthy(value: str) -> bool:
+    return clean_text(value).lower() in {"1", "true", "yes", "y", "已验证", "是"}
+
+
+def load_video_sources(path: Path, days: int) -> list[dict[str, Any]]:
     if not path.exists():
         raise FileNotFoundError(path)
     with path.open("r", encoding="utf-8-sig", newline="") as file:
         rows = list(csv.DictReader(file))
+    cutoff = datetime.now().astimezone() - timedelta(days=days)
     videos: list[dict[str, Any]] = []
     for row in rows:
         keyword = clean_text(row.get("keyword") or row.get("关键词") or "")
         platform = clean_text(row.get("platform") or row.get("平台") or "")
         title = clean_text(row.get("title") or row.get("视频标题") or row.get("内容标题") or "")
         url = clean_text(row.get("url") or row.get("链接") or row.get("视频链接") or "")
+        verified = is_truthy(row.get("verified") or row.get("已验证") or "")
+        published = parse_date(row.get("date") or row.get("日期") or row.get("发布时间") or "")
         if not keyword or not platform or not title or not url:
+            continue
+        if not verified:
+            continue
+        if not published or published < cutoff or published > datetime.now().astimezone() + timedelta(days=1):
             continue
         videos.append(
             {
@@ -1446,7 +1457,7 @@ def load_video_sources(path: Path) -> list[dict[str, Any]]:
                 "author": clean_text(row.get("author") or row.get("账号") or row.get("UP主") or row.get("作者") or ""),
                 "title": title,
                 "url": url,
-                "date": clean_text(row.get("date") or row.get("日期") or row.get("发布时间") or ""),
+                "date": format_date(published),
                 "views": clean_text(row.get("views") or row.get("播放量") or row.get("观看量") or ""),
                 "likes": clean_text(row.get("likes") or row.get("点赞数") or ""),
                 "comments": clean_text(row.get("comments") or row.get("评论数") or ""),
