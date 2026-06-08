@@ -418,6 +418,7 @@ def main() -> int:
     parser.add_argument("--limit", type=int, default=40, help="输出热点数量上限，默认 40。")
     parser.add_argument("--wechat-index", type=Path, help="微信指数手动 CSV，用于给相关关键词加权。")
     parser.add_argument("--kol-mentions", type=Path, help="大 V 提及手动 CSV，用于统计相关内容和高粉账号。")
+    parser.add_argument("--video-sources", type=Path, help="抖音/B站等视频源 CSV，用于补充热点原始信息链接。")
     parser.add_argument("--social-opinions", type=Path, help="高赞舆论观点 CSV；不提供时不生成热评。")
     parser.add_argument("--raw-items", type=Path, help="复用已采集的 raw-items.json，不重新联网采集。")
     parser.add_argument("--sources", type=Path, help="可选来源配置 JSON；未提供时使用内置商业媒体来源。")
@@ -428,6 +429,7 @@ def main() -> int:
     sources = load_sources(args.sources)
     wechat_index = load_wechat_index(args.wechat_index) if args.wechat_index else {}
     kol_mentions = load_kol_mentions(args.kol_mentions) if args.kol_mentions else []
+    video_sources = load_video_sources(args.video_sources) if args.video_sources else []
     social_opinions = load_social_opinions(args.social_opinions) if args.social_opinions else []
 
     if args.raw_items:
@@ -441,7 +443,7 @@ def main() -> int:
 
     clusters = cluster_items(raw_items)
     clusters = [cluster for cluster in clusters if is_public_hotspot(cluster)]
-    hotspots = [build_hotspot(cluster, wechat_index, kol_mentions, social_opinions) for cluster in clusters]
+    hotspots = [build_hotspot(cluster, wechat_index, kol_mentions, video_sources, social_opinions) for cluster in clusters]
     hotspots.sort(key=lambda item: item["_rank_score"], reverse=True)
     hotspots = hotspots[: args.limit]
 
@@ -465,6 +467,7 @@ def main() -> int:
         "hotspot_count": len(hotspots),
         "wechat_index_file": str(args.wechat_index) if args.wechat_index else None,
         "kol_mentions_file": str(args.kol_mentions) if args.kol_mentions else None,
+        "video_sources_file": str(args.video_sources) if args.video_sources else None,
         "social_opinions_file": str(args.social_opinions) if args.social_opinions else None,
         "errors": errors,
         "outputs": {
@@ -816,6 +819,7 @@ def build_hotspot(
     cluster: Cluster,
     wechat_index: dict[str, dict[str, Any]],
     kol_mentions: list[dict[str, Any]],
+    video_sources: list[dict[str, Any]],
     social_opinions: list[dict[str, Any]],
 ) -> dict[str, Any]:
     best = max(cluster.items, key=lambda item: len(item.summary) + item.source_weight * 20)
@@ -825,6 +829,7 @@ def build_hotspot(
     event_type = infer_label(text, TYPE_RULES, "公司/行业动态")
     matched_wechat = match_wechat_index(text, wechat_index)
     matched_kols = match_kol_mentions(text, kol_mentions)
+    matched_videos = match_video_sources(text, video_sources)
     matched_opinions = match_social_opinions(text, social_opinions)
     media_names = sorted({item.source_name for item in cluster.items})
     source_parts = media_names[:4]
@@ -842,6 +847,7 @@ def build_hotspot(
     public_score = public_topic_score(text)
     wechat_boost = sum(item["score"] for item in matched_wechat[:3])
     kol_boost = score_kol_confidence(matched_kols)
+    video_boost = score_video_confidence(matched_videos)
     difficulty = infer_difficulty(text, len(cluster.items), matched_wechat)
     risk = infer_risk(text, event_type)
     difficulty_reverse = {"低": 10, "中": 7, "高": 4}[difficulty]
@@ -853,11 +859,12 @@ def build_hotspot(
         + fit * 0.24
         + min(10, wechat_boost) * 0.06
         + kol_boost * 0.08
+        + video_boost * 0.04
         + min(10, public_score) * 0.08
         + difficulty_reverse * 0.04
         + risk_reverse * 0.04
     )
-    confidence = compute_confidence(media_names, matched_kols, matched_wechat, cluster.items)
+    confidence = compute_confidence(media_names, matched_kols, matched_videos, matched_wechat, cluster.items)
 
     summary = best.summary or synthesize_summary(title, industry, event_type)
     core_summary = synthesize_core_summary(title, summary, industry, event_type)
@@ -889,9 +896,11 @@ def build_hotspot(
         "big_v_count": len(matched_kols),
         "big_v_highlights": format_kol_highlights(matched_kols),
         "big_v_items": matched_kols[:5],
+        "video_source_count": len(matched_videos),
+        "video_items": format_video_items(matched_videos),
         "wechat_index": format_wechat_index(matched_wechat),
         "confidence": confidence,
-        "confidence_reason": synthesize_confidence_reason(media_names, matched_kols, matched_wechat, confidence),
+        "confidence_reason": synthesize_confidence_reason(media_names, matched_kols, matched_videos, matched_wechat, confidence),
         "public_interest": round(min(10, public_score), 1),
         "businessValue": round(business_value, 1),
         "controversy": round(controversy, 1),
@@ -1051,6 +1060,9 @@ def synthesize_business_angle(title: str, text: str, industry: str, event_type: 
     strategy = topic_strategy(title, text)
     if strategy:
         return strategy["angle"]
+    fallback = fallback_topic_strategy(title, text, industry, event_type)
+    if fallback:
+        return fallback["angle"]
     if event_type == "行业竞争":
         return f"从{industry}的成本结构、补贴效率和赢家通吃逻辑切入，解释这场竞争最后会由谁买单。"
     if event_type == "财报":
@@ -1071,6 +1083,8 @@ def synthesize_topic_value(
 ) -> str:
     social_note = "已有高赞舆论样本，可进一步拆分支持/质疑两派。" if len(matched_opinions) >= 5 else "高赞评论尚未补齐，评论区结论先留白，避免把媒体判断当成公众情绪。"
     strategy = topic_strategy(title, text)
+    if not strategy:
+        strategy = fallback_topic_strategy(title, text, industry, event_type)
     if strategy:
         return (
             f"标题方向：{strip_sentence_end(strategy['headline'])}。核心冲突：{strip_sentence_end(strategy['conflict'])}。"
@@ -1242,6 +1256,69 @@ def topic_strategy(title: str, text: str) -> dict[str, str] | None:
     return None
 
 
+def fallback_topic_strategy(title: str, text: str, industry: str, event_type: str) -> dict[str, str] | None:
+    combined = f"{title} {text}"
+    subject = extract_subject(title, industry)
+    if industry == "互联网行业":
+        if event_type == "财报":
+            return {
+                "headline": f"{subject}这份财报，真正要看用户增长还是利润质量",
+                "conflict": "大平台既要给资本市场交利润，又要继续投新入口，短期利润和长期防守之间存在拉扯。",
+                "angle": "从普通人能感知的服务频次切入，拆这家公司到底靠广告、电商、会员、云或本地生活哪条线撑增长。",
+                "risk": "不要只读营收和净利，要把一次性因素、补贴投入和新业务亏损拆开看。",
+            }
+        return {
+            "headline": f"{subject}的新动作，是抢用户时间还是抢交易入口",
+            "conflict": "平台想扩大使用场景，用户关心价格和体验，商家则担心流量规则和成本变化。",
+            "angle": "用一个用户日常场景开头，再解释平台为什么要从内容、支付、外卖或电商里多拿一个入口。",
+            "risk": "不要把产品更新直接讲成战略胜负，先区分已发布事实和市场猜测。",
+        }
+    if industry == "消费与新零售行业":
+        return {
+            "headline": f"{subject}的热度背后，是品牌溢价还是消费降级",
+            "conflict": "消费者一边追求情绪价值和性价比，一边对涨价、缩水、排队和黄牛更敏感，品牌增长很容易转成信任考验。",
+            "angle": "从普通消费者的一笔账切入，讲价格、渠道、供应链和品牌故事如何共同决定这门生意能不能持续。",
+            "risk": "不要把社交平台热度等同于真实复购，也不要用个别门店或个别商品代表整个品牌。",
+        }
+    if industry == "新能源汽车行业":
+        return {
+            "headline": f"{subject}这次变化，谁在为新能源车内卷买单",
+            "conflict": "车企要销量、利润和智能化投入，消费者则担心刚买就降价、配置缩水或服务不稳定。",
+            "angle": "从家庭买车决策切入，把价格、智驾、售后和品牌安全感放在一起讲，而不是做车型参数导购。",
+            "risk": "不要用单月销量或单款车型推断公司长期胜负，需区分官方披露、媒体报道和市场预期。",
+        }
+    if industry == "AI与芯片行业":
+        return {
+            "headline": f"{subject}的 AI 故事，最后要落到成本还是收入",
+            "conflict": "市场愿意为 AI 想象力买单，但企业必须证明算力、芯片或模型投入能转化为订单、利润和用户效率。",
+            "angle": "用“谁付钱、谁省钱、谁被替代”三问切入，把复杂技术翻译成商业账本。",
+            "risk": "不要展开过多技术细节，也不要把概念热度直接等同于商业化落地。",
+        }
+    if industry == "机器人行业":
+        return {
+            "headline": f"{subject}火起来以后，机器人离真实赚钱还有多远",
+            "conflict": "展示和融资带来想象力，但量产成本、稳定交付和真实场景订单才决定公司能否穿越热度。",
+            "angle": "从一个具体使用场景切入，解释机器人公司要跨过演示、试点、批量交付和售后维护四道门槛。",
+            "risk": "不要把发布会视频和样机演示等同于规模商业化，重点核对订单、价格和交付对象。",
+        }
+    return None
+
+
+def extract_subject(title: str, industry: str) -> str:
+    candidates = [
+        "阿里", "腾讯", "京东", "美团", "字节", "华为", "小米", "比亚迪", "理想", "小鹏", "蔚来",
+        "泡泡玛特", "瑞幸", "名创优品", "海底捞", "霸王茶姬", "安踏", "李宁", "长鑫科技", "英伟达",
+        "宇树", "优必选", "智元", "特斯拉",
+    ]
+    for candidate in candidates:
+        if candidate in title:
+            return candidate
+    compact = re.sub(r"[【】\[\]（）()｜|:：,，。].*$", "", clean_text(title))
+    if compact:
+        return trim_text(compact, 18)
+    return industry.replace("行业", "")
+
+
 def strip_sentence_end(value: str) -> str:
     return clean_text(value).rstrip("。.!！?？；;，,、 ")
 
@@ -1349,6 +1426,57 @@ def match_kol_mentions(text: str, mentions: list[dict[str, Any]]) -> list[dict[s
     return matched
 
 
+def load_video_sources(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        raise FileNotFoundError(path)
+    with path.open("r", encoding="utf-8-sig", newline="") as file:
+        rows = list(csv.DictReader(file))
+    videos: list[dict[str, Any]] = []
+    for row in rows:
+        keyword = clean_text(row.get("keyword") or row.get("关键词") or "")
+        platform = clean_text(row.get("platform") or row.get("平台") or "")
+        title = clean_text(row.get("title") or row.get("视频标题") or row.get("内容标题") or "")
+        url = clean_text(row.get("url") or row.get("链接") or row.get("视频链接") or "")
+        if not keyword or not platform or not title or not url:
+            continue
+        videos.append(
+            {
+                "keyword": keyword,
+                "platform": platform,
+                "author": clean_text(row.get("author") or row.get("账号") or row.get("UP主") or row.get("作者") or ""),
+                "title": title,
+                "url": url,
+                "date": clean_text(row.get("date") or row.get("日期") or row.get("发布时间") or ""),
+                "views": clean_text(row.get("views") or row.get("播放量") or row.get("观看量") or ""),
+                "likes": clean_text(row.get("likes") or row.get("点赞数") or ""),
+                "comments": clean_text(row.get("comments") or row.get("评论数") or ""),
+                "numeric_views": parse_number(row.get("views") or row.get("播放量") or row.get("观看量") or "0"),
+                "numeric_likes": parse_number(row.get("likes") or row.get("点赞数") or "0"),
+                "numeric_comments": parse_number(row.get("comments") or row.get("评论数") or "0"),
+                "note": clean_text(row.get("note") or row.get("备注") or ""),
+            }
+        )
+    return videos
+
+
+def match_video_sources(text: str, videos: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    matched = []
+    lowered = text.lower()
+    for video in videos:
+        keyword = video["keyword"]
+        if keyword.lower() in lowered:
+            matched.append(video)
+    matched.sort(
+        key=lambda item: (
+            item.get("numeric_views", 0),
+            item.get("numeric_likes", 0),
+            item.get("numeric_comments", 0),
+        ),
+        reverse=True,
+    )
+    return matched
+
+
 def load_social_opinions(path: Path) -> list[dict[str, Any]]:
     if not path.exists():
         raise FileNotFoundError(path)
@@ -1370,6 +1498,16 @@ def load_social_opinions(path: Path) -> list[dict[str, Any]]:
                 "numeric_likes": parse_number(row.get("likes") or row.get("点赞数") or "0"),
                 "stance": clean_text(row.get("stance") or row.get("立场") or ""),
                 "url": clean_text(row.get("url") or row.get("链接") or ""),
+                "article_title": clean_text(row.get("article_title") or row.get("内容标题") or row.get("文章标题") or ""),
+                "article_url": clean_text(row.get("article_url") or row.get("内容链接") or row.get("文章链接") or ""),
+                "article_heat_score": clean_text(row.get("article_heat_score") or row.get("文章热度") or row.get("内容热度") or ""),
+                "numeric_article_heat_score": parse_number(
+                    row.get("article_heat_score") or row.get("文章热度") or row.get("内容热度") or "0"
+                ),
+                "comment_author": clean_text(row.get("comment_author") or row.get("评论用户") or ""),
+                "comment_id": clean_text(row.get("comment_id") or row.get("评论ID") or ""),
+                "comment_reply_count": clean_text(row.get("comment_reply_count") or row.get("回复数") or ""),
+                "combined_score": clean_text(row.get("combined_score") or row.get("综合分") or ""),
             }
         )
     return opinions
@@ -1415,18 +1553,29 @@ def score_kol_confidence(matched_kols: list[dict[str, Any]]) -> float:
     return clamp_score(score)
 
 
+def score_video_confidence(matched_videos: list[dict[str, Any]]) -> float:
+    if not matched_videos:
+        return 0.0
+    score = min(5.0, len(matched_videos) * 1.2)
+    hot_count = sum(1 for item in matched_videos if item.get("numeric_views", 0) >= 100000)
+    score += min(5.0, hot_count * 1.5)
+    return clamp_score(score)
+
+
 def compute_confidence(
     media_names: list[str],
     matched_kols: list[dict[str, Any]],
+    matched_videos: list[dict[str, Any]],
     matched_wechat: list[dict[str, Any]],
     items: list[RawItem],
 ) -> int:
     media_score = min(35, len(media_names) * 12)
     kol_score = min(25, len(matched_kols) * 5)
+    video_score = min(12, len(matched_videos) * 4)
     high_follower_score = min(10, sum(1 for item in matched_kols if item.get("numeric_followers", 0) >= 1000000) * 5)
     wechat_score = min(20, round(sum(item["score"] for item in matched_wechat[:3]) * 2))
     source_weight_score = min(10, round(max(item.source_weight for item in items) * 8))
-    return int(min(100, media_score + kol_score + high_follower_score + wechat_score + source_weight_score))
+    return int(min(100, media_score + kol_score + video_score + high_follower_score + wechat_score + source_weight_score))
 
 
 def format_kol_highlights(matched_kols: list[dict[str, Any]]) -> str:
@@ -1438,6 +1587,30 @@ def format_kol_highlights(matched_kols: list[dict[str, Any]]) -> str:
         platform = f"{item['platform']} · " if item.get("platform") else ""
         highlights.append(f"{platform}{item['author']}{followers}: {item['title']}")
     return "；".join(highlights)
+
+
+def format_video_items(matched_videos: list[dict[str, Any]]) -> list[dict[str, str]]:
+    items = []
+    seen: set[str] = set()
+    for video in matched_videos[:5]:
+        key = video.get("url") or f"{video.get('platform')}::{video.get('title')}"
+        if key in seen:
+            continue
+        seen.add(key)
+        items.append(
+            {
+                "platform": video.get("platform", ""),
+                "author": video.get("author", ""),
+                "title": video.get("title", ""),
+                "url": video.get("url", ""),
+                "date": video.get("date", ""),
+                "views": video.get("views", ""),
+                "likes": video.get("likes", ""),
+                "comments": video.get("comments", ""),
+                "note": video.get("note", ""),
+            }
+        )
+    return items
 
 
 def format_wechat_index(matched_wechat: list[dict[str, Any]]) -> str:
@@ -1452,6 +1625,7 @@ def format_wechat_index(matched_wechat: list[dict[str, Any]]) -> str:
 def synthesize_confidence_reason(
     media_names: list[str],
     matched_kols: list[dict[str, Any]],
+    matched_videos: list[dict[str, Any]],
     matched_wechat: list[dict[str, Any]],
     confidence: int,
 ) -> str:
@@ -1463,6 +1637,10 @@ def synthesize_confidence_reason(
             parts.append(f"{high_count} 个百万粉以上账号")
     else:
         parts.append("暂无大 V 提及录入")
+    if matched_videos:
+        parts.append(f"{len(matched_videos)} 条抖音/B站视频源")
+    else:
+        parts.append("暂无视频源录入")
     if matched_wechat:
         parts.append("微信指数有命中")
     else:
@@ -1495,6 +1673,8 @@ def write_hotspots_csv(path: Path, hotspots: list[dict[str, Any]]) -> None:
         "big_v_count",
         "big_v_highlights",
         "big_v_items",
+        "video_source_count",
+        "video_items",
         "wechat_index",
         "confidence",
         "confidence_reason",
