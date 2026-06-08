@@ -15,4 +15,5 @@
 - 每日后台自动运行，也可由仓库所有者在 GitHub Actions 手动运行
 - 默认使用商业媒体直连采集和免费新闻 RSS 聚合，无需 API 密钥
 - 使用 GitHub Models 为每条入选新闻生成差异化的 AI 选题价值分析
+- 可选维护 `data/video_sources.csv`，补充抖音/B站视频源链接
 - `TAVILY_API_KEY` 仅作为后续可选增强，不是运行必需项
