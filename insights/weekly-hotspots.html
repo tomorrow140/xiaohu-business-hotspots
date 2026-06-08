@@ -880,6 +880,8 @@
         big_v_count: toNumber(raw.big_v_count || raw.bigVCount || raw.kol_count, 0),
         big_v_highlights: clean(raw.big_v_highlights) || clean(raw.bigVHighlights) || clean(raw.kol_highlights),
         big_v_items: normalizeListField(raw.big_v_items || raw.bigVItems || raw.kol_items),
+        video_source_count: toNumber(raw.video_source_count || raw.videoSourceCount, 0),
+        video_items: normalizeListField(raw.video_items || raw.videoItems),
         wechat_index: clean(raw.wechat_index) || clean(raw.wechatIndex),
         core_summary: clean(raw.core_summary) || clean(raw.coreSummary) || clean(raw.summary),
         key_nodes: normalizeListField(raw.key_nodes || raw.keyNodes),
@@ -1044,6 +1046,7 @@
               <span class="tag blue">${escapeHtml(item.type)}</span>
               <span class="tag">媒体 ${item.media_channel_count}</span>
               <span class="tag">大 V ${item.big_v_count}</span>
+              <span class="tag">视频源 ${item.video_source_count || item.video_items.length}</span>
               ${item.social_data_complete ? `<span class="tag green">高赞舆论达标</span>` : `<span class="tag warning">缺高赞舆论</span>`}
               ${item.wechat_index ? `<span class="tag amber">微信指数已录入</span>` : `<span class="tag">微信指数未录入</span>`}
             </div>
@@ -1067,6 +1070,7 @@
               <summary>查看置信度依据</summary>
               <p class="detail-text"><strong>媒体渠道：</strong>${escapeHtml(item.media_channels || item.source || "未填写")}</p>
               <div class="detail-text"><strong>媒体原文：</strong>${renderMediaItems(item)}</div>
+              <div class="detail-text"><strong>视频源：</strong>${renderVideoItems(item)}</div>
               <div class="detail-text"><strong>大 V 内容：</strong>${renderKolItems(item)}</div>
               <p class="detail-text"><strong>微信指数：</strong>${escapeHtml(item.wechat_index || "未录入")}</p>
               <p class="detail-text"><strong>综合说明：</strong>${escapeHtml(item.confidence_reason || buildConfidenceReason(item))}</p>
@@ -1235,6 +1239,32 @@
       return "未录入";
     }
 
+    function renderVideoItems(item) {
+      if (item.video_items && item.video_items.length) {
+        return `
+          <div class="media-link-list">
+            ${item.video_items.map(video => {
+              const stats = [
+                video.views ? `播放 ${video.views}` : "",
+                video.likes ? `赞 ${video.likes}` : "",
+                video.comments ? `评 ${video.comments}` : ""
+              ].filter(Boolean).join(" · ");
+              const meta = [video.platform, video.author, video.date, stats].filter(Boolean).join(" · ");
+              const title = escapeHtml(video.title || "视频源");
+              const url = safeUrl(video.url);
+              return `
+                <div class="media-link-item">
+                  <span>${escapeHtml(meta || "视频")}</span>
+                  ${url ? `<a href="${escapeHtml(url)}">${title}</a>` : `${title}<span>未填链接</span>`}
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }
+      return "未录入";
+    }
+
     function renderSimpleList(items) {
       const list = Array.isArray(items) ? items.filter(Boolean) : [];
       if (!list.length) return `<p>暂无关键节点。</p>`;
@@ -1248,10 +1278,21 @@
       return `
         <ol>
           ${item.social_opinions.slice(0, 5).map(opinion => {
-            const meta = [opinion.platform, opinion.likes ? `赞 ${opinion.likes}` : "", opinion.stance].filter(Boolean).join(" · ");
+            const heat = opinion.article_heat_score ? `原文热度 ${opinion.article_heat_score}` : "";
+            const replies = opinion.comment_reply_count ? `回复 ${opinion.comment_reply_count}` : "";
+            const author = opinion.comment_author ? `评论者 ${opinion.comment_author}` : "";
+            const meta = [opinion.platform, opinion.likes ? `赞 ${opinion.likes}` : "", replies, opinion.stance].filter(Boolean).join(" · ");
             const url = safeUrl(opinion.url);
             const text = escapeHtml(opinion.opinion || "");
-            return `<li class="opinion-item"><strong>${escapeHtml(meta)}</strong>：${url ? `<a href="${escapeHtml(url)}">${text}</a>` : text}</li>`;
+            const articleUrl = safeUrl(opinion.article_url);
+            const articleTitle = escapeHtml(opinion.article_title || "原文链接");
+            const evidence = [author, heat].filter(Boolean).join(" · ");
+            return `
+              <li class="opinion-item">
+                <strong>${escapeHtml(meta)}</strong>：${url ? `<a href="${escapeHtml(url)}">${text}</a>` : text}
+                ${evidence ? `<span class="muted">（${escapeHtml(evidence)}）</span>` : ""}
+                ${articleUrl ? `<div class="detail-text">热内容：<a href="${escapeHtml(articleUrl)}">${articleTitle}</a></div>` : ""}
+              </li>`;
           }).join("")}
         </ol>
         <p><strong>公众主要共识：</strong>${escapeHtml((item.public_consensus || []).slice(0, 3).join("；"))}</p>
@@ -1283,12 +1324,14 @@
     function inferConfidence(raw) {
       const media = inferMediaCount(raw);
       const bigV = toNumber(raw.big_v_count || raw.bigVCount || raw.kol_count, 0);
+      const videos = toNumber(raw.video_source_count || raw.videoSourceCount, 0);
       const hasWechat = clean(raw.wechat_index || raw.wechatIndex) ? 1 : 0;
-      return Math.min(100, media * 12 + bigV * 8 + hasWechat * 18 + 20);
+      return Math.min(100, media * 12 + bigV * 8 + videos * 4 + hasWechat * 18 + 20);
     }
 
     function buildConfidenceReason(item) {
-      return `${item.media_channel_count} 个媒体渠道，${item.big_v_count} 条大 V 内容，${item.wechat_index ? "微信指数有命中" : "微信指数未录入"}。`;
+      const videos = item.video_source_count || item.video_items.length;
+      return `${item.media_channel_count} 个媒体渠道，${item.big_v_count} 条大 V 内容，${videos} 条视频源，${item.wechat_index ? "微信指数有命中" : "微信指数未录入"}。`;
     }
 
     function parseBoolean(value) {
