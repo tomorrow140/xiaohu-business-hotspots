@@ -50,6 +50,18 @@ jobs:
             --days 15 \
             --limit 40
 
+          VIDEO_SOURCES=""
+          if [ -f data/video_sources.csv ]; then
+            VIDEO_SOURCES="--video-sources data/video_sources.csv"
+          fi
+          if [ -n "$VIDEO_SOURCES" ]; then
+            python automation/collect_business_hotspots.py \
+              --raw-items data/hotspots/cloud-raw-items.json \
+              $VIDEO_SOURCES \
+              --days 15 \
+              --limit 40
+          fi
+
       - name: Add AI topic-value analysis
         env:
           GITHUB_TOKEN: ${{ github.token }}
