@@ -20,6 +20,7 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=FRONTEND_DATA)
     parser.add_argument("--social-opinions", type=Path, required=True)
     parser.add_argument("--max-comments-per-hotspot", type=int, default=5)
+    parser.add_argument("--min-like-for-complete", type=float, default=20)
     parser.add_argument("--replace-existing", action="store_true", help="没有匹配评论的热点也清空旧评论。默认只更新匹配到的热点。")
     args = parser.parse_args()
 
@@ -35,8 +36,9 @@ def main() -> int:
         if not matched and not args.replace_existing:
             continue
         hotspot["social_opinions"] = matched
-        hotspot["social_data_complete"] = len(matched) >= 5
-        analysis = build_social_analysis(matched)
+        strong_count = sum(1 for item in matched if parse_number(item.get("likes")) >= args.min_like_for_complete)
+        hotspot["social_data_complete"] = len(matched) >= 5 and strong_count >= 5
+        analysis = build_social_analysis(matched if hotspot["social_data_complete"] else [])
         hotspot["public_consensus"] = analysis["consensus"]
         hotspot["public_controversies"] = analysis["controversies"]
         if matched:
@@ -78,6 +80,7 @@ def load_opinions(path: Path) -> list[dict[str, Any]]:
                 "url": clean(row.get("url") or row.get("comment_url") or row.get("article_url")),
                 "article_title": clean(row.get("article_title")),
                 "article_url": clean(row.get("article_url")),
+                "published_at": clean(row.get("published_at")),
                 "article_heat_score": clean(row.get("article_heat_score")),
                 "comment_author": clean(row.get("comment_author")),
                 "comment_id": clean(row.get("comment_id")),
