@@ -1274,10 +1274,11 @@
     }
 
     function renderSocialOpinions(item) {
-      if (!item.social_data_complete || !item.social_opinions.length) {
+      if (!item.social_opinions.length) {
         return `<p class="warning tag">未录入至少 5 条真实高赞热评；为避免编造舆论，暂不生成共识和争议结论。</p>`;
       }
       return `
+        ${item.social_data_complete ? "" : `<p class="warning tag">已录入近期真实评论，但点赞未达到高赞标准；暂不生成共识和争议结论。</p>`}
         <ol>
           ${item.social_opinions.slice(0, 5).map(opinion => {
             const heat = opinion.article_heat_score ? `原文热度 ${opinion.article_heat_score}` : "";
@@ -1288,7 +1289,8 @@
             const text = escapeHtml(opinion.opinion || "");
             const articleUrl = safeUrl(opinion.article_url);
             const articleTitle = escapeHtml(opinion.article_title || "原文链接");
-            const evidence = [author, heat].filter(Boolean).join(" · ");
+            const publishedAt = opinion.published_at ? `热内容日期 ${opinion.published_at}` : "";
+            const evidence = [author, publishedAt, heat].filter(Boolean).join(" · ");
             return `
               <li class="opinion-item">
                 <strong>${escapeHtml(meta)}</strong>：${url ? `<a href="${escapeHtml(url)}">${text}</a>` : text}
@@ -1297,8 +1299,10 @@
               </li>`;
           }).join("")}
         </ol>
-        <p><strong>公众主要共识：</strong>${escapeHtml((item.public_consensus || []).slice(0, 3).join("；"))}</p>
-        <p><strong>主要争议点：</strong>${escapeHtml((item.public_controversies || []).slice(0, 2).join("；"))}</p>
+        ${item.social_data_complete ? `
+          <p><strong>公众主要共识：</strong>${escapeHtml((item.public_consensus || []).slice(0, 3).join("；"))}</p>
+          <p><strong>主要争议点：</strong>${escapeHtml((item.public_controversies || []).slice(0, 2).join("；"))}</p>
+        ` : ""}
       `;
     }
 
