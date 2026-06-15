@@ -769,7 +769,9 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="hotspots-data.js"></script>
+  <script>
+    document.write(`<script src="hotspots-data.js?initial=${Date.now()}"><\/script>`);
+  </script>
   <script>
     const STORAGE_KEY = "xiaohu-hotspot-radar-v3";
     const sampleHotspots = [
@@ -1394,7 +1396,27 @@
       els.collectBtn.querySelector(".collect-label").textContent = active ? "正在刷新..." : "刷新最新数据";
     }
 
-    function loadPublishedHotspots(previousGeneratedAt = "") {
+    function dataSignature(payload) {
+      const reportPart = payload?.report ? JSON.stringify({
+        generated_at: payload.report.generated_at || "",
+        social_opinions_applied_at: payload.report.social_opinions_applied_at || "",
+        social_opinions_hotspot_count: payload.report.social_opinions_hotspot_count || 0,
+        video_sources_file: payload.report.video_sources_file || ""
+      }) : "";
+      const socialCount = Array.isArray(payload?.hotspots)
+        ? payload.hotspots.reduce((sum, item) => sum + (Array.isArray(item.social_opinions) ? item.social_opinions.length : 0), 0)
+        : 0;
+      return `${reportPart}|hotspots=${payload?.hotspots?.length || 0}|social=${socialCount}`;
+    }
+
+    function currentDataSignature() {
+      return dataSignature({
+        hotspots,
+        report
+      });
+    }
+
+    function loadPublishedHotspots(previousSignature = "") {
       return new Promise((resolve, reject) => {
       const script = document.createElement("script");
       script.src = `hotspots-data.js?refresh=${Date.now()}`;
@@ -1410,8 +1432,7 @@
         rawItems = Array.isArray(generated.rawItems) ? generated.rawItems : [];
         report = generated.report || null;
         render();
-        const generatedAt = report?.generated_at || "";
-        resolve(Boolean(generatedAt && generatedAt !== previousGeneratedAt));
+        resolve(dataSignature(generated) !== previousSignature);
       };
       script.onerror = () => {
         script.remove();
@@ -1422,10 +1443,10 @@
     }
 
     async function collectPublishedHotspots() {
-      const previousGeneratedAt = report?.generated_at || "";
+      const previousSignature = currentDataSignature();
       setCollecting(true);
       try {
-        const updated = await loadPublishedHotspots(previousGeneratedAt);
+        const updated = await loadPublishedHotspots(previousSignature);
         showToast(updated ? `已更新 ${hotspots.length} 条热点` : "当前已是后台发布的最新数据");
       } catch (error) {
         showToast("刷新失败，请稍后再试");
