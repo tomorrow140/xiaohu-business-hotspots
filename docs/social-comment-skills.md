@@ -32,6 +32,29 @@
 3. 抖音走 API 服务评估：如果要稳定拿视频评论，需要 TikHub 这类服务或官方/授权数据源。
 4. 微博单独验证 `weibo-cli`：确认能否搜索热点微博并读取评论点赞数后再接入。
 
+## 小红书已接入流程
+
+本仓库已新增两段本地脚本：
+
+- `scripts/collect_xhs_social_comments.py`：只读调用 `xhs search`、`xhs read`、`xhs comments`，输出原始评论、页面可用的 `social-opinions` 和 KOL/热内容 CSV。
+- `scripts/apply_social_opinions_to_frontend.py`：把 `xhs-social-opinions.csv` 回灌到 `insights/hotspots-data.js`，页面会展示评论链接、热内容链接、点赞数、评论作者和回复数；默认只更新匹配到的热点，需要全量替换时加 `--replace-existing`。
+
+最小验证命令：
+
+```bash
+xhs status --yaml
+python3 scripts/collect_xhs_social_comments.py --keywords "外卖大战" --sort popular --search-limit 15 --notes-per-keyword 1 --comments-per-note 5 --min-note-likes 1000 --min-comment-likes 1 --days 500
+cp insights/hotspots-data.js /tmp/hotspots-data-xhs-test.js
+python3 scripts/apply_social_opinions_to_frontend.py --input /tmp/hotspots-data-xhs-test.js --output /tmp/hotspots-data-xhs-test.js --social-opinions data/social-discovery/生成的-xhs-social-opinions.csv
+```
+
+生产使用建议：
+
+- 默认优先用 `--sort latest --days 15` 找近期讨论。
+- 如果近期互动量不足，可以临时用 `--sort popular` 复核历史高赞评论，但不要直接把超出采集窗口的旧评论当成本周舆论。
+- `data/social-discovery/` 已加入 `.gitignore`；只有经过人工确认的标准化结果才应回灌并发布。
+- 小红书搜索会混入红包口令、探店、泛生活内容；脚本已加入噪音词和标题相关性过滤，但最终发布前仍需要抽查来源链接。
+
 ## 证据标准
 
 任何评论进入页面前必须具备：
