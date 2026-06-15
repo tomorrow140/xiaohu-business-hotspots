@@ -12,7 +12,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
     "wechat_index_file": null,
     "kol_mentions_file": null,
     "video_sources_file": "data/video_sources.csv",
-    "social_opinions_file": null,
+    "social_opinions_file": "data/social-discovery/20260615-113152-xhs-social-opinions.csv",
     "errors": [],
     "outputs": {
       "csv": "20260615-030126-business-hotspots.csv",
@@ -28,7 +28,10 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "selected_count": 20,
       "enriched_count": 20,
       "generated_at": "2026-06-15T03:04:22+00:00"
-    }
+    },
+    "social_opinions_applied_at": "2026-06-15T11:47:19",
+    "social_opinions_hotspot_count": 2,
+    "social_opinions_scope": "外卖大战主题；排除仅提及外卖大战影响的旁支新闻"
   },
   "hotspots": [
     {
@@ -45,14 +48,93 @@ window.XIAOHU_HOTSPOTS_DATA = {
         "2026-06-11：新浪财经报道/收录《广东市场监管：美团、淘宝闪购、京东外卖签约，首次提出建立跨平台“黑名单”共享机制》。",
         "2026-06-09：新京报报道/收录《“门店不验真、后厨不核验，直接打0分”，美团发布外卖店铺新规》。"
       ],
-      "social_opinions": [],
+      "social_opinions": [
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "美团估计会最先被淘汰，我已经一年多没用美团了，因为发现它杀熟，好几次对比饿了么，美团都要贵，后面就再也不用了。现在京东加入后，饿了么也用得少了，不过京东上商家没有饿了么多，暂时两家都在用。",
+          "likes": "1813",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-6873b99e00000000090177db",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "渡人渡己的哄哄",
+          "comment_id": "6873b99e00000000090177db",
+          "comment_reply_count": "149",
+          "combined_score": 2969.39
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "烧的是普通人未来十年的钱",
+          "likes": "473",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-68745812000000000401e7a4",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "以宁",
+          "comment_id": "68745812000000000401e7a4",
+          "comment_reply_count": "24",
+          "combined_score": 834.39
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "那是你 真得 美团其实功能更多",
+          "likes": "481",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-6873baf8000000001102d5bd",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "早睡早起",
+          "comment_id": "6873baf8000000001102d5bd",
+          "comment_reply_count": "0",
+          "combined_score": 822.39
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "外卖小哥累归累，但是也赚钱了，可以店员累半死",
+          "likes": "320",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-68729852000000000c0163f3",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "桔子皮",
+          "comment_id": "68729852000000000c0163f3",
+          "comment_reply_count": "28",
+          "combined_score": 608.89
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "淘宝闪购确实做得挺成功的，至少挖了我这个用户[笑哭R]我点外卖都用闪购比较多了，5月以前都是用美团外卖不会打开饿了么。",
+          "likes": "250",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-6872af60000000000400d8c1",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "吃柿子啦",
+          "comment_id": "6872af60000000000400d8c1",
+          "comment_reply_count": "17",
+          "combined_score": 492.89
+        }
+      ],
       "public_consensus": [
-        "高赞评论样本不足，暂不归纳公众共识。"
+        "高赞评论集中关注事件对普通用户体验、价格或选择权的影响。",
+        "讨论会自然延伸到平台、品牌或大公司行为背后的商业账本。",
+        "多数评论不是只看单一事件，而是在比较不同公司、行业格局和长期后果。"
       ],
       "public_controversies": [
-        "高赞评论样本不足，暂不归纳主要争议。"
+        "争议集中在企业动作是正常竞争，还是会造成成本转嫁、体验下降或新的内卷。",
+        "不同群体对事件影响判断不一致：消费者、从业者、投资者和品牌方关注点不同。"
       ],
-      "social_data_complete": false,
+      "social_data_complete": true,
       "why_now": "本周至少 5 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
       "topic_value": "AI选题判断：美团通过赞助加纳国家足球队强化品牌国际形象，与外卖业务的激烈竞争形成鲜明对比，体现企业在竞争压力下的多元化市场策略。标题方向：美团外卖的国际“跑道”：从外卖大战到足球队赞助的品牌博弈。核心冲突：美团在国内外卖竞争激烈的环境中，如何通过体育赞助转移品牌焦点与提升用户认知。小胡讲法：小胡从消费者熟悉的外卖服务切入，讲解企业为何在竞争激烈时通过体育赞助塑造品牌形象，影响用户选择。避坑：新闻未涉及赞助具体效果及商业回报，避免将体育赞助与外卖业务增长直接挂钩。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
@@ -758,14 +840,6 @@ window.XIAOHU_HOTSPOTS_DATA = {
         "2026-06-13：第一财经报道/收录《2025年国人人均3杯瑞幸，CEO回应外卖大战降温的影响》。",
         "事件类型被归类为行业竞争，需要继续核对后续公开报道。"
       ],
-      "social_opinions": [],
-      "public_consensus": [
-        "高赞评论样本不足，暂不归纳公众共识。"
-      ],
-      "public_controversies": [
-        "高赞评论样本不足，暂不归纳主要争议。"
-      ],
-      "social_data_complete": false,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
       "topic_value": "AI选题判断：瑞幸CEO回应外卖大战降温，结合国人均消费数据，揭示外卖行业竞争与消费者消费习惯的互动关系。标题方向：国人均3杯瑞幸背后：外卖大战降温对消费者意味着什么。核心冲突：外卖平台激烈竞争与消费者消费频次及品牌选择的相互影响。小胡讲法：小胡从普通消费者的日常咖啡消费习惯切入，分析外卖大战如何影响品牌服务和用户体验。避坑：报道未详细说明外卖大战降温具体影响，避免将CEO回应过度解读为行业趋势定论。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
@@ -824,14 +898,93 @@ window.XIAOHU_HOTSPOTS_DATA = {
         "2026-06-05：36氪报道/收录《外卖大战一年后，拼多多成最“佛系”赢家》。",
         "事件类型被归类为行业竞争，需要继续核对后续公开报道。"
       ],
-      "social_opinions": [],
+      "social_opinions": [
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "美团估计会最先被淘汰，我已经一年多没用美团了，因为发现它杀熟，好几次对比饿了么，美团都要贵，后面就再也不用了。现在京东加入后，饿了么也用得少了，不过京东上商家没有饿了么多，暂时两家都在用。",
+          "likes": "1813",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-6873b99e00000000090177db",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "渡人渡己的哄哄",
+          "comment_id": "6873b99e00000000090177db",
+          "comment_reply_count": "149",
+          "combined_score": 2969.39
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "烧的是普通人未来十年的钱",
+          "likes": "473",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-68745812000000000401e7a4",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "以宁",
+          "comment_id": "68745812000000000401e7a4",
+          "comment_reply_count": "24",
+          "combined_score": 834.39
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "那是你 真得 美团其实功能更多",
+          "likes": "481",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-6873baf8000000001102d5bd",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "早睡早起",
+          "comment_id": "6873baf8000000001102d5bd",
+          "comment_reply_count": "0",
+          "combined_score": 822.39
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "外卖小哥累归累，但是也赚钱了，可以店员累半死",
+          "likes": "320",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-68729852000000000c0163f3",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "桔子皮",
+          "comment_id": "68729852000000000c0163f3",
+          "comment_reply_count": "28",
+          "combined_score": 608.89
+        },
+        {
+          "keyword": "外卖大战",
+          "platform": "小红书",
+          "opinion": "淘宝闪购确实做得挺成功的，至少挖了我这个用户[笑哭R]我点外卖都用闪购比较多了，5月以前都是用美团外卖不会打开饿了么。",
+          "likes": "250",
+          "stance": "讨论",
+          "url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D#comment-6872af60000000000400d8c1",
+          "article_title": "这场外卖大战将载入中国互联网史册",
+          "article_url": "https://www.xiaohongshu.com/explore/687235fc0000000012020cbf?xsec_token=ABkKVKeILrNX-TvpIjmOBcfcqqe7O4njYvlidJEUS-Rl4%3D",
+          "article_heat_score": "110814",
+          "comment_author": "吃柿子啦",
+          "comment_id": "6872af60000000000400d8c1",
+          "comment_reply_count": "17",
+          "combined_score": 492.89
+        }
+      ],
       "public_consensus": [
-        "高赞评论样本不足，暂不归纳公众共识。"
+        "高赞评论集中关注事件对普通用户体验、价格或选择权的影响。",
+        "讨论会自然延伸到平台、品牌或大公司行为背后的商业账本。",
+        "多数评论不是只看单一事件，而是在比较不同公司、行业格局和长期后果。"
       ],
       "public_controversies": [
-        "高赞评论样本不足，暂不归纳主要争议。"
+        "争议集中在企业动作是正常竞争，还是会造成成本转嫁、体验下降或新的内卷。",
+        "不同群体对事件影响判断不一致：消费者、从业者、投资者和品牌方关注点不同。"
       ],
-      "social_data_complete": false,
+      "social_data_complete": true,
       "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
       "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
       "topic_value": "AI选题判断：拼多多在外卖大战中采取低调策略，反映其与激烈竞争对手的不同经营节奏。标题方向：拼多多外卖大战后成“佛系”赢家，低调策略背后的商业逻辑。核心冲突：拼多多选择不激烈竞争而是稳健发展，与外卖市场其他激烈争夺者形成鲜明对比。小胡讲法：从普通消费者角度看，拼多多的“佛系”策略意味着外卖服务可能更稳定，价格和服务不会因激烈竞争波动过大。避坑：新闻未详细说明拼多多具体策略和市场表现，避免将“佛系”理解为市场放弃或无作为。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
