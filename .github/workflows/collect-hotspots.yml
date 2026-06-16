@@ -64,7 +64,7 @@ jobs:
 
       - name: Add AI topic-value analysis
         env:
-          GITHUB_TOKEN: $${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           python automation/enrich_topic_values.py \
             --input insights/hotspots-data.js \
