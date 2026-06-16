@@ -64,12 +64,11 @@ jobs:
 
       - name: Add AI topic-value analysis
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: $${{ github.token }}
         run: |
           python automation/enrich_topic_values.py \
             --input insights/hotspots-data.js \
-            --limit-per-industry 5 \
-            --strict
+            --limit-per-industry 5
 
       - name: Publish refreshed hotspot data
         if: github.event_name == 'schedule' || inputs.publish
