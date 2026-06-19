@@ -893,6 +893,8 @@
         social_data_complete: parseBoolean(raw.social_data_complete ?? raw.socialDataComplete),
         topic_value: clean(raw.topic_value) || clean(raw.topicValue) || clean(raw.business_angle),
         topic_value_source: clean(raw.topic_value_source) || clean(raw.topicValueSource),
+        verification_status: clean(raw.verification_status) || clean(raw.verificationStatus),
+        verification_note: clean(raw.verification_note) || clean(raw.verificationNote),
         confidence: clamp(toNumber(raw.confidence, inferConfidence(raw))),
         confidence_reason: clean(raw.confidence_reason) || clean(raw.confidenceReason)
       };
@@ -1049,6 +1051,7 @@
               <span class="tag">媒体 ${item.media_channel_count}</span>
               <span class="tag">大 V ${item.big_v_count}</span>
               <span class="tag">视频源 ${item.video_source_count || item.video_items.length}</span>
+              ${renderVerificationTag(item)}
               ${item.social_data_complete ? `<span class="tag green">高赞舆论达标</span>` : `<span class="tag warning">缺高赞舆论</span>`}
               ${item.wechat_index ? `<span class="tag amber">微信指数已录入</span>` : `<span class="tag">微信指数未录入</span>`}
             </div>
@@ -1076,6 +1079,7 @@
               <div class="detail-text"><strong>大 V 内容：</strong>${renderKolItems(item)}</div>
               <p class="detail-text"><strong>微信指数：</strong>${escapeHtml(item.wechat_index || "未录入")}</p>
               <p class="detail-text"><strong>综合说明：</strong>${escapeHtml(item.confidence_reason || buildConfidenceReason(item))}</p>
+              ${item.verification_note ? `<p class="detail-text"><strong>核验提醒：</strong>${escapeHtml(item.verification_note)}</p>` : ""}
             </details>
           </div>
           <aside class="confidence" aria-label="置信度">
@@ -1338,6 +1342,19 @@
     function buildConfidenceReason(item) {
       const videos = item.video_source_count || item.video_items.length;
       return `${item.media_channel_count} 个媒体渠道，${item.big_v_count} 条大 V 内容，${videos} 条视频源，${item.wechat_index ? "微信指数有命中" : "微信指数未录入"}。`;
+    }
+
+    function renderVerificationTag(item) {
+      if (item.verification_status === "待核验") {
+        return `<span class="tag warning">待核验</span>`;
+      }
+      if (item.verification_status === "需交叉验证") {
+        return `<span class="tag amber">需交叉验证</span>`;
+      }
+      if (item.verification_status === "多源确认") {
+        return `<span class="tag green">多源确认</span>`;
+      }
+      return "";
     }
 
     function parseBoolean(value) {
