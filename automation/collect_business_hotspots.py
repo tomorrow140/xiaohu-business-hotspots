@@ -113,9 +113,10 @@ SAMPLE_ITEMS = [
 INDUSTRY_RULES = [
     ("互联网行业", ["阿里", "淘宝", "天猫", "腾讯", "京东", "拼多多", "抖音", "字节", "快手", "小红书", "美团", "饿了么", "携程", "网易", "知乎", "虎牙", "游戏", "云计算", "电商", "外卖", "本地生活", "直播带货"]),
     ("新能源汽车行业", ["新能源", "车企", "电动车", "汽车", "新车", "SUV", "MPV", "智驾", "自动驾驶", "动力电池", "充电", "鸿蒙智行", "问界", "智界", "享界", "比亚迪", "小米汽车", "小米", "理想", "蔚来", "小鹏", "特斯拉", "宁德时代", "零跑"]),
-    ("AI与芯片行业", ["AI", "大模型", "生成式AI", "模型", "算力", "芯片", "半导体", "英伟达", "OpenAI", "百度", "华为昇腾", "云服务", "数据中心", "长鑫科技", "存储"]),
+    ("AI与芯片行业", ["AI", "大模型", "生成式AI", "模型", "算力", "芯片", "半导体", "英伟达", "OpenAI", "Anthropic", "xAI", "百度", "华为昇腾", "云服务", "数据中心", "长鑫科技", "存储"]),
     ("消费与新零售行业", ["白酒", "茅台", "五粮液", "瑞幸", "蜜雪冰城", "泡泡玛特", "LABUBU", "小熊电器", "叮咚买菜", "名创优品", "海底捞", "霸王茶姬", "安踏", "李宁", "茶饮", "咖啡", "餐饮", "美妆", "服饰", "快消", "线下零售", "消费", "小家电", "潮玩"]),
     ("机器人行业", ["机器人", "人形机器人", "工业机器人", "服务机器人", "具身智能", "宇树", "优必选", "Figure", "波士顿动力"]),
+    ("全球科技与资本市场", ["SpaceX", "马斯克", "独角兽", "科技公司", "IPO", "上市", "估值", "融资", "美股", "港股"]),
 ]
 
 TYPE_RULES = [
@@ -206,6 +207,9 @@ HOUSEHOLD_ENTITIES = [
     "苹果",
     "英伟达",
     "OpenAI",
+    "Anthropic",
+    "xAI",
+    "Perplexity",
     "工业富联",
     "荣耀",
     "谷歌",
@@ -224,6 +228,8 @@ HOUSEHOLD_ENTITIES = [
     "霸王茶姬",
     "宇树",
     "优必选",
+    "Figure",
+    "智元",
 ]
 
 PUBLIC_CONCERN_TERMS = [
@@ -261,6 +267,13 @@ PUBLIC_CONCERN_TERMS = [
     "茶饮",
     "餐饮",
     "潮玩",
+    "独角兽",
+    "IPO",
+    "上市",
+    "估值",
+    "融资",
+    "商业化",
+    "资本市场",
 ]
 
 CORE_PUBLIC_TOPICS = [
@@ -272,6 +285,12 @@ CORE_PUBLIC_TOPICS = [
     "房价",
     "直播带货",
     "潮玩",
+    "IPO",
+    "上市",
+    "独角兽",
+    "估值",
+    "融资",
+    "AI公司",
 ]
 
 NICHE_TERMS = [
@@ -321,7 +340,6 @@ HARD_EXCLUDE_TERMS = [
     "股票复牌",
     "股票停牌",
     "中文在线",
-    "SpaceX",
 ]
 
 MAJOR_EVENT_TERMS = [
@@ -722,14 +740,18 @@ def public_topic_score(text: str) -> float:
 def infer_industry(text: str) -> str:
     if keyword_hits(text, ["机器人", "人形机器人", "工业机器人", "服务机器人", "具身智能", "宇树", "优必选", "Figure", "波士顿动力"]):
         return "机器人行业"
-    if keyword_hits(text, ["工业富联", "英伟达", "台积电", "博通", "长鑫科技", "芯片", "半导体", "AI智能体", "大模型", "DeepSeek"]):
+    if keyword_hits(text, ["工业富联", "英伟达", "台积电", "博通", "长鑫科技", "芯片", "半导体", "AI智能体", "大模型", "DeepSeek", "OpenAI", "Anthropic", "xAI"]):
         return "AI与芯片行业"
     if keyword_hits(text, ["外卖", "即时零售", "淘宝闪购"]):
+        return "互联网行业"
+    if keyword_hits(text, ["小红书", "抖音", "快手", "B站", "微博", "内容社区", "社交平台"]):
         return "互联网行业"
     if keyword_hits(text, ["泡泡玛特", "LABUBU", "小熊电器", "叮咚买菜", "潮玩", "小家电", "名创优品", "海底捞", "霸王茶姬", "安踏", "李宁", "瑞幸", "蜜雪冰城", "茅台"]):
         return "消费与新零售行业"
     if keyword_hits(text, ["新能源", "车企", "电动车", "汽车", "新车", "SUV", "MPV", "智驾", "比亚迪", "小米汽车", "特斯拉", "理想", "蔚来", "小鹏"]):
         return "新能源汽车行业"
+    if keyword_hits(text, ["SpaceX", "马斯克", "独角兽", "科技公司", "IPO", "上市", "估值", "融资", "美股", "港股"]):
+        return "全球科技与资本市场"
     return infer_label(text, INDUSTRY_RULES, "")
 
 
@@ -774,6 +796,12 @@ def cluster_items(raw_items: list[RawItem]) -> list[Cluster]:
 
 def topic_cluster_key(text: str) -> str:
     lowered = text.lower()
+    if "spacex" in lowered and any(term in text for term in ["IPO", "上市", "估值", "融资"]):
+        return "SpaceX资本市场动态"
+    if any(term.lower() in lowered for term in ["openai", "anthropic", "xai"]) and any(term in text for term in ["IPO", "上市", "估值", "融资"]):
+        return "AI独角兽资本市场动态"
+    if "小红书" in text and any(term in text for term in ["IPO", "上市", "港股", "招股", "估值"]):
+        return "小红书上市动态"
     if "叮咚买菜" in text:
         return "叮咚买菜美团交易"
     if "京东" in text and "外卖" in text and any(term in text for term in ["财报", "Q1", "一季度", "业绩", "营收", "减亏"]):
@@ -1301,6 +1329,13 @@ def fallback_topic_strategy(title: str, text: str, industry: str, event_type: st
             "angle": "从一个具体使用场景切入，解释机器人公司要跨过演示、试点、批量交付和售后维护四道门槛。",
             "risk": "不要把发布会视频和样机演示等同于规模商业化，重点核对订单、价格和交付对象。",
         }
+    if industry == "全球科技与资本市场":
+        return {
+            "headline": f"{subject}准备上市，资本市场到底在买什么未来",
+            "conflict": "超级独角兽的估值来自技术、用户规模和未来垄断想象，但上市会把故事拉回收入、利润、现金流和监管透明度。",
+            "angle": "从普通人熟悉的产品或创始人切入，再拆这家公司为什么急着或被迫走向资本市场，以及谁会为高估值买单。",
+            "risk": "上市、估值和融资信息要区分官方披露、媒体报道和市场传闻，不把“考虑上市”讲成“已经上市”。",
+        }
     return None
 
 
@@ -1308,7 +1343,7 @@ def extract_subject(title: str, industry: str) -> str:
     candidates = [
         "阿里", "腾讯", "京东", "美团", "字节", "华为", "小米", "比亚迪", "理想", "小鹏", "蔚来",
         "泡泡玛特", "瑞幸", "名创优品", "海底捞", "霸王茶姬", "安踏", "李宁", "长鑫科技", "英伟达",
-        "宇树", "优必选", "智元", "特斯拉",
+        "OpenAI", "Anthropic", "xAI", "SpaceX", "小红书", "宇树", "优必选", "智元", "特斯拉",
     ]
     for candidate in candidates:
         if candidate in title:
