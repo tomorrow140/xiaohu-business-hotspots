@@ -380,6 +380,38 @@ MAJOR_EVENT_TERMS = [
     "安全",
 ]
 
+UNCERTAIN_REPORT_TERMS = [
+    "据悉",
+    "曝",
+    "传",
+    "传闻",
+    "网传",
+    "消息称",
+    "知情人士",
+    "或将",
+    "或已",
+    "或再",
+    "或于",
+    "考虑",
+    "最快",
+    "秘密递交",
+    "拟",
+    "寻求",
+]
+
+CAPITAL_MARKET_TERMS = [
+    "IPO",
+    "上市",
+    "融资",
+    "估值",
+    "募资",
+    "招股",
+    "递交",
+    "港股",
+    "美股",
+    "资本市场",
+]
+
 
 @dataclass
 class RawItem:
@@ -860,6 +892,7 @@ def build_hotspot(
     matched_videos = match_video_sources(text, video_sources)
     matched_opinions = match_social_opinions(text, social_opinions)
     media_names = sorted({item.source_name for item in cluster.items})
+    verification = infer_verification(text, media_names)
     source_parts = media_names[:4]
     if matched_wechat:
         source_parts.append(
@@ -892,7 +925,15 @@ def build_hotspot(
         + difficulty_reverse * 0.04
         + risk_reverse * 0.04
     )
+    if verification["status"] == "待核验":
+        rank_score -= 1.35
+    elif verification["status"] == "需交叉验证":
+        rank_score -= 0.65
     confidence = compute_confidence(media_names, matched_kols, matched_videos, matched_wechat, cluster.items)
+    if verification["status"] == "待核验":
+        confidence = max(8, confidence - 12)
+    elif verification["status"] == "需交叉验证":
+        confidence = max(10, confidence - 6)
 
     summary = best.summary or synthesize_summary(title, industry, event_type)
     core_summary = synthesize_core_summary(title, summary, industry, event_type)
@@ -918,6 +959,8 @@ def build_hotspot(
         "topic_value": synthesize_topic_value(title, text, industry, event_type, matched_opinions),
         "risk": risk,
         "difficulty": difficulty,
+        "verification_status": verification["status"],
+        "verification_note": verification["note"],
         "media_channel_count": len(media_names),
         "media_channels": "、".join(media_names),
         "media_items": format_media_items(cluster),
@@ -928,7 +971,7 @@ def build_hotspot(
         "video_items": format_video_items(matched_videos),
         "wechat_index": format_wechat_index(matched_wechat),
         "confidence": confidence,
-        "confidence_reason": synthesize_confidence_reason(media_names, matched_kols, matched_videos, matched_wechat, confidence),
+        "confidence_reason": synthesize_confidence_reason(media_names, matched_kols, matched_videos, matched_wechat, confidence, verification),
         "public_interest": round(min(10, public_score), 1),
         "businessValue": round(business_value, 1),
         "controversy": round(controversy, 1),
@@ -1020,6 +1063,25 @@ def keyword_hits(text: str, keywords: list[str]) -> int:
 
 def clamp_score(value: float) -> float:
     return min(10.0, max(0.0, round(value, 1)))
+
+
+def infer_verification(text: str, media_names: list[str]) -> dict[str, str]:
+    source_count = len(media_names)
+    uncertain_hits = keyword_hits(text, UNCERTAIN_REPORT_TERMS)
+    capital_hits = keyword_hits(text, CAPITAL_MARKET_TERMS)
+    if source_count <= 1 and uncertain_hits >= 1 and capital_hits >= 1:
+        return {
+            "status": "待核验",
+            "note": "单一媒体来源，且包含上市/融资/估值类不确定表述，适合先观察，不建议直接作为确定事实讲。",
+        }
+    if source_count <= 1 and uncertain_hits >= 1:
+        return {
+            "status": "需交叉验证",
+            "note": "当前只有单一媒体来源且存在不确定表述，建议补充第二来源后再定选题。",
+        }
+    if source_count >= 2:
+        return {"status": "多源确认", "note": "已有至少两个媒体渠道覆盖，可作为较稳定候选。"}
+    return {"status": "常规", "note": ""}
 
 
 def infer_difficulty(text: str, source_count: int, matched_wechat: list[dict[str, Any]]) -> str:
@@ -1674,6 +1736,7 @@ def synthesize_confidence_reason(
     matched_videos: list[dict[str, Any]],
     matched_wechat: list[dict[str, Any]],
     confidence: int,
+    verification: dict[str, str] | None = None,
 ) -> str:
     parts = [f"{len(media_names)} 个媒体渠道"]
     if matched_kols:
@@ -1691,6 +1754,8 @@ def synthesize_confidence_reason(
         parts.append("微信指数有命中")
     else:
         parts.append("微信指数未录入或未命中")
+    if verification and verification.get("status") in {"待核验", "需交叉验证"}:
+        parts.append(verification["status"])
     return f"置信度 {confidence}/100，依据：" + "，".join(parts) + "。"
 
 
@@ -1713,6 +1778,8 @@ def write_hotspots_csv(path: Path, hotspots: list[dict[str, Any]]) -> None:
         "topic_value",
         "risk",
         "difficulty",
+        "verification_status",
+        "verification_note",
         "media_channel_count",
         "media_channels",
         "media_items",
