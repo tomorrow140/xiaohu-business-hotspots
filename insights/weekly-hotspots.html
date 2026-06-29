@@ -501,6 +501,19 @@
       font-size: 13px;
     }
 
+    .social-fold {
+      margin-top: 12px;
+      padding: 10px 0 0;
+      border-width: 1px 0 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .social-fold summary {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
     .detail-text {
       margin: 8px 0 0;
       line-height: 1.55;
@@ -1058,17 +1071,14 @@
             <div class="standard-block">
               <h4>1. 新闻核心摘要</h4>
               <p>${escapeHtml(item.core_summary || item.summary)}</p>
+              ${renderFoldedSocialOpinions(item)}
             </div>
             <div class="standard-block">
               <h4>2. 事件关键节点</h4>
               ${renderSimpleList(item.key_nodes)}
             </div>
             <div class="standard-block">
-              <h4>3. 高赞舆论观点</h4>
-              ${renderSocialOpinions(item)}
-            </div>
-            <div class="standard-block">
-              <h4>4. ${item.topic_value_source === "github-models" ? "AI 选题价值分析" : "选题价值分析"}</h4>
+              <h4>3. ${item.topic_value_source === "github-models" ? "AI 选题价值分析" : "选题价值分析"}</h4>
               <p>${escapeHtml(item.topic_value || item.business_angle || "待补充。")}</p>
             </div>
             <details>
@@ -1277,14 +1287,31 @@
       return `<ol>${list.slice(0, 5).map(value => `<li>${escapeHtml(value)}</li>`).join("")}</ol>`;
     }
 
+    function getSocialOpinionLabel(item) {
+      const count = Array.isArray(item.social_opinions) ? item.social_opinions.length : 0;
+      if (item.social_data_complete) return `高赞舆论观点（已达标，${Math.min(count, 5)} 条）`;
+      if (count) return `近期真实评论（未达高赞，${Math.min(count, 5)} 条）`;
+      return "高赞舆论观点（未录入）";
+    }
+
+    function renderFoldedSocialOpinions(item) {
+      return `
+        <details class="social-fold">
+          <summary>${escapeHtml(getSocialOpinionLabel(item))}</summary>
+          ${renderSocialOpinions(item)}
+        </details>
+      `;
+    }
+
     function renderSocialOpinions(item) {
-      if (!item.social_opinions.length) {
+      const opinions = Array.isArray(item.social_opinions) ? item.social_opinions : [];
+      if (!opinions.length) {
         return `<p class="warning tag">未录入至少 5 条真实高赞热评；为避免编造舆论，暂不生成共识和争议结论。</p>`;
       }
       return `
         ${item.social_data_complete ? "" : `<p class="warning tag">已录入近期真实评论，但点赞未达到高赞标准；暂不生成共识和争议结论。</p>`}
         <ol>
-          ${item.social_opinions.slice(0, 5).map(opinion => {
+          ${opinions.slice(0, 5).map(opinion => {
             const heat = opinion.article_heat_score ? `原文热度 ${opinion.article_heat_score}` : "";
             const replies = opinion.comment_reply_count ? `回复 ${opinion.comment_reply_count}` : "";
             const author = opinion.comment_author ? `评论者 ${opinion.comment_author}` : "";
