@@ -8,7 +8,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
     "days": 15,
     "source_count": 6,
     "raw_item_count": 72,
-    "hotspot_count": 14,
+    "hotspot_count": 13,
     "wechat_index_file": null,
     "kol_mentions_file": null,
     "video_sources_file": "data/video_sources.csv",
@@ -21,7 +21,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "report": "20260722-041318-collection-report.json",
       "frontend_data": "hotspots-data.js"
     },
-    "visible_raw_item_count": 17,
+    "visible_raw_item_count": 16,
     "ai_topic_value": {
       "status": "completed",
       "model": "openai/gpt-4.1-mini",
@@ -31,62 +31,6 @@ window.XIAOHU_HOTSPOTS_DATA = {
     }
   },
   "hotspots": [
-    {
-      "title": "8点1氪丨怡颗莓回应“检出致癌物”；美团否认上线“本科专送”“硕士优送”等配送服务；美方喊话三星电子、SK海力士分享超额利润",
-      "source": "36氪综合资讯",
-      "date": "2026-07-22",
-      "industry": "全球科技与资本市场",
-      "type": "财报",
-      "summary": "今日热点导览 字节XR业务PICO创始人周宏伟将卸任，李晓凯成为新任业务负责人 ZARA客服回应“阔腿裤存安全隐患”：专员正在核实处理 SpaceX将于8月4日发布上市后首份财报 恋与深空多平台账号停更 美国发布全球安全警示 TOP3大新闻 怡颗莓回应“检出致癌物”：国内销售草莓来自云南 近日，全球最大浆果品牌“怡颗莓”（Driscoll's）陷入食品安全争议。美国消费者对其提起集体诉讼，指控其草莓检出包括1类致癌物全氟辛酸（PFOA）...",
-      "core_summary": "今日热点导览 字节XR业务PICO创始人周宏伟将卸任，李晓凯成为新任业务负责人 ZARA客服回应“阔腿裤存安全隐患”：专员正在核实处理 SpaceX将于8月4日发布上市后首份财报 恋与深空多平台账号停更 美国发布全球安全警示 TOP3大新闻 怡颗莓回应“检出致癌物”：国内销售草莓来自云南 近日，全球最大浆果品牌“怡颗莓”（Driscoll's）陷入食品安全争议。美国消费者对其提起集体诉讼，指控其草...",
-      "key_nodes": [
-        "2026-07-22：36氪综合资讯报道/收录《8点1氪丨怡颗莓回应“检出致癌物”；美团否认上线“本科专送”“硕士优送”等配送服务；美方喊话三星电子、SK海力士分享超额利润》。",
-        "事件类型被归类为财报，需要继续核对后续公开报道。"
-      ],
-      "social_opinions": [],
-      "public_consensus": [
-        "高赞评论样本不足，暂不归纳公众共识。"
-      ],
-      "public_controversies": [
-        "高赞评论样本不足，暂不归纳主要争议。"
-      ],
-      "social_data_complete": false,
-      "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
-      "business_angle": "从普通人熟悉的产品或创始人切入，再拆这家公司为什么急着或被迫走向资本市场，以及谁会为高估值买单。",
-      "topic_value": "AI选题判断：怡颗莓被检出致癌物引发消费者诉讼，凸显食品安全与品牌信任的矛盾。标题方向：食品安全风波中的品牌信任危机：怡颗莓致癌物争议解析。核心冲突：消费者对知名品牌的安全期待与实际检测结果之间存在明显反差。小胡讲法：普通消费者关心的是日常食品安全，这起事件揭示了品牌如何在食品安全问题中维护消费者信心的商业挑战。避坑：报道未详细说明检测标准及结果的科学依据，公众应避免过度解读。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
-      "risk": "中",
-      "difficulty": "中",
-      "verification_status": "常规",
-      "verification_note": "",
-      "media_channel_count": 1,
-      "media_channels": "36氪综合资讯",
-      "media_items": [
-        {
-          "source": "36氪综合资讯",
-          "title": "8点1氪丨怡颗莓回应“检出致癌物”；美团否认上线“本科专送”“硕士优送”等配送服务；美方喊话三星电子、SK海力士分享超额利润",
-          "url": "https://36kr.com/p/3906043683296648?f=rss",
-          "date": "2026-07-22"
-        }
-      ],
-      "big_v_count": 0,
-      "big_v_highlights": "",
-      "big_v_items": [],
-      "video_source_count": 0,
-      "video_items": [],
-      "wechat_index": "",
-      "confidence": 20,
-      "confidence_reason": "置信度 20/100，依据：1 个媒体渠道，暂无大 V 提及录入，暂无视频源录入，微信指数未录入或未命中。",
-      "public_interest": 6.6,
-      "businessValue": 7.9,
-      "controversy": 6.3,
-      "longevity": 6.7,
-      "fit": 9.2,
-      "volume": "中",
-      "note": "待核查来源：36氪综合资讯: https://36kr.com/p/3906043683296648?f=rss",
-      "topic_value_source": "github-models",
-      "topic_value_model": "openai/gpt-4.1-mini",
-      "topic_value_generated_at": "2026-07-22T04:13:51+00:00"
-    },
     {
       "title": "宇树科技 IPO：一场漂亮的仗，和更难的下一场",
       "source": "36氪；晚点 LatePost；证券时报",
@@ -840,14 +784,6 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "url": "https://36kr.com/p/3905241313527687?f=rss",
       "published": "2026-07-22",
       "summary": "7月21日，由北京新奥聚变能源科技有限公司（简称新奥聚变）主办的第四届氢硼聚变研讨会在河北廊坊开幕。 第四届氢硼聚变研讨会现场 作为中国最早开展商用聚变能源开发的民营企业，新奥集团于2017年基于从低碳技术向无碳技术的研发升级，开启“无中子、低成本、商用化”的紧凑型聚变研发，重点布局球形环氢硼聚变技术路线。该技术路线具有清洁安全、燃料易得、成本低廉等优势，具有较大的商业化潜力。 2023年，新奥集团成为国家可控核聚变创新联合体成员，20...",
-      "source_weight": 1.05
-    },
-    {
-      "source_name": "36氪综合资讯",
-      "title": "8点1氪丨怡颗莓回应“检出致癌物”；美团否认上线“本科专送”“硕士优送”等配送服务；美方喊话三星电子、SK海力士分享超额利润",
-      "url": "https://36kr.com/p/3906043683296648?f=rss",
-      "published": "2026-07-22",
-      "summary": "今日热点导览 字节XR业务PICO创始人周宏伟将卸任，李晓凯成为新任业务负责人 ZARA客服回应“阔腿裤存安全隐患”：专员正在核实处理 SpaceX将于8月4日发布上市后首份财报 恋与深空多平台账号停更 美国发布全球安全警示 TOP3大新闻 怡颗莓回应“检出致癌物”：国内销售草莓来自云南 近日，全球最大浆果品牌“怡颗莓”（Driscoll's）陷入食品安全争议。美国消费者对其提起集体诉讼，指控其草莓检出包括1类致癌物全氟辛酸（PFOA）...",
       "source_weight": 1.05
     },
     {
