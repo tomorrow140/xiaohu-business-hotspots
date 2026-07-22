@@ -167,6 +167,8 @@ BUSINESS_KEYWORDS = [
     "估值",
 ]
 
+COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[｜丨:：]|快评[｜丨:：]|社论[｜丨:：])")
+
 HOUSEHOLD_ENTITIES = [
     "阿里",
     "淘宝",
@@ -743,6 +745,8 @@ def normalize_title(title: str) -> str:
 def is_business_title(title: str) -> bool:
     if len(title) < 8 or len(title) > 90:
         return False
+    if COMMENTARY_TITLE_RE.search(title):
+        return False
     if re.search(r"(登录|注册|广告|招聘|关于我们|下载|查看更多|专题|隐私|版权)", title):
         return False
     return any(keyword.lower() in title.lower() for keyword in BUSINESS_KEYWORDS)
@@ -1006,9 +1010,11 @@ def choose_display_title(cluster: Cluster) -> str:
     def score(item: RawItem) -> float:
         title = item.title
         value = item.source_weight
+        if COMMENTARY_TITLE_RE.search(title):
+            value -= 10
         if len(title) <= 42:
             value += 2.0
-        if any(mark in title for mark in ["【评论】", "｜", "|", "：", "？"]):
+        if any(mark in title for mark in ["｜", "|", "：", "？"]):
             value += 0.8
         if len(title) > 70 or title.endswith(("。", "。", ".")):
             value -= 1.4
