@@ -84,6 +84,9 @@ EXCLUDE_TITLE_TERMS = [
 ]
 
 
+COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[｜丨:：]|快评[｜丨:：]|社论[｜丨:：])")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="使用免费新闻 RSS 聚合补充商业热点。")
     parser.add_argument("--base", type=Path, help="可选：先载入已有 raw-items JSON，再合并免费搜索结果。")
@@ -293,7 +296,11 @@ def deduplicate(items: list[dict[str, object]]) -> list[dict[str, object]]:
 
 
 def is_excluded_title(title: str) -> bool:
-    return "#" in title or any(term.lower() in title.lower() for term in EXCLUDE_TITLE_TERMS)
+    return (
+        "#" in title
+        or bool(COMMENTARY_TITLE_RE.search(title))
+        or any(term.lower() in title.lower() for term in EXCLUDE_TITLE_TERMS)
+    )
 
 
 def clean(value: str) -> str:
