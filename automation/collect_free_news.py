@@ -85,6 +85,9 @@ EXCLUDE_TITLE_TERMS = [
 
 
 COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[｜丨:：]|快评[｜丨:：]|社论[｜丨:：])")
+DIGEST_TITLE_RE = re.compile(
+    r"^\s*((\d{1,2}\s*[点:：]\s*\d{0,2}\s*氪)|8点1氪|36氪早报|早报[｜丨:：]|晨报[｜丨:：]|今日要闻|今日看点|一文看懂|一图看懂)"
+)
 
 
 def main() -> int:
@@ -299,6 +302,7 @@ def is_excluded_title(title: str) -> bool:
     return (
         "#" in title
         or bool(COMMENTARY_TITLE_RE.search(title))
+        or bool(DIGEST_TITLE_RE.search(title))
         or any(term.lower() in title.lower() for term in EXCLUDE_TITLE_TERMS)
     )
 
