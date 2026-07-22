@@ -168,6 +168,9 @@ BUSINESS_KEYWORDS = [
 ]
 
 COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[｜丨:：]|快评[｜丨:：]|社论[｜丨:：])")
+DIGEST_TITLE_RE = re.compile(
+    r"^\s*((\d{1,2}\s*[点:：]\s*\d{0,2}\s*氪)|8点1氪|36氪早报|早报[｜丨:：]|晨报[｜丨:：]|今日要闻|今日看点|一文看懂|一图看懂)"
+)
 
 HOUSEHOLD_ENTITIES = [
     "阿里",
@@ -745,7 +748,7 @@ def normalize_title(title: str) -> str:
 def is_business_title(title: str) -> bool:
     if len(title) < 8 or len(title) > 90:
         return False
-    if COMMENTARY_TITLE_RE.search(title):
+    if COMMENTARY_TITLE_RE.search(title) or DIGEST_TITLE_RE.search(title):
         return False
     if re.search(r"(登录|注册|广告|招聘|关于我们|下载|查看更多|专题|隐私|版权)", title):
         return False
@@ -1010,7 +1013,7 @@ def choose_display_title(cluster: Cluster) -> str:
     def score(item: RawItem) -> float:
         title = item.title
         value = item.source_weight
-        if COMMENTARY_TITLE_RE.search(title):
+        if COMMENTARY_TITLE_RE.search(title) or DIGEST_TITLE_RE.search(title):
             value -= 10
         if len(title) <= 42:
             value += 2.0
