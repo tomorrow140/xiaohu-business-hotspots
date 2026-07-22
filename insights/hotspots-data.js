@@ -8,7 +8,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
     "days": 15,
     "source_count": 6,
     "raw_item_count": 72,
-    "hotspot_count": 15,
+    "hotspot_count": 14,
     "wechat_index_file": null,
     "kol_mentions_file": null,
     "video_sources_file": "data/video_sources.csv",
@@ -21,7 +21,7 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "report": "20260722-041318-collection-report.json",
       "frontend_data": "hotspots-data.js"
     },
-    "visible_raw_item_count": 18,
+    "visible_raw_item_count": 17,
     "ai_topic_value": {
       "status": "completed",
       "model": "openai/gpt-4.1-mini",
@@ -556,62 +556,6 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "topic_value_generated_at": "2026-07-22T04:13:51+00:00"
     },
     {
-      "title": "【评论】外卖大战的背后是即时零售争夺战，而非单纯内卷",
-      "source": "界面新闻",
-      "date": "2026-07-22",
-      "industry": "互联网行业",
-      "type": "行业竞争",
-      "summary": "【评论】外卖大战的背后是即时零售争夺战，而非单纯内卷。该事件属于互联网行业的行业竞争，需要结合公司动作、行业格局和商业模式变化判断选题价值。",
-      "core_summary": "【评论】外卖大战的背后是即时零售争夺战，而非单纯内卷。该事件属于互联网行业的行业竞争，需要结合公司动作、行业格局和商业模式变化判断选题价值。 该事件涉及互联网行业头部公司或知名平台的行业竞争，会影响行业竞争格局、消费者体验或资本市场预期，适合作为本周商业热点持续观察。",
-      "key_nodes": [
-        "时间未记录：界面新闻报道/收录《【评论】外卖大战的背后是即时零售争夺战，而非单纯内卷》。",
-        "事件类型被归类为行业竞争，需要继续核对后续公开报道。"
-      ],
-      "social_opinions": [],
-      "public_consensus": [
-        "高赞评论样本不足，暂不归纳公众共识。"
-      ],
-      "public_controversies": [
-        "高赞评论样本不足，暂不归纳主要争议。"
-      ],
-      "social_data_complete": false,
-      "why_now": "本周至少 1 个媒体入口出现相关信息，适合先判断是否具备跨平台传播和商业解释空间。",
-      "business_angle": "用“谁在买单”做主线，拆用户、商家、骑手、平台四方账本，再解释京东和阿里为什么一定要打进美团腹地。",
-      "topic_value": "AI选题判断：外卖平台的竞争实质是即时零售领域的市场争夺，超出表面上的服务内卷。标题方向：外卖大战背后：即时零售市场的激烈争夺战。核心冲突：外卖服务竞争与即时零售扩张的利益冲突。小胡讲法：普通消费者关注的是配送速度和商品多样性，外卖平台通过扩展即时零售业务，争夺更多消费场景，体现了互联网平台通过多元化服务抢占用户时间和消费预算的商业机制。避坑：报道未详细披露各平台具体策略，避免将所有外卖竞争归结为即时零售争夺。高赞评论尚未补齐，暂不把媒体判断当成公众情绪。",
-      "risk": "低",
-      "difficulty": "中",
-      "verification_status": "常规",
-      "verification_note": "",
-      "media_channel_count": 1,
-      "media_channels": "界面新闻",
-      "media_items": [
-        {
-          "source": "界面新闻",
-          "title": "【评论】外卖大战的背后是即时零售争夺战，而非单纯内卷",
-          "url": "https://www.jiemian.com/article/13115328.html",
-          "date": ""
-        }
-      ],
-      "big_v_count": 0,
-      "big_v_highlights": "",
-      "big_v_items": [],
-      "video_source_count": 0,
-      "video_items": [],
-      "wechat_index": "",
-      "confidence": 20,
-      "confidence_reason": "置信度 20/100，依据：1 个媒体渠道，暂无大 V 提及录入，暂无视频源录入，微信指数未录入或未命中。",
-      "public_interest": 0.8,
-      "businessValue": 6.6,
-      "controversy": 5.0,
-      "longevity": 5.7,
-      "fit": 6.9,
-      "volume": "中",
-      "note": "待核查来源：界面新闻: https://www.jiemian.com/article/13115328.html",
-      "topic_value_source": "github-models",
-      "topic_value_model": "openai/gpt-4.1-mini",
-      "topic_value_generated_at": "2026-07-22T04:13:51+00:00"
-    },
-    {
       "title": "月之暗面被爆正评估赴港IPO，Kimi商业化爆发",
       "source": "新浪财经",
       "date": "2026-07-19",
@@ -929,14 +873,6 @@ window.XIAOHU_HOTSPOTS_DATA = {
       "published": "2026-07-22",
       "summary": "广州市力争构建高品质供给、高效率保障、高水平运行的房地产发展新模式。记者获悉，“十五五”时期，广州拟积极稳妥谋划现售制试点项目，适时选取合适地块开展试点。强化金融服务支持，鼓励商业银行提高现房销售项目开发贷款额度，给予利率优惠。对现房销售地块给予分期缴纳地价和公共资源配套支持等。继续实行预售的，规范商品房预售资金监管，规范资金使用。同时，加大金融协调联动，推进房地产开发融资方式改革，推动实现房地产开发企业融资从依赖主体信用向满足房地产项...",
       "source_weight": 1.05
-    },
-    {
-      "source_name": "界面新闻",
-      "title": "【评论】外卖大战的背后是即时零售争夺战，而非单纯内卷",
-      "url": "https://www.jiemian.com/article/13115328.html",
-      "published": "",
-      "summary": "",
-      "source_weight": 1.0
     },
     {
       "source_name": "晚点 LatePost",
