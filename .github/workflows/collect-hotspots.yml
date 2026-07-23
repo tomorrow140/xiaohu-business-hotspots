@@ -74,7 +74,7 @@ jobs:
         if: github.event_name == 'schedule' || inputs.publish
         run: |
           ACTUAL_COUNT=$(python -c 'import json,pathlib; text=pathlib.Path("insights/hotspots-data.js").read_text(encoding="utf-8"); payload=json.loads(text.removeprefix("window.XIAOHU_HOTSPOTS_DATA = ").rstrip(" ;\n")); print(len(payload.get("hotspots", [])))')
-          if [ "$ACTUAL_COUNT" -lt 1 ]; then
+          if [ "$ACTUAL_COUNT" -lt 3 ]; then
             echo "Quality gate failed: only $ACTUAL_COUNT hotspots generated."
             exit 1
           fi
