@@ -1689,16 +1689,18 @@
     }
 
     async function copyFeedback(payload) {
-      const lines = [
-        payload.hotspot_title ? `关联资讯：${payload.hotspot_title}` : "",
-        `反馈需求：${payload.comment}`,
-        `需求类型：${payload.feedback_type}`,
-        `是否要解决：${payload.should_resolve}`,
-        `解决状态：${payload.resolution_status}`,
-        `解决时间：${payload.resolved_at}`
-      ].filter(Boolean);
+      const request = payload.hotspot_title
+        ? `【${payload.hotspot_title}】${payload.comment}`
+        : payload.comment;
+      const cells = [
+        request,
+        payload.feedback_type,
+        payload.should_resolve,
+        payload.resolution_status,
+        payload.resolved_at
+      ];
       if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(lines.join("\n"));
+        await navigator.clipboard.writeText(cells.join("\t"));
       }
     }
 
@@ -1729,7 +1731,7 @@
           try {
             await copyFeedback(payload);
             closeFeedback();
-            showToast("反馈已复制，请粘贴到飞书文档");
+            showToast("已复制为表格行，请粘贴到飞书文档");
           } catch (error) {
             closeFeedback();
             showToast("反馈已暂存在本机");
