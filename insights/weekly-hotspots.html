@@ -37,7 +37,8 @@
     }
 
     button,
-    input {
+    input,
+    textarea {
       font: inherit;
     }
 
@@ -84,6 +85,19 @@
       margin-right: 7px;
       font-size: 16px;
       line-height: 1;
+    }
+
+    .global-feedback-button {
+      min-height: 34px;
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      padding: 0 8px;
+    }
+
+    .global-feedback-button:hover {
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.68);
     }
 
     @keyframes spin {
@@ -394,6 +408,30 @@
       word-break: break-word;
     }
 
+    .hotspot-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .item-feedback-button {
+      min-height: 30px;
+      flex: 0 0 auto;
+      padding: 0 9px;
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .item-feedback-button:hover {
+      color: var(--green);
+      border-color: #b7d7c5;
+      background: var(--green-soft);
+      box-shadow: none;
+    }
+
     .summary {
       margin: 8px 0 0;
       color: #354039;
@@ -669,6 +707,112 @@
       transform: translateX(-50%) translateY(0);
     }
 
+    .feedback-dialog {
+      width: min(520px, calc(100% - 28px));
+      max-height: min(720px, calc(100vh - 28px));
+      margin: auto;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--ink);
+      box-shadow: 0 24px 80px rgba(18, 27, 22, 0.22);
+      overflow: auto;
+    }
+
+    .feedback-dialog::backdrop {
+      background: rgba(18, 27, 22, 0.42);
+      backdrop-filter: blur(2px);
+    }
+
+    .feedback-form {
+      padding: 18px;
+    }
+
+    .feedback-dialog-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .feedback-dialog-head h2 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.3;
+    }
+
+    .feedback-context {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .dialog-close {
+      width: 32px;
+      min-height: 32px;
+      padding: 0;
+      border-color: transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .feedback-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #354039;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .feedback-field {
+      margin-top: 16px;
+    }
+
+    .feedback-field textarea,
+    .feedback-field select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfa;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .feedback-field textarea {
+      min-height: 126px;
+      resize: vertical;
+      padding: 11px 12px;
+      line-height: 1.55;
+    }
+
+    .feedback-field select {
+      height: 40px;
+      padding: 0 12px;
+    }
+
+    .feedback-field textarea:focus,
+    .feedback-field select:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(34, 122, 84, 0.12);
+    }
+
+    .feedback-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+    }
+
     @media (max-width: 860px) {
       .app {
         width: min(100% - 20px, 760px);
@@ -682,6 +826,10 @@
 
       .actions {
         justify-content: flex-start;
+      }
+
+      .hotspot-heading {
+        gap: 8px;
       }
 
       .metrics {
@@ -731,6 +879,7 @@
       .confidence {
         grid-column: auto;
       }
+
     }
   </style>
 </head>
@@ -751,6 +900,7 @@
           <span class="collect-icon" aria-hidden="true">↻</span>
           <span class="collect-label">刷新最新数据</span>
         </button>
+        <button class="global-feedback-button" id="globalFeedbackBtn" type="button" title="反馈页面或热点采集建议">整体反馈</button>
       </div>
     </header>
 
@@ -780,6 +930,36 @@
     </section>
   </main>
 
+  <dialog class="feedback-dialog" id="feedbackDialog">
+    <form class="feedback-form" id="feedbackForm">
+      <div class="feedback-dialog-head">
+        <div>
+          <h2 id="feedbackDialogTitle">提交反馈</h2>
+          <p class="feedback-context" id="feedbackContext"></p>
+        </div>
+        <button class="dialog-close" id="feedbackCloseBtn" type="button" title="关闭" aria-label="关闭反馈弹窗">×</button>
+      </div>
+      <label class="feedback-field">
+        <span class="feedback-label">需求类型</span>
+        <select id="feedbackType" name="feedback_type">
+          <option value="资讯质量">资讯质量</option>
+          <option value="选题建议">选题建议</option>
+          <option value="数据采集">数据采集</option>
+          <option value="页面体验">页面体验</option>
+          <option value="其他">其他</option>
+        </select>
+      </label>
+      <label class="feedback-field">
+        <span class="feedback-label">反馈需求</span>
+        <textarea id="feedbackComment" name="comment" maxlength="1200" required placeholder="写下希望调整或解决的内容"></textarea>
+      </label>
+      <div class="feedback-actions">
+        <button id="feedbackCancelBtn" type="button">取消</button>
+        <button class="primary" id="feedbackSubmitBtn" type="submit">登记到飞书</button>
+      </div>
+    </form>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -787,6 +967,9 @@
   </script>
   <script>
     const STORAGE_KEY = "xiaohu-hotspot-radar-v3";
+    const FEEDBACK_OUTBOX_KEY = "xiaohu-hotspot-feedback-outbox-v1";
+    const FEEDBACK_ENDPOINT = clean(window.XIAOHU_FEEDBACK_ENDPOINT);
+    const FEEDBACK_DOC_URL = "https://my.feishu.cn/docx/VFa7djcg3oLtO2xTbS7c1nUbn5l";
     const sampleHotspots = [
       {
         title: "外卖补贴战继续升级，本地生活平台争夺即时零售入口",
@@ -872,13 +1055,24 @@
     const els = {
       fileInput: document.getElementById("fileInput"),
       collectBtn: document.getElementById("collectBtn"),
+      globalFeedbackBtn: document.getElementById("globalFeedbackBtn"),
       categoryList: document.getElementById("categoryList"),
       rawList: document.getElementById("rawList"),
       summaryTotal: document.getElementById("summaryTotal"),
       summaryTime: document.getElementById("summaryTime"),
       recommendationList: document.getElementById("recommendationList"),
-      toast: document.getElementById("toast")
+      toast: document.getElementById("toast"),
+      feedbackDialog: document.getElementById("feedbackDialog"),
+      feedbackForm: document.getElementById("feedbackForm"),
+      feedbackDialogTitle: document.getElementById("feedbackDialogTitle"),
+      feedbackContext: document.getElementById("feedbackContext"),
+      feedbackComment: document.getElementById("feedbackComment"),
+      feedbackCloseBtn: document.getElementById("feedbackCloseBtn"),
+      feedbackCancelBtn: document.getElementById("feedbackCancelBtn"),
+      feedbackSubmitBtn: document.getElementById("feedbackSubmitBtn")
     };
+
+    let activeFeedbackTarget = null;
 
     function normalizeHotspot(raw, index = 0) {
       return {
@@ -1056,7 +1250,10 @@
         <section class="hotspot">
           <div class="rank">${index + 1}</div>
           <div>
-            <h3>${escapeHtml(item.title)}</h3>
+            <div class="hotspot-heading">
+              <h3>${escapeHtml(item.title)}</h3>
+              <button class="item-feedback-button" type="button" data-feedback-id="${escapeHtml(item.id)}" title="反馈这条资讯">反馈</button>
+            </div>
             <p class="summary">${escapeHtml(item.core_summary || item.summary)}</p>
             <div class="meta">
               <span class="tag">${escapeHtml(item.date)}</span>
@@ -1438,6 +1635,115 @@
       showToast.timer = window.setTimeout(() => els.toast.classList.remove("show"), 1800);
     }
 
+    function openFeedback(scope, item = null) {
+      activeFeedbackTarget = {
+        scope,
+        hotspot_id: item?.id || "",
+        hotspot_title: item?.title || ""
+      };
+      els.feedbackForm.reset();
+      els.feedbackDialogTitle.textContent = scope === "hotspot" ? "反馈这条资讯" : "整体反馈";
+      els.feedbackContext.textContent = item?.title || "每周商业热点雷达";
+      els.feedbackDialog.showModal();
+      window.setTimeout(() => els.feedbackComment.focus(), 0);
+    }
+
+    function closeFeedback() {
+      if (els.feedbackDialog.open) els.feedbackDialog.close();
+      activeFeedbackTarget = null;
+    }
+
+    function buildFeedbackPayload() {
+      const formData = new FormData(els.feedbackForm);
+      return {
+        feedback_id: typeof crypto.randomUUID === "function"
+          ? crypto.randomUUID()
+          : `feedback-${Date.now()}-${Math.random().toString(16).slice(2)}`,
+        scope: activeFeedbackTarget?.scope || "global",
+        hotspot_id: activeFeedbackTarget?.hotspot_id || "",
+        hotspot_title: activeFeedbackTarget?.hotspot_title || "",
+        feedback_type: clean(formData.get("feedback_type")),
+        comment: clean(formData.get("comment")),
+        should_resolve: "待确认",
+        resolution_status: "待评估",
+        resolved_at: "待定",
+        page_url: window.location.href,
+        data_generated_at: report?.generated_at || "",
+        submitted_at: new Date().toISOString()
+      };
+    }
+
+    function readFeedbackOutbox() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(FEEDBACK_OUTBOX_KEY) || "[]");
+        return Array.isArray(saved) ? saved : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function saveFeedbackToOutbox(payload) {
+      const outbox = readFeedbackOutbox();
+      outbox.push(payload);
+      localStorage.setItem(FEEDBACK_OUTBOX_KEY, JSON.stringify(outbox.slice(-50)));
+    }
+
+    async function copyFeedback(payload) {
+      const lines = [
+        payload.hotspot_title ? `关联资讯：${payload.hotspot_title}` : "",
+        `反馈需求：${payload.comment}`,
+        `需求类型：${payload.feedback_type}`,
+        `是否要解决：${payload.should_resolve}`,
+        `解决状态：${payload.resolution_status}`,
+        `解决时间：${payload.resolved_at}`
+      ].filter(Boolean);
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(lines.join("\n"));
+      }
+    }
+
+    async function sendFeedback(payload) {
+      const response = await fetch(FEEDBACK_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!response.ok) throw new Error(`反馈提交失败：${response.status}`);
+    }
+
+    async function submitFeedback(event) {
+      event.preventDefault();
+      const payload = buildFeedbackPayload();
+      if (!payload.comment) return;
+
+      els.feedbackSubmitBtn.disabled = true;
+      els.feedbackSubmitBtn.textContent = "正在登记...";
+      try {
+        if (FEEDBACK_ENDPOINT) {
+          await sendFeedback(payload);
+          closeFeedback();
+          showToast("反馈已提交，等待产品经理确认");
+        } else {
+          saveFeedbackToOutbox(payload);
+          window.open(FEEDBACK_DOC_URL, "_blank", "noopener,noreferrer");
+          try {
+            await copyFeedback(payload);
+            closeFeedback();
+            showToast("反馈已复制，请粘贴到飞书文档");
+          } catch (error) {
+            closeFeedback();
+            showToast("反馈已暂存在本机");
+          }
+        }
+      } catch (error) {
+        saveFeedbackToOutbox(payload);
+        showToast("提交失败，反馈已暂存在本机");
+      } finally {
+        els.feedbackSubmitBtn.disabled = false;
+        els.feedbackSubmitBtn.textContent = "登记到飞书";
+      }
+    }
+
     function setCollecting(active) {
       els.collectBtn.disabled = active;
       els.collectBtn.classList.toggle("is-loading", active);
@@ -1518,6 +1824,19 @@
     });
 
     els.collectBtn.addEventListener("click", collectPublishedHotspots);
+    els.globalFeedbackBtn.addEventListener("click", () => openFeedback("global"));
+    els.categoryList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-feedback-id]");
+      if (!button) return;
+      const item = hotspots.find(hotspot => hotspot.id === button.dataset.feedbackId);
+      if (item) openFeedback("hotspot", item);
+    });
+    els.feedbackCloseBtn.addEventListener("click", closeFeedback);
+    els.feedbackCancelBtn.addEventListener("click", closeFeedback);
+    els.feedbackDialog.addEventListener("click", (event) => {
+      if (event.target === els.feedbackDialog) closeFeedback();
+    });
+    els.feedbackForm.addEventListener("submit", submitFeedback);
 
     loadState();
     render();
