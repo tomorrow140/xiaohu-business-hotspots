@@ -88,6 +88,7 @@ COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[�
 DIGEST_TITLE_RE = re.compile(
     r"^\s*((\d{1,2}\s*[点:：]\s*\d{0,2}\s*氪)|8点1氪|36氪早报|[\w\u4e00-\u9fa5]{0,12}早报|[\w\u4e00-\u9fa5]{0,12}晨报|今日要闻|今日看点|一文看懂|一图看懂)"
 )
+BODY_SENTENCE_TITLE_RE = re.compile(r"^\s*(此次|这个|这种|这场)")
 
 
 def main() -> int:
@@ -303,6 +304,7 @@ def is_excluded_title(title: str) -> bool:
         "#" in title
         or bool(COMMENTARY_TITLE_RE.search(title))
         or bool(DIGEST_TITLE_RE.search(title))
+        or bool(BODY_SENTENCE_TITLE_RE.search(title))
         or any(term.lower() in title.lower() for term in EXCLUDE_TITLE_TERMS)
     )
 
