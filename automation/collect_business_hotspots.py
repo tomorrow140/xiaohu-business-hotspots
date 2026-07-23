@@ -171,8 +171,7 @@ COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[�
 DIGEST_TITLE_RE = re.compile(
     r"^\s*((\d{1,2}\s*[点:：]\s*\d{0,2}\s*氪)|8点1氪|36氪早报|[\w\u4e00-\u9fa5]{0,12}早报|[\w\u4e00-\u9fa5]{0,12}晨报|今日要闻|今日看点|一文看懂|一图看懂)"
 )
-
-MIN_MEDIA_CHANNELS = 2
+BODY_SENTENCE_TITLE_RE = re.compile(r"^\s*(此次|这个|这种|这场)")
 
 HOUSEHOLD_ENTITIES = [
     "阿里",
@@ -501,8 +500,6 @@ def main() -> int:
     clusters = cluster_items(raw_items)
     clusters = [cluster for cluster in clusters if is_public_hotspot(cluster)]
     hotspots = [build_hotspot(cluster, wechat_index, kol_mentions, video_sources, social_opinions) for cluster in clusters]
-    single_source_filtered_count = sum(1 for item in hotspots if item["media_channel_count"] < MIN_MEDIA_CHANNELS)
-    hotspots = [item for item in hotspots if item["media_channel_count"] >= MIN_MEDIA_CHANNELS]
     hotspots.sort(key=lambda item: item["_rank_score"], reverse=True)
     hotspots = hotspots[: args.limit]
 
@@ -524,8 +521,6 @@ def main() -> int:
         "source_count": len([source for source in sources if source.get("enabled", True)]),
         "raw_item_count": len(raw_items),
         "hotspot_count": len(hotspots),
-        "min_media_channels": MIN_MEDIA_CHANNELS,
-        "single_source_filtered_count": single_source_filtered_count,
         "wechat_index_file": str(args.wechat_index) if args.wechat_index else None,
         "kol_mentions_file": str(args.kol_mentions) if args.kol_mentions else None,
         "video_sources_file": str(args.video_sources) if args.video_sources else None,
@@ -754,7 +749,7 @@ def normalize_title(title: str) -> str:
 def is_business_title(title: str) -> bool:
     if len(title) < 8 or len(title) > 90:
         return False
-    if COMMENTARY_TITLE_RE.search(title) or DIGEST_TITLE_RE.search(title):
+    if COMMENTARY_TITLE_RE.search(title) or DIGEST_TITLE_RE.search(title) or BODY_SENTENCE_TITLE_RE.search(title):
         return False
     if re.search(r"(登录|注册|广告|招聘|关于我们|下载|查看更多|专题|隐私|版权)", title):
         return False
@@ -1019,7 +1014,7 @@ def choose_display_title(cluster: Cluster) -> str:
     def score(item: RawItem) -> float:
         title = item.title
         value = item.source_weight
-        if COMMENTARY_TITLE_RE.search(title) or DIGEST_TITLE_RE.search(title):
+        if COMMENTARY_TITLE_RE.search(title) or DIGEST_TITLE_RE.search(title) or BODY_SENTENCE_TITLE_RE.search(title):
             value -= 10
         if len(title) <= 42:
             value += 2.0
