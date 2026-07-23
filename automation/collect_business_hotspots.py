@@ -169,8 +169,10 @@ BUSINESS_KEYWORDS = [
 
 COMMENTARY_TITLE_RE = re.compile(r"^\s*(【评论】|评论[｜丨:：]|观点[｜丨:：]|快评[｜丨:：]|社论[｜丨:：])")
 DIGEST_TITLE_RE = re.compile(
-    r"^\s*((\d{1,2}\s*[点:：]\s*\d{0,2}\s*氪)|8点1氪|36氪早报|早报[｜丨:：]|晨报[｜丨:：]|今日要闻|今日看点|一文看懂|一图看懂)"
+    r"^\s*((\d{1,2}\s*[点:：]\s*\d{0,2}\s*氪)|8点1氪|36氪早报|[\w\u4e00-\u9fa5]{0,12}早报|[\w\u4e00-\u9fa5]{0,12}晨报|今日要闻|今日看点|一文看懂|一图看懂)"
 )
+
+MIN_MEDIA_CHANNELS = 2
 
 HOUSEHOLD_ENTITIES = [
     "阿里",
@@ -499,6 +501,8 @@ def main() -> int:
     clusters = cluster_items(raw_items)
     clusters = [cluster for cluster in clusters if is_public_hotspot(cluster)]
     hotspots = [build_hotspot(cluster, wechat_index, kol_mentions, video_sources, social_opinions) for cluster in clusters]
+    single_source_filtered_count = sum(1 for item in hotspots if item["media_channel_count"] < MIN_MEDIA_CHANNELS)
+    hotspots = [item for item in hotspots if item["media_channel_count"] >= MIN_MEDIA_CHANNELS]
     hotspots.sort(key=lambda item: item["_rank_score"], reverse=True)
     hotspots = hotspots[: args.limit]
 
@@ -520,6 +524,8 @@ def main() -> int:
         "source_count": len([source for source in sources if source.get("enabled", True)]),
         "raw_item_count": len(raw_items),
         "hotspot_count": len(hotspots),
+        "min_media_channels": MIN_MEDIA_CHANNELS,
+        "single_source_filtered_count": single_source_filtered_count,
         "wechat_index_file": str(args.wechat_index) if args.wechat_index else None,
         "kol_mentions_file": str(args.kol_mentions) if args.kol_mentions else None,
         "video_sources_file": str(args.video_sources) if args.video_sources else None,
